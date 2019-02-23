@@ -1,0 +1,19 @@
+NOTE:
+    Don't forget to remove '.env' form .gitignore
+
+
+Up project:
+1. клонишь репо:
+    git clone https://github.com/IJS-Zzz/artskill.git
+2. поднимаешь виртуальное окружение:
+    cd artskill
+    pipenv install
+3.. Запускаешь сервак:
+    piping shell
+    python manage.py migrate
+    python manage.py createsuperuser
+    python manage.py runserver
+4.. Ну и через http://localhost:8000/dashboard/ можешь добавлять товары
+
+Так: шаблоны в app/templates/oscar - он оттуда грузит
+    статика в app/static/oscar
