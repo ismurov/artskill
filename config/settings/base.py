@@ -99,9 +99,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            app_root('templates'),
+            # app_root('templates'),
             app_root('templates/oscar'),
-            oscar.OSCAR_MAIN_TEMPLATE_DIR
+            # oscar.OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -207,7 +207,7 @@ from oscar.defaults import *
 # ====
 
 OSCAR_SHOP_NAME = 'Artskill'
-# OSCAR_SHOP_TAGLINE = 'Tagline'
+OSCAR_SHOP_TAGLINE = 'Tagline'
 
 OSCAR_DEFAULT_CURRENCY = 'RUB'
 # OSCAR_CURRENCY_FORMAT = {

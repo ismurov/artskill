@@ -13,7 +13,21 @@ Up project:
     python manage.py migrate
     python manage.py createsuperuser
     python manage.py runserver
+
 4.. Ну и через http://localhost:8000/dashboard/ можешь добавлять товары
 
 Так: шаблоны в app/templates/oscar - он оттуда грузит
     статика в app/static/oscar
+
+
+
+#####
+#   добавить страны доставки:
+#   
+#   python manage.py oscar_populate_countries --no-shipping
+#   
+#   По умолчанию эта команда помечает все страны как страну доставки.
+#   --no-shipping не одна страна не доступна для доставки
+#   в БД проставить для страны что доставка доступна:
+#   таблица address_country колонка s_shipping_country
+#       РФ - 191
