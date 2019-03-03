@@ -1,0 +1,51 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" with expand_dropdown=1 %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+
+    {% load thumbnail %}{% comment %} для Варианта 2 {% endcomment %}
+    {% load category_tags %}
+
+
+    {% category_tree as tree_categories %}
+    {% for category, info in tree_categories%}
+        {% with image=category.image %}
+            {% comment %}
+            Вариант 1
+            Чистый url на оригинальный файл
+            {% endcomment %}
+            <h3>{{ category }}</h3>
+            {% if image %}
+                "{{ image.url }}"
+            {% else %}
+                "image_not_found.jpg"
+            {% endif %}
+
+
+            {% comment %}
+            Вариант 2
+            сразу с обрезкой и вставкой нужных размеров.
+            кэширует полученное изображение
+            https://sorl-thumbnail.readthedocs.io/en/latest/template.html
+            {% endcomment %}
+            {% thumbnail image "200x200" crop="center" quality=95 upscale=False as thumb %}
+                <a href="{{ category.get_absolute_url }}"><img src="{{ thumb.url }}" alt="{{ category.name }}" class="thumbnail"></a>
+            {% empty %}
+                {% thumbnail "image_not_found.jpg" "200x200" crop="center" quality=95 upscale=false as im %}
+                    <a href="{{ category.get_absolute_url }}"><img src="{{ im.url }}" alt="{{ category.name }}" class="thumbnail"></a>
+                {% endthumbnail %}
+            {% endthumbnail %}
+
+        {% endwith %}
+    {% endfor %}
+
+{% endblock content %}

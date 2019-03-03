@@ -1,0 +1,19 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+    <h3>Данные для отправки</h3>
+    <form action="{{ form.target }}" method="POST">
+        <p>{{ form.as_p }}</p>
+        <p><input type="submit" value="Купить"></p>
+    </form>
+{% endblock %}

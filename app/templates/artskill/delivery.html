@@ -1,0 +1,246 @@
+{% extends "layout_2_col.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block styles %}
+{% if use_less %}
+<link rel="stylesheet/less" type="text/css" href="{% static "oscar/less/styles.less" %}" />
+{% else %}
+<link rel="stylesheet" type="text/css" href="{% static "oscar/css/styles.css" %}" />
+{% endif %}
+<link rel="stylesheet" href="{% static "oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "oscar/css/datetimepicker.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "oscar/css/plus-minus.css" %}" />
+{% endblock %}
+
+{% block navigation %}
+    {% include "partials/nav_index.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin-top: 60px;">Условия оплаты, доставки и возврата</h1>
+
+
+
+<div id="allrecords" class="t-records" data-hook="blocks-collection-content-node" data-tilda-project-id="1130739"
+     data-tilda-page-id="5002952" data-tilda-formskey="8ecdfeb1983a998b5ebdf80340b0b383">
+    <div id="rec90700796" class="r t-rec t-rec_pt_135 t-rec_pb_165" style="padding-top:40px;padding-bottom:165px; "
+         data-animationappear="off" data-record-type="849"><!-- t849-->
+        <div class="t849">
+            <div class="t-container">
+                <div class="t-col t-col_8 t-prefix_2">
+                    <div class="t849__accordion">
+                        <div class="t849__wrapper">
+                            <div class="t849__header" style=" border-top: 1px solid #ffffff;">
+                                <div class="t849__title t-name t-name_xl" field="li_title__1531218331971" style="">
+                                    ВОЗВРАТ<br/></div>
+                                <div class="t849__icon">
+                                    <div class="t849__lines">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                               stroke-linecap="square">
+                                                <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                    <path d="M0,11 L22,11"></path>
+                                                    <path d="M11,0 L11,22"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="t849__circle" style="background-color: transparent;"></div>
+                                </div>
+                                <div class="t849__icon t849__icon-hover">
+                                    <div class="t849__lines">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                               stroke-linecap="square">
+                                                <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                    <path d="M0,11 L22,11"></path>
+                                                    <path d="M11,0 L11,22"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="t849__circle"></div>
+                                </div>
+                            </div>
+                            <div class="t849__content">
+                                <div class="t849__textwrapper">
+                                    <div class="t849__text t-descr t-descr_sm" field="li_descr__1531218331971" style="">
+                                        <p>Если у Вас возник вопрос по нашему продукту, пожалуйста свяжитесь с нами. Мы все решим.</p>
+                                        <div class="m12"></div>
+                                        <p>EMAIL info@artskill.store</p>
+                                        <p>ТЕЛЕФОН 8 921 586 88 90</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="t-col t-col_8 t-prefix_2">
+                    <div class="t849__accordion">
+                        <div class="t849__wrapper">
+                            <div class="t849__header" style=" border-top: 1px solid #000000;">
+                                <div class="t849__title t-name t-name_xl" field="li_title__1531218535874" style="">
+                                    ДОСТАВКА
+                                </div>
+                                <div class="t849__icon">
+                                    <div class="t849__lines">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                               stroke-linecap="square">
+                                                <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                    <path d="M0,11 L22,11"></path>
+                                                    <path d="M11,0 L11,22"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="t849__circle" style="background-color: transparent;"></div>
+                                </div>
+                                <div class="t849__icon t849__icon-hover">
+                                    <div class="t849__lines">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                               stroke-linecap="square">
+                                                <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                    <path d="M0,11 L22,11"></path>
+                                                    <path d="M11,0 L11,22"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="t849__circle"></div>
+                                </div>
+                            </div>
+                            <div class="t849__content">
+                                <div class="t849__textwrapper">
+                                    <div class="t849__text t-descr t-descr_sm" field="li_descr__1531218535874" style="">
+                                        <h4>Бесплатная доставка для заказов от суммы</h4>
+                                        <p>Бесплатная доставка  от суммы заказа 5000 Р до Пунктов выдачи заказов (ПВЗ), почты России и почтоматов InPost</p>
+                                        <p>Бесплатная курьерская доставка от 8000 руб.</p>
+                                        <h4>Санкт-Петербург </h4>
+                                        <p>Доставка по Санкт-Петербургу 200 Р, пригород  от 400 Р
+                                            Быстро и оперативно доставим Вам в течение 1-2 дней.
+
+                                            Для уточнения свяжитесь с нами:</p>
+                                        <p>ТЕЛЕФОН 8 921 586 88 90</p>
+                                        <h4>Пункт выдачи заказов в Вашем городе</h4>
+                                        <p>Быстрая курьерская доставка в пункт выдачи заказов, где Вы сможете самостоятельно, в удобное для Вас время  забрать и оплатить товар Artskill. Все адреса пунктов доступны к выбору при оформлении заказа на нашем сайте или на сайте
+                                            http://www.edostavka.ru/contacts/city-list.html</p>
+                                        <h4>Курьерская доставка</h4>
+                                        <p>Быстрая и удобная доставка товара Artskill, который доставят лично Вам в руки в кратчайшие сроки.</p>
+                                        <h4>Почта России</h4>
+                                        <p>Классическая доставка почтой России. Вы сможете забрать свою покупку на почте. Отправка почтой России осуществляется при предоплате у нас на сайте.</p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="t-col t-col_8 t-prefix_2">
+                    <div class="t849__accordion">
+                        <div class="t849__wrapper">
+                            <div class="t849__header" style=" border-top: 1px solid #000000;">
+                                <div class="t849__title t-name t-name_xl" field="li_title__1531218700960" style="">
+                                    УСЛОВИЯ ОПЛАТЫ
+                                </div>
+                                <div class="t849__icon">
+                                    <div class="t849__lines">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                               stroke-linecap="square">
+                                                <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                    <path d="M0,11 L22,11"></path>
+                                                    <path d="M11,0 L11,22"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="t849__circle" style="background-color: transparent;"></div>
+                                </div>
+                                <div class="t849__icon t849__icon-hover">
+                                    <div class="t849__lines">
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                             xmlns="http://www.w3.org/2000/svg"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                               stroke-linecap="square">
+                                                <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                    <path d="M0,11 L22,11"></path>
+                                                    <path d="M11,0 L11,22"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                    <div class="t849__circle"></div>
+                                </div>
+                            </div>
+                            <div class="t849__content">
+                                <div class="t849__textwrapper">
+                                    <div class="t849__text t-descr t-descr_sm" field="li_descr__1531218700960" style="">
+                                        <h4>Оплата на нашем сайте</h4>
+                                        <p>Платежи проходят через сервис ROBOKASSA www.robokassa.ru ,которая гарантирует абсолютную безопасность транзакций при оплате, обеспечивая максимальную защиту данных, вводимых клиентом. Каждая оплата проходит тщательную проверку системой, что дополнительно повышает безопасность приема платежей. После оформления заказа вы сможете перейти на сайт ROBOKASSA, где оплата заказа происходит автоматически, а также проверить наш сертификат продавца.</p>
+                                        <h4>Оплата наличными</h4>
+                                        <p>Оплата наличными в руки курьеру или в пункте выдачи заказов.</p>
+                                        <h4>Пластиковые карты Visa и MasterCard</h4>
+                                        <h4>Онлайн-платеж через  электронные деньги</h4>
+                                        <p>Мы принимаем любые виды электронных денег:
+
+                                            Яндекс.Деньги — доступный и безопасный способ платить за товары и услуги через интернет. Пополнение счета и оплата заказов происходят в реальном времени на сайте платежной системы.
+
+                                            WebMoney — это универсальное средство для расчетов в сети, которым сегодня пользуются миллионы людей по всему миру.</p>
+
+                                        <h4>Терминалы</h4>
+                                        <p>Оплатить можно через сеть терминалов оплаты: QIWI, Элекснет и Новоплат. Для этого после оформления заказа и автоматического перехода на сайт ROBOKASSA просто следуете инструкциям.</p>
+                                        <h4>Интернет банки</h4>
+                                        <p>Оплатить через системы Интернет-банк ведущих Банков РФ.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="t849__border" style="height: 1px; background-color: #eee;"></div>-->
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            function t849_init(recid) {
+                var rec = $('#rec' + recid);
+                var toggler = rec.find('.t849__header');
+                toggler.click(function () {
+                    $(this).toggleClass('t849__opened');
+                    $(this).next().slideToggle();
+                    if (window.lazy == 'y') {
+                        t_lazyload_update()
+                    }
+                })
+            }
+        </script>
+        <script type="text/javascript"> $(document).ready(function () {
+            t849_init('90700796');
+        });</script>
+
+
+    </div>
+</div>
+{% endblock content %}

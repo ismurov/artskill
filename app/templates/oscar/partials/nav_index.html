@@ -1,0 +1,32 @@
+{% load currency_filters %}
+{% load category_tags %}
+
+<div id="nav88585007" class="t229"
+     style="background-color: rgba(255,255,255,0.70); height:50px; " data-bgcolor-hex="#ffffff"
+     data-bgcolor-rgba="rgba(255,255,255,0.70)" data-navmarker="nav88585007marker" data-appearoffset=""
+     data-bgopacity="0.70" data-menu="yes">
+    <div class="t229__maincontainer " style="height:50px;">
+        <div class="t229__padding40px"></div>
+        <div class="t229__centerside ">
+            <ul class="uppercase">
+                <li class="t229__list_item"
+                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:brand' %}active-tab{% endif %}" href="{% url 'artskill:brand' %}">Бренд</a></li>
+                <li class="t229__list_item"
+                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                        class="t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}" href="{% url 'catalogue:index' %}" >Каталог</a>
+                </li>
+                <li class="t229__list_item"
+                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}" href="{% url 'artskill:where-to-buy' %}" >Где купить?</a></li>
+                <li class="t229__list_item"
+                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:collaboration' %}active-tab{% endif %}" href="{% url 'artskill:collaboration' %}">Сотрудничество</a></li>
+                <li class="t229__list_item"
+                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:sale' %}active-tab{% endif %}" href="{% url 'artskill:sale' %}">Sale</a></li>
+            </ul>
+        </div>
+        <div class="t229__padding40px"></div>
+    </div>
+</div>

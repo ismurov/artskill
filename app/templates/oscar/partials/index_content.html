@@ -1,0 +1,194 @@
+{% load i18n %}
+
+<div class="slideshow-container">
+    <div class="mySlides dis slide_visible">
+        <img src="../../../static/oscar/img/slides/slider1.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides dis">
+        <img src="../../../static/oscar/img/slides/slider2.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides dis">
+        <img src="../../../static/oscar/img/slides/slider3.jpg" style="width:100%">
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)"><img src="../../../static/oscar/img/slides/left-arrow.svg"></a>
+    <a class="next" onclick="plusSlides(1)"><img src="../../../static/oscar/img/slides/right-arrow.svg"></a>
+
+    <div class="dots" style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+</div>
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" slide_visible", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " slide_visible";
+    }
+</script>
+
+<!-- T795 -->
+<div class="t-rec_pt_90 t-rec_pb_30 t-align_center">
+            <div class="t-col t-col_12 ">
+                <div class="t-rec_pb_30" style="font-size:36px;">
+                    Artskill
+                </div>
+                <div style="font-size:16px;width: 60%; margin-left: 20%" >Мы
+                    создаем яркие и функциональные аксессуары ручной работы из натуральной кожи, подчеркивающие
+                    индивидуальность обладателя.
+                </div>
+            </div>
+</div>
+<div class="t-rec_pt_30  t-align_center">
+        <div class="t-container">
+            <div class="t-row">
+                <div class="t-col t-col_6 t-prefix_3">
+                    <div class="t022__text">Дизайн &bull; Качество &bull; Индивидуальность<br/></div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="t-rec_pt_90 t-rec_pb_30 t-align_center">
+    <div class="t-col t-col_12 ">
+        <div class="t-rec_pb_30" style="font-size:36px;">
+            Хиты продаж
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-12">
+    <div class="col-sm-6 big-box">
+
+
+        <a href="#">
+            <div class="box">
+                <div class='aspect-ratio box-relative  bcg HIT-1-Big'>
+
+                    <h3 class="category-name-top">Njhgt</h3>
+
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="col-sm-3">
+        <div class=col-sm-6">
+
+            <a href="#">
+                <div class="box">
+                    <div class='aspect-ratio bcg HIT-2-Small'>
+                        <h3 class="category-name">hgfkhfg</h3>
+
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        <div class=col-sm-6">
+            <a href="#">
+                <div class="box">
+                    <div class='aspect-ratio bcg HIT-3-Small'>
+                        <h3 class="category-name">lksd</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+        <div class=col-sm-6">
+            <a href="#">
+                <div class="box">
+                    <div class='aspect-ratio bcg HIT-4-Small'>
+                        <h3 class="category-name">lksd</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class=col-sm-6">
+            <a href="#">
+                <div class="box">
+                    <div class='aspect-ratio bcg HIT-5-Small'>
+                        <h3 class="category-name">lksd</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="col-sm-12">
+    <div id="rec88585884" class="r t-rec t-rec_pt_150 t-rec_pb_150" style="padding-top:150px;padding-bottom:150px; "
+         data-record-type="594"><!-- t594 -->
+        <div class="t594">
+            <div class="t594__container t-container">
+                <div class="t-col t594__item t594__item_5-in-row"><img
+                        src="../../../static/oscar/img/partners/logo-01.svg"
+                        data-original="images/tild3962-6235-4361-b535-643038646330__20.jpg" class="t594__img t-img "
+                        imgfield="li_img__1481203544538" style="max-width:160px;"/></div>
+                <div class="t-col t594__item t594__item_5-in-row"><img
+                        src="../../../static/oscar/img/partners/logo-02.png"
+                        data-original="images/tild3865-6137-4365-b438-393534366466__21.jpg" class="t594__img t-img "
+                        imgfield="li_img__1481205129244" style="max-width:160px;"/></div>
+                <div class="t-col t594__item t594__item_5-in-row"><img
+                        src="../../../static/oscar/img/partners/logo-03.png"
+                        data-original="images/tild3362-3132-4563-a261-633639373930__blob.png" class="t594__img t-img "
+                        imgfield="li_img__1481205877302" style="max-width:160px;"/></div>
+                <div class="t-col t594__item t594__item_5-in-row"><img
+                        src="../../../static/oscar/img/partners/logo-04.png"
+                        data-original="images/tild6132-3663-4631-b230-353635316432__blob.png" class="t594__img t-img "
+                        imgfield="li_img__1481205879887" style="max-width:160px;"/></div>
+                <div class="t-col t594__item t594__item_5-in-row"><img
+                        src="../../../static/oscar/img/partners/logo-05.png"
+                        data-original="images/tild3861-6330-4137-b664-653130616331__15.jpg" class="t594__img t-img "
+                        imgfield="li_img__1481205139575" style="max-width:160px;"/></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="subsript">
+    <p class="p-art">Подпишитесь на наши обновления,<br>
+        чтобы быть в курсе всех новостей</p>
+    <div class="form-container t-align_center">
+        <form class="form">
+            <input placeholder="Email"><br>
+            <button class="btn btn-primary">Подписаться</button>
+        </form>
+    </div>
+</div>
+
+
+
+</div>

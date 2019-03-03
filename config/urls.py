@@ -21,14 +21,21 @@ from django.urls import include, path  # > Django-2.0
 
 from oscar.app import application
 
+# from app.errors.views import handler403, handler404, handler500
+# not use this -> login_forbidden.html {% extends "403.html" %} not 'errors/403.html'
+
+from oscar.views import handler403, handler404, handler500
+
 urlpatterns = [
     # path('i18n/', include('django.conf.urls.i18n')),
 
     # The Django admin is not officially supported; expect breakage.
     # Nonetheless, it's often useful for debugging.
     path('admin/', admin.site.urls),
-
+    path('', include('app.artskill.urls')),
     path('', application.urls),
+
+    path('payment/', include('app.robokassa.urls')),
 ]
 
 if settings.DEBUG:
@@ -38,5 +45,11 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
     urlpatterns = [
+        path('403/', handler403, {'exception': Exception()}),
+        path('404/', handler404, {'exception': Exception()}),
+        path('500/', handler500),
+
         path('__debug__/', include(debug_toolbar.urls)),
+
+        path('test/', include('app.test.urls')),
     ] + urlpatterns

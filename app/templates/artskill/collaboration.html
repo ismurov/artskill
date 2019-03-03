@@ -1,0 +1,24 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+
+{% block navigation %}
+    {% include "partials/nav_index.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="h1-art">Сотрудничество</h1>
+    <p class="p-art">Если у вас есть идкея сотрудничества свяжитесь с нами.</p>
+    <div class="form-container t-align_center">
+        <form class="form">
+            <input placeholder="Ваше имя"><br>
+            <input placeholder="Email"><br>
+            <textarea placeholder="Сообщение" style="height:200px"></textarea><br>
+            <button class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -14,11 +14,13 @@ import os
 import oscar
 
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import ugettext_lazy as _
 
 
 def root(*dirs):
     base_dir = os.path.join(os.path.dirname(__file__), '..', '..')
     return os.path.abspath(os.path.join(base_dir, *dirs))
+
 
 def app_root(*dirs):
     return root('app', *dirs)
@@ -42,9 +44,7 @@ ALLOWED_HOSTS = []
 ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 BASE_DIR = root()
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -54,14 +54,11 @@ STATICFILES_DIRS = [
     app_root('static'),
 ]
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = app_root('public/media/')
 
-
 LOGIN_REDIRECT_URL = '/'
 APPEND_SLASH = True
-
 
 # Application definition
 
@@ -76,10 +73,19 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
 
     'widget_tweaks',
-] + oscar.get_core_apps()
 
+    'app.robokassa',
+]
+# Add forked oscar apps
+INSTALLED_APPS = INSTALLED_APPS + oscar.get_core_apps([
+    'app.shipping',
+    'app.checkout',
+    # 'app.catalogue',
+    # 'app.customer',
+])
+
+# for FlatPages
 SITE_ID = 1
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,12 +100,11 @@ MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # app_root('templates'),
+            app_root('templates'),
             app_root('templates/oscar'),
             # oscar.OSCAR_MAIN_TEMPLATE_DIR
         ],
@@ -124,7 +129,6 @@ TEMPLATES = [
     },
 ]
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -139,7 +143,6 @@ DATABASES = {
         'ATOMIC_REQUESTS': True,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -163,7 +166,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -177,7 +179,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Haystack settings
 HAYSTACK_CONNECTIONS = {
     'default': {
@@ -188,14 +189,48 @@ HAYSTACK_CONNECTIONS = {
 }
 
 # Here's a sample Haystack config if using Solr (which is recommended)
-#HAYSTACK_CONNECTIONS = {
+# HAYSTACK_CONNECTIONS = {
 #    'default': {
 #        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
 #        'URL': 'http://127.0.0.1:8983/solr/',
 #        'INCLUDE_SPELLING': True
 #    },
-#}
+# }
 
+
+# ==============
+# Robokassa config
+# ==============
+
+ROBOKASSA_LOGIN = ''
+ROBOKASSA_PASSWORD1 = ''
+ROBOKASSA_PASSWORD2 = ''
+
+# ROBOKASSA_USE_POST=''
+# ROBOKASSA_STRICT_CHECK=''
+# ROBOKASSA_TEST_MODE=''
+# ROBOKASSA_EXTRA_PARAMS=''
+# ROBOKASSA_TEST_FORM_TARGET=''
+'''
+ROBOKASSA_PASSWORD2 - пароль №2. Его можно не указывать,
+                      если django-robokassa используется только для вывода формы платежа.
+                      Если django-robokassa используется для приема платежей, то этот параметр обязательный.
+ROBOKASSA_USE_POST - используется ли метод POST при приеме результатов от ROBOKASSA.
+                     По умолчанию - True. Считается, что для Result URL, Success URL и Fail URL
+                     выбран один и тот же метод.
+ROBOKASSA_STRICT_CHECK - использовать ли строгую проверку (требовать предварительного уведомления на ResultURL).
+                         По умолчанию - True.
+ROBOKASSA_TEST_MODE - включен ли тестовый режим.
+                      По умолчанию False (т.е. включен боевой режим).
+ROBOKASSA_EXTRA_PARAMS - список (list) названий дополнительных параметров,
+                         которые будут передаваться вместе с запросами.
+                         "Shp" к ним приписывать не нужно.
+ROBOKASSA_TEST_FORM_TARGET - url робокассы для тестового режима.
+                             Настройка предназначена для случая,
+                             когда в распоряжении не имеется доступного в интернете домена
+                             (например разработка на localhost) и вместо сервера робокассы
+                             необходимо использовать свой.
+'''
 
 # ==============
 # Oscar settings
@@ -208,6 +243,8 @@ from oscar.defaults import *
 
 OSCAR_SHOP_NAME = 'Artskill'
 OSCAR_SHOP_TAGLINE = 'Tagline'
+
+OSCAR_FROM_EMAIL = 'team@artskill.com'
 
 OSCAR_DEFAULT_CURRENCY = 'RUB'
 # OSCAR_CURRENCY_FORMAT = {
@@ -236,3 +273,164 @@ OSCAR_ORDER_STATUS_PIPELINE = {
     'Cancelled': (),
     'Complete': (),
 }
+
+# ==============
+# Oscar Shipping
+# ==============
+
+SHIPPING_METHODS_STANDARD_OPTIONS = {
+    'standard': {
+        'name': 'Курьерская по Санкт-Петербургу',
+        'description': ('<p>Стоимость: 300 Р</p>'
+                        '<p>Срок доставки: 1-2 д</p>'
+                        '<p>Оплата: сейчас или при получении</p>'),
+        'free_price_from': '5000.00',
+        'excl_tax': '300.00',
+        'incl_tax': '300.00',
+    },
+    'standard-take-away': {
+        'name': 'Самовывоз',
+        'description': ('<p>Товар можете забрать в нашем офисе по адресу:</p>'
+                        '<p>улица Цветочная, 6M</p>'
+                        '<p>Стоимость: бесплатно</p>'
+                        '<p>Оплата: сейчас или при получении</p>'),
+    },
+    'boxberry-currier': {
+        'name': 'Курьерская доставка Boxberry',
+        'description': "Описание для курьерской доставка Boxberry",
+        'base_price': '1000.00',
+    },
+    'boxberry-take-away': {
+        'name': 'Пункт выдачи Boxberry',
+        'description': "Описание для курьерской доставка Boxberry",
+        'base_price': '1000.00',
+    },
+}
+
+# ==============
+# Oscar Dashboard
+# ==============
+
+OSCAR_DASHBOARD_NAVIGATION = [
+    {
+        'label': _('Dashboard'),
+        'icon': 'icon-th-list',
+        'url_name': 'dashboard:index',
+    },
+    {
+        'label': _('Catalogue'),
+        'icon': 'icon-sitemap',
+        'children': [
+            {
+                'label': _('Products'),
+                'url_name': 'dashboard:catalogue-product-list',
+            },
+            {
+                'label': _('Product Types'),
+                'url_name': 'dashboard:catalogue-class-list',
+            },
+            {
+                'label': _('Categories'),
+                'url_name': 'dashboard:catalogue-category-list',
+            },
+            {
+                'label': _('Ranges'),
+                'url_name': 'dashboard:range-list',
+            },
+            {
+                'label': _('Low stock alerts'),
+                'url_name': 'dashboard:stock-alert-list',
+            },
+        ]
+    },
+    {
+        'label': _('Fulfilment'),
+        'icon': 'icon-shopping-cart',
+        'children': [
+            {
+                'label': _('Orders'),
+                'url_name': 'dashboard:order-list',
+            },
+            {
+                'label': _('Statistics'),
+                'url_name': 'dashboard:order-stats',
+            },
+            {
+                'label': _('Partners'),
+                'url_name': 'dashboard:partner-list',
+            },
+            # The shipping method dashboard is disabled by default as it might
+            # be confusing. Weight-based shipping methods aren't hooked into
+            # the shipping repository by default (as it would make
+            # customising the repository slightly more difficult).
+            # {
+            #     'label': _('Shipping charges'),
+            #     'url_name': 'dashboard:shipping-method-list',
+            # },
+        ]
+    },
+    {
+        'label': _('Customers'),
+        'icon': 'icon-group',
+        'children': [
+            {
+                'label': _('Customers'),
+                'url_name': 'dashboard:users-index',
+            },
+            {
+                'label': _('Stock alert requests'),
+                'url_name': 'dashboard:user-alert-list',
+            },
+        ]
+    },
+    {
+        'label': _('Offers'),
+        'icon': 'icon-bullhorn',
+        'children': [
+            {
+                'label': _('Offers'),
+                'url_name': 'dashboard:offer-list',
+            },
+            {
+                'label': _('Vouchers'),
+                'url_name': 'dashboard:voucher-list',
+            },
+            {
+                'label': _('Voucher Sets'),
+                'url_name': 'dashboard:voucher-set-list',
+            },
+
+        ],
+    },
+    {
+        'label': _('Content'),
+        'icon': 'icon-folder-close',
+        'children': [
+            {
+                'label': _('Content blocks'),
+                'url_name': 'dashboard:promotion-list',
+            },
+            {
+                'label': _('Content blocks by page'),
+                'url_name': 'dashboard:promotion-list-by-page',
+            },
+            {
+                'label': _('Pages'),
+                'url_name': 'dashboard:page-list',
+            },
+            {
+                'label': _('Email templates'),
+                'url_name': 'dashboard:comms-list',
+            },
+            {
+                'label': _('Reviews'),
+                'url_name': 'dashboard:reviews-list',
+            },
+        ]
+    },
+    {
+        'label': _('Reports'),
+        'icon': 'icon-bar-chart',
+        'url_name': 'dashboard:reports-index',
+    },
+]

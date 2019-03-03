@@ -3,112 +3,269 @@
 {% load basket_tags %}
 {% load category_tags %}
 {% load product_tags %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}
-    {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
+{% if summary %}{{ summary }} |{% endif %} {{ block.super }}
 {% endblock %}
 
 {% block headertext %}{{ summary }}{% endblock %}
 
-{% block breadcrumbs %}
-    <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        <li class="active">{{ summary }}</li>
-    </ul>
-{% endblock breadcrumbs %}
 
-{% block column_left %}
-    {% category_tree as tree_categories %}
-    {% if tree_categories %}
-        <h4>{% trans "Show results for" %}</h4>
-        <div class="side_categories">
-            <ul class="nav nav-list">
-                {% for tree_category, info in tree_categories %}
-                    <li>
-                        <a href="{{ tree_category.get_absolute_url }}">
-                            {% if tree_category.pk == category.pk %}
-                                <strong>{{ tree_category.name }}</strong>
-                            {% else %}
-                                {{ tree_category.name }}
-                            {% endif %}
-                        </a>
 
-                        {% if info.has_children %}<ul>{% else %}</li>{% endif %}
-                        {% for n in info.num_to_close %}
-                            </ul></li>
-                        {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-    {% if has_facets %}
-        <h4>{% trans "Refine by" %}</h4>
-        <div class="side_categories">
-            {% for field, data in facet_data.items %}
-                {% if data.results %}
-                    {% include 'search/partials/facet.html' with name=data.name items=data.results %}
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endif %}
-{% endblock %}
 
 {% block content %}
 
-    <form method="get" class="form-horizontal">
-        {# Render other search params as hidden inputs #}
-        {% for value in selected_facets %}
-            <input type="hidden" name="selected_facets" value="{{ value }}" />
-        {% endfor %}
-        <input type="hidden" name="q" value="{{ search_form.q.value|default_if_none:"" }}" />
 
-        {% if paginator.count %}
-            {% if paginator.num_pages > 1 %}
-                {% blocktrans with start=page_obj.start_index end=page_obj.end_index count num_results=paginator.count %}
-                    <strong>{{ num_results }}</strong> result - showing <strong>{{ start }}</strong> to <strong>{{ end }}</strong>.
-                {% plural %}
-                    <strong>{{ num_results }}</strong> results - showing <strong>{{ start }}</strong> to <strong>{{ end }}</strong>.
-                {% endblocktrans %}
-            {% else %}
-                {% blocktrans count num_results=paginator.count %}
-                    <strong>{{ num_results }}</strong> result.
-                {% plural %}
-                    <strong>{{ num_results }}</strong> results.
-                {% endblocktrans %}
-            {% endif %}
-            {% if form %}
-                <div class="pull-right">
-                    {% include "partials/form_field.html" with field=form.sort_by %}
-                </div>
-            {% endif %}
-        {% else %}
-            <p>
-                {% trans "<strong>0</strong> results." %}
-            </p>
-        {% endif %}
-    </form>
 
-    {% if products %}
-        <section>
-            <div>
-                <ol class="row">
-                    {% for product in products %}
-                        <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">{% render_product product %}</li>
+
+<div class="catalogue_content">
+
+    <div class="col-sm-2">
+        {% block nav_dropdown %}
+        <h2 style="font-size: 20px; text-align: left;letter-spacing: normal; margin-top:0;margin-bottom: 5%">Категории</h2>
+        <ul id="browse" class="list-goods">
+            <li class="">
+                <ul class="list-goods" data-navigation="">
+                    {% category_tree depth=2 as tree_categories %}
+
+                    {% if tree_categories %}
+                    <li class="divider"></li>
+                    {% for tree_category, info in tree_categories %}
+                    {% if info.has_children %}
+                    <li class="dropdown-submenu">
+                        <a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a>
+                        <ul class="dropdown-menu">
+                            {% else %}
+                            <li><a tabindex="-1" href="{{ tree_category.get_absolute_url }}">{{ tree_category.name }}</a></li>
+                            {% endif %}
+                            {% for close in info.num_to_close %}
+                        </ul></li>
                     {% endfor %}
-                </ol>
-                {% include "partials/pagination.html" %}
+                    {% endfor %}
+                    {% endif %}
+
+                </ul>
+            </li>
+            {% block nav_extra %}
+            {% endblock %}
+        </ul>
+        {% endblock %}
+    </div><!-- /navbar-collapse -->
+
+
+    <div class="col-sm-10">
+        <div class="col-sm-6 big-box">
+
+            {# Load categories! #}
+            {% category_tree as categories %}
+
+            {% with category=categories.0.0 %}
+            <a href="{{ category.get_absolute_url }}">
+            <div class="box">
+                <div class='aspect-ratio box-relative blue'>
+
+                    <h3 class="category-name-top" style="color: #ffffff">{{category.name}}</h3>
+                    {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{category.name}}">
+                    {% else %}
+                    <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                    {% endif %}
+                </div>
             </div>
-        </section>
-    {% else %}
-        <p class="nonefound">{% trans "No products found." %}</p>
-    {% endif %}
+            </a>
+            {% endwith %}
+        </div>
+
+        <div class="col-sm-3">
+            <div class=col-sm-6">
+                {% with category=categories.2.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+            <div class=col-sm-6">
+                {% with category=categories.3.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio white'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class=col-sm-6">
+                {% with category=categories.4.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio whire'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+            <div class=col-sm-6">
+                {% with category=categories.7.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+
+        <div class="col-sm-3">
+            <div class=col-sm-6">
+                {% with category=categories.5.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+            <div class=col-sm-6">
+                {% with category=categories.6.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio white'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+        </div>
+
+
+        <div class="col-sm-3">
+            <div class=col-sm-6">
+                {% with category=categories.9.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio whire'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+            <div class=col-sm-6">
+                {% with category=categories.8.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey'>
+                        <h3 class="category-name">{{category.name}}</h3>
+                        {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{category.name}}">
+                        {% else %}
+                        <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                        {% endif %}
+
+                    </div>
+                </div>
+                </a>
+                {% endwith %}
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="box">
+                {% with category=categories.1.0 %}
+                <a href="{{ category.get_absolute_url }}">
+                <div class='aspect-ratio dark-grey'>
+                    <h3 class="category-name-top">{{category.name}}</h3>
+                    {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{category.name}}">
+                    {% else %}
+                    <img src="{% get_media_prefix %}image_not_found.jpg" alt="{{category.name}}">
+                    {% endif %}
+
+                </div>
+            </div>
+            </a>
+            {% endwith %}
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
 
 {% endblock content %}
 
 {% block onbodyload %}
-    {{ block.super }}
-    oscar.search.init();
+{{ block.super }}
+oscar.search.init();
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout_2_col.html" %}
+{% load i18n %}
+
+{% block navigation %}
+    {% include "partials/nav_primary.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+    {% include "artskill/_test_links.html" %}
+    <h1>INDEX</h1>
+
+    {% if messages %}
+        <h3>Messages:</h3>
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>test_var1: {{ test_var1 }}</p>
+    <p>test_var2: {{ test_var2 | floatformat:"0" }}</p>
+    <p>test_var3: {{ test_var3 | floatformat:"0" }}</p>
+    {% load static %}
+    <p>media_prefix: {% get_media_prefix %}</p>
+    <p>static_prefix: {% get_static_prefix %}</p>
+
+
+    Check!
+    {{ search_form }}
+
+{% endblock content %}

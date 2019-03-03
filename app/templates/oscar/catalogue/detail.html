@@ -9,6 +9,10 @@
 {% load i18n %}
 {% load purchase_info_tags %}
 
+{# Preprocessing images #}
+{% load thumbnail %}
+
+
 {% block title %}
     {{ product.title }} | {{ block.super }}
 {% endblock %}
@@ -18,6 +22,8 @@
 {% endblock %}
 
 {% block breadcrumbs %}
+<div class="col-sm-1"></div>
+<div class="col-sm-11">
 <ul class="breadcrumb">
     <li>
         <a href="{{ homepage_url }}">{% trans "Home" %}</a>
@@ -40,6 +46,7 @@
         {% endif %}
     {% endwith %}
 </ul>
+</div>
 {% endblock %}
 
 {% block header %}
@@ -53,145 +60,163 @@
 
         {% block product_gallery %}
         <div class="col-sm-6">
-            {% include "catalogue/partials/gallery.html" %}
+            <div class="box-item">
+                <div class='aspect-ratio aspect-ratio-item grey'>
+                    {% with all_images=product.get_all_images %}
+                    <img src="{{product.primary_image.original.url}}" alt="" class="product_img">
+                    {% endwith %}
+                </div>
+            </div>
         </div>
         {% endblock %}
 
-        {% block product_main %}
-        <div class="col-sm-6 product_main">
-            {% comment %}
-            This is a but clunky here.  Better to have some kind of JS-driven dashboard menu that
-            pops out when clicked.  A bit like the Django-Debug-Toolbar button
-            {% endcomment %}
-            {% if user.is_staff %}
-                <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="icon-edit"></i> {% trans "Edit this product" %}</small></a>
-            {% endif %}
-            <h1>{{ product.get_title }}</h1>
 
+
+
+        {% block product_main %}
+        <div class="col-sm-6 product_main marpad">
+            <div class="box-item item-description">
+                <div class='aspect-ratio aspect-ratio-item'>
+
+                    {% if product.upc %}
+                    <p class="shadow" style="text-transform: uppercase;">{% trans "UPC" %} {{ product.upc }}</p>
+                    {% endif %}
+
+                     {% if user.is_staff %}
+                        <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="icon-edit"></i> {% trans "Edit this product" %}</small></a>
+                     {% endif %}
+
+                     <h1 class="title">{{ product.get_title }}</h1>
+
+                     <p class="classname">{{ product.get_product_class.name }}</p>
+
+
+<div class="price">
             {% block product_stock_record %}
                 {% include "catalogue/partials/stock_record.html" with verbose=1 %}
             {% endblock %}
 
-            {% iffeature "reviews" %}
-                {% include "catalogue/reviews/partials/review_stars.html" %}
-            {% endiffeature %}
+</div>
 
-            <hr/>
 
-            {% block product_basket_form %}
-                {% include "catalogue/partials/add_to_basket_form.html" %}
+
+
+
+
+            <div class="description">
+                {% block product_description %}
+                {% if product.description %}
+                <div id="product_description" class="desc-header">
+                    <h2 class="description">{% trans "Product Description" %}</h2>
+                </div>
+                <div class="shadow" style="margin-top: ">{{ product.description|safe }}</div>
+                {% endif %}
+            </div>
+
+                    {% block product_basket_form %}
+                    {% include "catalogue/partials/add_to_basket_form.html" %}
+                    {% endblock %}
+
+
+
+
+
+
+
+
+
+
             {% endblock %}
         </div><!-- /col-sm-6 -->
+            </div></div>
         {% endblock %}
+
+
+
+
+
+        {% with all_images=product.get_all_images %}
+
+        <div class="col-sm-6">
+            <div class="box-item">
+                <div class='aspect-ratio aspect-ratio-item item-margin '>
+                    <img src="{{all_images.2.original.url}}" alt="" class="product_img">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="box-item">
+                <div class='aspect-ratio aspect-ratio-item item-margin '>
+                    <img src="{{all_images.3.original.url}}" alt="" class="product_img">
+                </div>
+            </div>
+        </div>
+
+        {% endwith %}
 
     </div><!-- /row -->
 
-    {% block product_description %}
-        {% if product.description %}
-        <div id="product_description" class="sub-header">
-            <h2>{% trans "Product Description" %}</h2>
-        </div>
-        <p>{{ product.description|safe }}</p>
-        {% endif %}
-    {% endblock %}
 
-    {% block product_info %}
-    <div class="sub-header">
-        <h2>{% trans "Product Information" %}</h2>
-    </div>
-    <table class="table table-striped">
-        {% if product.upc %}
-        <tr>
-            <th>{% trans "UPC" %}</th><td>{{ product.upc }}</td>
-        </tr>
-        {% endif %}
-        <tr>
-            <th>{% trans "Product Type" %}</th><td>{{ product.get_product_class.name }}</td>
-        </tr>
 
-        {% purchase_info_for_product request product as session %}
-        {% if session.price.exists %}
-            <tr>
-                <th>{% trans "Price (excl. tax)" %}</th><td>{{ session.price.excl_tax|currency:session.price.currency }}</td>
-            </tr>
-            {% if session.price.is_tax_known %}
-                <tr>
-                    <th>{% trans "Price (incl. tax)" %}</th><td>{{ session.price.incl_tax|currency:session.price.currency }}</td>
-                </tr>
-                <tr>
-                    <th>{% trans "Tax" %}</th><td>{{ session.price.tax|currency:session.price.currency }}</td>
-                </tr>
-            {% endif %}
-            <tr>
-                <th>{% trans "Availability" %}</th>
-                <td>{{ session.availability.message }}</td>
-            </tr>
-        {% endif %}
-        {% for av in product.attribute_values.all %}
-            <tr>
-                <th>{{ av.attribute.name }}</th>
-                <td>{{ av.value_as_html }}</td>
-            </tr>
-        {% endfor %}
-        {% iffeature "reviews" %}
-            <tr>
-                <th>{% trans "Number of reviews" %}</th>
-                <td>{{ product.num_approved_reviews }}</td>
-            </tr>
-        {% endiffeature %}
-    </table>
-    {% endblock %}
 
-    {% iffeature "reviews" %}
-        {% block product_review %}
-        <section>
-            <div id="reviews" class="sub-header">
-                {% if product.num_approved_reviews > 3 %}
-                    <a href="{% url 'catalogue:reviews-list' product_slug=product.slug product_pk=product.id %}" class="btn pull-right">{% trans "See all reviews" %}</a>
-                {% endif %}
-                <h2>{% trans "Customer Reviews" %}</h2>
-            </div>
 
-            {% if product.num_approved_reviews == 0 %}
-                <p>
-                    {% if product|is_review_permitted:user %}
-                        {% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.id as add_review_url %}
-                            {% blocktrans %}This product does not have any reviews yet -
-                            <a href="{{ add_review_url }}#addreview">be the first to write one</a>.
-                        {% endblocktrans %}
-                    {% else %}
-                        {% trans "This product does not have any reviews yet" %}.
-                    {% endif %}
-                </p>
-            {% else %}
-                <ol class="list-unstyled review-list">
-                    {% for review in product.reviews.approved.all|slice:":3" %}
-                        <li>
-                        {% include 'catalogue/partials/review.html' %}
-                        </li>
-                    {% endfor %}
-                </ol>
-            {% endif %}
-        </section>
-        {% endblock product_review %}
-    {% endiffeature %}
+
 
     {% with recommended_products=product.sorted_recommended_products|slice:":6" %}
         {% if recommended_products %}
             <div class="sub-header">
-                <h2>{% trans "Recommended items" %}</h2>
+                <h2 class="t-align_center" style="font-size: 36px;">{% trans "Recommended items" %}</h2>
             </div>
-            <ul class="row">
+
+
                 {% for product in recommended_products %}
-                <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-                    {% render_product product %}
-                </li>
-                {% endfor %}
-            </ul>
+    <div class="col-sm-3">
+        <div class="box">
+            <div class='aspect-ratio  grey'>
+
+                <img src="{{product.primary_image.original.url}}" alt="">
+                <h4>{{product}}</h4>
+                <p>{{ product.get_product_class.name }}</p>
+                <p>{{ product.upc }}</p>
+
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
         {% endif %}
     {% endwith %}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {%comment%}
     {% recently_viewed_products current_product=product %}
+    {%endcomment%}
 
 </article><!-- End of product page -->
 {% endblock content %}

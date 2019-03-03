@@ -1,0 +1,55 @@
+{% extends "layout_2_col.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block navigation %}
+    {% include "partials/nav_index.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Контакты</h1>
+<p>email</p>
+<p>info@artskill.store</p>
+<p>Телефон</p>
+<p>8 921 586 88 90</p>
+<p>Адрес</p>
+<p>Санкт-Петербург</p>
+<p>Белградская 6 - 4 лит А</p>
+Наши реквизиты
+<p>ИП</p>
+<p class="shadow">Петрова Евгения Сергеевна
+    Свидетельство выдано Межрайонной инспекцией Федеральной налоговой службы № 14 по Свердловской области: 4 февраля 2014 Серия 66 № 007495373</p>
+<p>Юридический адрес</p>
+<p class="shadow">192242
+    г. Санкт-Петербург, район Фрунзенский
+    Белградская 6,  кор 4 лит А,  кв 15</p>
+<p>ИНН</p>
+<p class="shadow">661708094860</p>
+<p>ОГРНИП</p>
+<p class="shadow">314661703500010</p>
+<p>Наименование банка</p>
+<p class="shadow">Северо-Западный Банк ОАО «Сбербанк России»
+    Санкт-Петербург</p>
+<p>БИК банка</p>
+<p class="shadow">044030653</p>
+<p>Расчетный счет</p>
+<p class="shadow">40802810555130002066</p>
+<p>Кор. счет</p>
+<p class="shadow">30101810500000000653</p>
+<p>ОКП</p>
+<p class="shadow">878300</p>
+<p>ОКПО</p>
+<p class="shadow">0191351180</p>
+<img src="{% static 'oscar/img/artskill-logo-black.svg' %}">
+<p>дизайн и производство аксессуаров</p>
+<p>из 100%  натуральной кожи</p>
+<img src="{% static 'oscar/img/leather.jpg' %}" style="height: 150px;">
+<p>Санкт-Петербург</p>
+
+{% endblock content %}

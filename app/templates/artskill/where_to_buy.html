@@ -1,0 +1,165 @@
+{% extends "layout_2_col.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block navigation %}
+    {% include "partials/nav_index.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="t-align_center">Магазины</h1>
+<p class="t-align_center">Наши изделия Artskill можно приобрести у нас на сайте или в магазинах партнеров. Рекомендуем уточнить наличие товара по телефону.</p>
+
+
+<div class="col-lg-1"></div>
+    <div class="col-lg-10">
+        <div class="col-lg-1"></div>
+        <button class="tablink col-lg-2 col-sm-12 col-12" onclick="openCity('Moscow', this)" id="defaultOpen">Москва</button>
+        <button class="tablink col-lg-2 col-sm-12 col-12" onclick="openCity('SPb', this)">Санкт&ndash;Петербург</button>
+        <button class="tablink col-lg-2 col-sm-12 col-12" onclick="openCity('Ekb', this)">Екатеринбург</button>
+        <button class="tablink col-lg-2 col-sm-12 col-12" onclick="openCity('Kirov', this)">Киров</button>
+        <button class="tablink col-lg-2 col-sm-12 col-12" onclick="openCity('Samara', this)">Самара</button>
+    </div>
+<div class="col-lg-1"></div>
+
+
+<div id="Moscow" class="tabcontent col-sm-12">
+    <div class="col-sm-8">
+        <h2>Artskill</h2>
+        <p>Наша мастерская, офис и интернет магазин</p>
+        <p>Будем рады вас видеть, просьба предварительно созвониться с нами.</p>
+        <div class="line">
+            <img src="{% static '/oscar/img/icons/mobile.svg' %}">
+            <p>8 921 586 88 90</p>
+        </div>
+        <div class="line">
+            <img src="{% static '/oscar/img/icons/site.svg' %}">
+            <p>artskillstore.pro</p>
+        </div>
+        <div class="line">
+            <img src="{% static '/oscar/img/icons/email.svg' %}">
+            <p>метро Московские ворота, улица Цветочная 6 М</p>
+        </div>
+    </div>
+    <div class="col-sm-4 map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2001.4336887823488!2d30.32930895145302!3d59.891750672753446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696306b466ebd65%3A0x4aac4f4304adba4c!2sMt-Obuvnaya+Fabrika!5e0!3m2!1sen!2sru!4v1551388669282" width="600" height="450" frameborder="0" style="border:0" allowfullscreen>
+
+        </iframe>
+    </div>
+</div>
+
+
+
+<div id="SPb" class="tabcontent col-sm-12">
+
+    <div class="tab-border col-sm-12">
+        <div class="col-sm-8">
+            <h2>Artskill</h2>
+            <p>Наша мастерская, офис и интернет магазин</p>
+            <p>Будем рады вас видеть, просьба предварительно созвониться с нами.</p>
+            <div class="line">
+                <img src="{% static '/oscar/img/icons/mobile.svg' %}">
+                <p>8 921 586 88 90</p>
+            </div>
+            <div class="line">
+                <img src="{% static '/oscar/img/icons/site.svg' %}">
+                <p>artskillstore.pro</p>
+            </div>
+            <div class="line">
+                <img src="{% static '/oscar/img/icons/email.svg' %}">
+                <p>метро Московские ворота, улица Цветочная 6 М</p>
+            </div>
+        </div>
+        <div class="col-sm-4 map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2001.4336887823488!2d30.32930895145302!3d59.891750672753446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696306b466ebd65%3A0x4aac4f4304adba4c!2sMt-Obuvnaya+Fabrika!5e0!3m2!1sen!2sru!4v1551388669282" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="tab-border col-sm-12">
+<div class="col-sm-8">
+    <h2>Logovo</h2>
+    <p>Мужской магазин одежды, аксессуаров и обуви</p>
+    <div class="line">
+        <img src="{% static '/oscar/img/icons/mobile.svg' %}">
+        <p>8 812 930 60 88</p>
+    </div>
+    <div class="line">
+        <img src="{% static '/oscar/img/icons/site.svg' %}">
+        <p>logovostore.ru/manufacturer/artskill</p>
+    </div>
+    <div class="line">
+        <img src="{% static '/oscar/img/icons/email.svg' %}">
+        <p>Пространство «Флигель», ул. Восстания, д. 24</p>
+    </div>
+</div>
+<div class="col-sm-4 map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2001.4336887823488!2d30.32930895145302!3d59.891750672753446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696306b466ebd65%3A0x4aac4f4304adba4c!2sMt-Obuvnaya+Fabrika!5e0!3m2!1sen!2sru!4v1551388669282" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+    </div>
+
+    <div class="tab-border col-sm-12">
+<div class="col-sm-8">
+    <h2>JNBY</h2>
+    <p>Магазин дизайнерской одежды.</p>
+    <p>Магазин дизайнерской одежды.
+        Представлена коллекция Artskill х DVRSM.: обувь, ремни, сумка поясная, сума через плечо.</p>
+    <div class="line">
+        <img src="{% static '/oscar/img/icons/mobile.svg' %}">
+        <p>8 812 909 39 67</p>
+    </div>
+    <div class="line">
+        <img src="{% static '/oscar/img/icons/site.svg' %}">
+        <p>jnby.com.ru</p>
+    </div>
+    <div class="line">
+        <img src="{% static '/oscar/img/icons/email.svg' %}">
+        <p>ул. Невский пр., 148</p>
+    </div>
+</div>
+<div class="col-sm-4 map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2001.4336887823488!2d30.32930895145302!3d59.891750672753446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696306b466ebd65%3A0x4aac4f4304adba4c!2sMt-Obuvnaya+Fabrika!5e0!3m2!1sen!2sru!4v1551388669282" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+</div>
+    </div>
+
+</div>
+
+
+<div id="Ekb" class="tabcontent col-sm-12">
+
+</div>
+
+<div id="Kirov" class="tabcontent col-sm-12">
+
+</div>
+
+<div id="Samara" class="tabcontent col-sm-12">
+
+</div>
+
+
+
+<script>
+    function openCity(cityName, elmnt) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        document.getElementById(cityName).style.display = "block";
+    }
+    document.getElementById("defaultOpen").click();
+</script>
+
+
+
+
+
+
+{% endblock content %}
+
