@@ -12,13 +12,16 @@
 
 {% block content %}
     <h1 class="h1-art">Сотрудничество</h1>
-    <p class="p-art">Если у вас есть идкея сотрудничества свяжитесь с нами.</p>
+    <p class="p-art">Если у вас есть идея сотрудничества, свяжитесь с нами.</p>
     <div class="form-container t-align_center">
-        <form class="form">
-            <input placeholder="Ваше имя"><br>
-            <input placeholder="Email"><br>
-            <textarea placeholder="Сообщение" style="height:200px"></textarea><br>
-            <button class="btn btn-primary">Отправить</button>
+        <form class="form" method="post">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field }}
+                <br>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Отправить</button>
         </form>
     </div>
 {% endblock content %}
