@@ -9,8 +9,13 @@
 
 <form method="get" action="{% url 'search:search' %}" class="navbar-form navbar-right" style="width: 100%;border: none;">
     <div class="form-group form-group-search" style="width: 100%;border: none;">
-{#        {{ search_form.q }}#}
+
+        {% comment %}
+        {{ search_form.q }}
+        {% endcomment %}
+
         <input autofocus type="search" name="q" placeholder="Найти" tabindex="1" class="form-control" id="id_q">
+
     </div>
     <!--<input type="submit" value="{% trans "Search" %}" class="btn btn-default" />-->
 </form>

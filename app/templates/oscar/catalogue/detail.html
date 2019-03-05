@@ -75,8 +75,8 @@
 
         {% block product_main %}
         <div class="col-sm-6 product_main marpad">
-            <div class="box-item item-description">
-                <div class='aspect-ratio aspect-ratio-item'>
+            <div class="box-item">
+                <div class='aspect-ratio aspect-ratio-item item-description'>
 
                     {% if product.upc %}
                     <p class="shadow" style="text-transform: uppercase;">{% trans "UPC" %} {{ product.upc }}</p>
@@ -86,7 +86,7 @@
                         <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-product' pk=product.id %}"><small><i class="icon-edit"></i> {% trans "Edit this product" %}</small></a>
                      {% endif %}
 
-                     <h1 class="title">{{ product.get_title }}</h1>
+                     <h1 class="title" style="text-align: left">{{ product.get_title }}</h1>
 
                      <p class="classname">{{ product.get_product_class.name }}</p>
 
@@ -107,7 +107,7 @@
                 {% block product_description %}
                 {% if product.description %}
                 <div id="product_description" class="desc-header">
-                    <h2 class="description">{% trans "Product Description" %}</h2>
+                    <h2 class="description" style="text-align: left">{% trans "Product Description" %}</h2>
                 </div>
                 <div class="shadow" style="margin-top: ">{{ product.description|safe }}</div>
                 {% endif %}
@@ -168,8 +168,6 @@
             <div class="sub-header">
                 <h2 class="t-align_center" style="font-size: 36px;">{% trans "Recommended items" %}</h2>
             </div>
-
-
                 {% for product in recommended_products %}
     <div class="col-sm-3">
         <div class="box">

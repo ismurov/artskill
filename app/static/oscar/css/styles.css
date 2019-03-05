@@ -10255,7 +10255,6 @@ a.t420__title_a {
 }
 
 .page_inner {
-
   padding: 0!important;
 }
 
@@ -10373,7 +10372,7 @@ a {
 
 }
 .item-description {
-  margin: 60px -60px -60px 60px;
+padding: 60px;
 }
 .price p {
   font-size: 36px !important;
@@ -10697,13 +10696,11 @@ float: none !important;
 .form-group-search input {
   width: 100% !important;
   border: none!important;
-  border: none!important;
   box-shadow: none;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   text-align: center;
 }
-
 
 /* Dropdown  */
 .dropbtn {
@@ -10898,4 +10895,8 @@ button:focus {
   height: 48px;
   border-radius: 0;
 
+}
+
+h2.category-heading {
+  margin: 50px;
 }

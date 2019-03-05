@@ -5,6 +5,7 @@ from django.template.loader import render_to_string
 from .models import Subscriber
 
 
+
 class ContactForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Ваше имя'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
@@ -29,3 +30,4 @@ class ContactForm(forms.Form):
 
 class SubscriberForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+

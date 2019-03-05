@@ -24,4 +24,5 @@ urlpatterns = [
     # re_path(r'^unsubscribe/(?P<subscriber_id>[0-9]{4})/$',
     #         views.EmailUnsubscribeView.as_view(),
     #         name='email-unsubscribe'),
+    path('thanks/', views.ThanksView.as_view(), name='thanks')
 ]

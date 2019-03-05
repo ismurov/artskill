@@ -42,6 +42,7 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'smurov'
 EMAIL_HOST_PASSWORD = 'igor'  # !!! PASSWORD
 
+
 # ==============
 # Robokassa config
 # ==============

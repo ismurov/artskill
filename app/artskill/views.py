@@ -63,3 +63,7 @@ class SubscribeView(generic.FormView):
 
 class SubscribeThanksView(generic.TemplateView):
     template_name = 'artskill/subscribe_thanks.html'
+
+
+class ThanksView(generic.TemplateView):
+    template_name = 'artskill/thanks.html'
