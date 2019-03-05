@@ -1,0 +1,16 @@
+{% load subscribe_form_tags %}
+
+<p class="p-art">Подпишитесь на наши обновления,<br>
+    чтобы быть в курсе всех новостей</p>
+<div class="form-container t-align_center">
+    <form class="form" method="post" action="{% url 'artskill:subscribe' %}">
+        {% csrf_token %}
+        {% subscribe_form as subscribe_form %}
+        {% for field in subscribe_form %}
+            {{ field.errors }}
+            {{ field }}
+            <br>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Подписаться</button>
+    </form>
+</div>

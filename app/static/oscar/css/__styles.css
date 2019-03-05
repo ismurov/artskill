@@ -10259,7 +10259,7 @@ a.t420__title_a {
   padding: 0!important;
 }
 
-h2.category-heading {
+h2.category-name {
   font-size: 36px;
   font-weight: 600;
 }
@@ -10695,13 +10695,7 @@ float: none !important;
   border: none;
 }
 .form-group-search input {
-  width: 100% !important;
-  border: none!important;
-  border: none!important;
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-  text-align: center;
+  width: 100% !important;border: none!important;
 }
 
 

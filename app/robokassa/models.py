@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class SuccessNotification(models.Model):
     InvId = models.IntegerField('Номер заказа', db_index=True)
     OutSum = models.CharField('Сумма', max_length=15)

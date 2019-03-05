@@ -4,8 +4,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1']
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -28,6 +26,21 @@ MIDDLEWARE = [
 
 INTERNAL_IPS = ['127.0.0.1', '::1']
 
+
+# ==============
+# Email config
+# ==============
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SERVER_EMAIL = 'smurov@yandex.ru'
+DEFAULT_FROM_EMAIL = 'smurov@yandex.ru'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'smurov'
+EMAIL_HOST_PASSWORD = 'igor'  # !!! PASSWORD
 
 # ==============
 # Robokassa config

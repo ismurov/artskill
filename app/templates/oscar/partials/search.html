@@ -1,8 +1,16 @@
 {% load i18n %}
+{% load static %}
 
-<form method="get" action="{% url 'search:search' %}" class="navbar-form navbar-right">
-    <div class="form-group">
-        {{ search_form.q }}
+
+<div class="seach-init">
+    <img src="{% static '/oscar/img/icons/search-icon.svg' %}">
+    <p style="text-transform: uppercase">Введите слово и нажмите Enter для поиска</p>
+</div>
+
+<form method="get" action="{% url 'search:search' %}" class="navbar-form navbar-right" style="width: 100%;border: none;">
+    <div class="form-group form-group-search" style="width: 100%;border: none;">
+{#        {{ search_form.q }}#}
+        <input autofocus type="search" name="q" placeholder="Найти" tabindex="1" class="form-control" id="id_q">
     </div>
-    <input type="submit" value="{% trans "Search" %}" class="btn btn-default" />
+    <!--<input type="submit" value="{% trans "Search" %}" class="btn btn-default" />-->
 </form>

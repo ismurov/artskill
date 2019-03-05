@@ -1,28 +1,21 @@
 from decimal import Decimal as D
 
+from django.conf import settings
+
 from oscar.apps.shipping import methods
 from oscar.core import prices
 
 
-class TakeAway(methods.Free):
-    code = 'take_away'
-    name = 'Самовывоз'
-    description = ('<p>Товар можете забрать в нашем офисе по адресу:</p>'
-                   '<p>улица Цветочная, 6M</p>'
-                   '<p>Стоимость: бесплатно</p>'
-                   '<p>Оплата: сейчас или при получении</p>')
-
+shipping = settings.SHIPPING_METHODS_STANDARD_OPTIONS
 
 class Standard(methods.Base):
     code = 'standard'
-    name = 'Курьерская по Санкт-Петербургу'
-    description = ('<p>Стоимость: 300 Р</p>'
-                   '<p>Срок доставки: 1-2 д</p>'
-                   '<p>Оплата: сейчас или при получении</p>')
+    name = shipping[code]['name']
+    description = shipping[code]['description']
 
-    _free_price_from = D('5000.00')
-    _standard_price = {'excl_tax': D('300.00'),
-                       'incl_tax': D('300.00')}
+    _free_price_from = D(shipping[code]['free_price_from'])
+    _standard_price = {'excl_tax': D(shipping[code]['excl_tax']),
+                       'incl_tax': D(shipping[code]['incl_tax'])}
 
     def _free_shipping_conditions(self, basket):
         # price with tax and discount
@@ -41,13 +34,21 @@ class Standard(methods.Base):
                 incl_tax=self._standard_price['incl_tax'])
 
 
-class TakeAwayBoxberry(methods.FixedPrice):
-    code = 'boxberry-take-away'
-    name = 'Пункт выдачи Boxberry'
-    charge_excl_tax = D('1000.00')
+class StandardTakeAway(methods.Free):
+    code = 'standard-take-away'
+    name = shipping[code]['name']
+    description = shipping[code]['description']
 
 
 class Boxberry(methods.FixedPrice):
     code = 'boxberry-currier'
-    name = 'Курьерская доставка Boxberry'
-    charge_excl_tax = D('1000.00')
+    name = shipping[code]['name']
+    description = shipping[code]['description']
+    charge_excl_tax = D(shipping[code]['base_price'])
+
+
+class TakeAwayBoxberry(methods.FixedPrice):
+    code = 'boxberry-take-away'
+    name = shipping[code]['name']
+    description = shipping[code]['description']
+    charge_excl_tax = D(shipping[code]['base_price'])

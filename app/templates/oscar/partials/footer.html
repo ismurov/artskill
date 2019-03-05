@@ -6,7 +6,11 @@
         </div>
         <div class="col-sm-2">
             <a href="{{ homepage_url }}"><img src="{% static 'oscar/img/artskill-logo-black.svg' %}"></a>
-            <div class="t420__text t-descr t-descr_xxs t-descr_xxs_p" style="" field="phone">8 921 586 88 90</div>
+
+            <a href="tel:+79215868890" class="header2-menu__phone" title="+7 921 586-88-90">
+                <div class="t420__text t-descr t-descr_xxs t-descr_xxs_p" style="" field="phone">8 921 586 88 90</div>
+            </a>
+
             <div class="t420__text t-descr t-descr_xxs t-descr_xxs_e" style="" field="email">artskillstore@gmail.com</div>
         </div>
 
@@ -30,7 +34,7 @@
                 <a href="{% url 'artskill:delivery' %}" style="color: #525252;">Доставка</a>
             </div>
             <div class="t420__title t-name t-name_xs t420__title_uppercase" field="title3">
-                <a href="{% url 'artskill:return' %}" style="color: #525252;">Возврат</a>
+                <a href="{% url 'artskill:delivery' %}" style="color: #525252;">Возврат</a>
             </div>
         </div>
 

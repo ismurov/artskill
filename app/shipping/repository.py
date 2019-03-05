@@ -5,7 +5,7 @@ from . import methods
 class Repository(repository.Repository):
     # Available Shipping methods
     # methods[0] – default method
-    methods = (methods.TakeAway(),
+    methods = (methods.StandardTakeAway(),
                methods.Standard(),
                methods.TakeAwayBoxberry(),
                methods.Boxberry())

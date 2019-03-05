@@ -2,6 +2,17 @@
 {% load static %}
 {% load i18n %}
 
+{% block styles %}
+{% if use_less %}
+<link rel="stylesheet/less" type="text/css" href="{% static "oscar/less/styles.less" %}" />
+{% else %}
+<link rel="stylesheet" type="text/css" href="{% static "oscar/css/styles.css" %}" />
+{% endif %}
+<link rel="stylesheet" href="{% static "oscar/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "oscar/css/datetimepicker.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "oscar/css/plus-minus.css" %}" />
+{% endblock %}
+
 {% block navigation %}
     {% include "partials/nav_index.html" %}
 {% endblock %}
@@ -13,43 +24,130 @@
 
 {% block content %}
 
-    <h1>Контакты</h1>
-<p>email</p>
+<h1 style="margin-top: 60px">Контакты</h1>
+<div class="contacts">
+<p class="upper">email</p>
 <p>info@artskill.store</p>
-<p>Телефон</p>
+<p class="upper">Телефон</p>
 <p>8 921 586 88 90</p>
-<p>Адрес</p>
+<p class="upper">Адрес</p>
 <p>Санкт-Петербург</p>
 <p>Белградская 6 - 4 лит А</p>
-Наши реквизиты
-<p>ИП</p>
-<p class="shadow">Петрова Евгения Сергеевна
-    Свидетельство выдано Межрайонной инспекцией Федеральной налоговой службы № 14 по Свердловской области: 4 февраля 2014 Серия 66 № 007495373</p>
-<p>Юридический адрес</p>
-<p class="shadow">192242
-    г. Санкт-Петербург, район Фрунзенский
-    Белградская 6,  кор 4 лит А,  кв 15</p>
-<p>ИНН</p>
-<p class="shadow">661708094860</p>
-<p>ОГРНИП</p>
-<p class="shadow">314661703500010</p>
-<p>Наименование банка</p>
-<p class="shadow">Северо-Западный Банк ОАО «Сбербанк России»
-    Санкт-Петербург</p>
-<p>БИК банка</p>
-<p class="shadow">044030653</p>
-<p>Расчетный счет</p>
-<p class="shadow">40802810555130002066</p>
-<p>Кор. счет</p>
-<p class="shadow">30101810500000000653</p>
-<p>ОКП</p>
-<p class="shadow">878300</p>
-<p>ОКПО</p>
-<p class="shadow">0191351180</p>
-<img src="{% static 'oscar/img/artskill-logo-black.svg' %}">
-<p>дизайн и производство аксессуаров</p>
-<p>из 100%  натуральной кожи</p>
-<img src="{% static 'oscar/img/leather.jpg' %}" style="height: 150px;">
-<p>Санкт-Петербург</p>
+    <div id="allrecords" class="t-records" data-hook="blocks-collection-content-node" data-tilda-project-id="1130739"
+         data-tilda-page-id="5002952" data-tilda-formskey="8ecdfeb1983a998b5ebdf80340b0b383">
+        <div id="rec90700796" class="r t-rec t-rec_pt_135 t-rec_pb_165" style="padding-top:40px;padding-bottom:165px; "
+             data-animationappear="off" data-record-type="849"><!-- t849-->
+            <div class="t849">
+                <div class="t-container">
+
+
+
+                    <div class="t-col t-col_8 t-prefix_2">
+                        <div class="t849__accordion">
+                            <div class="t849__wrapper">
+                                <div class="t849__header" style=" border-top: 1px solid #ffffff;padding: 15px 50px 15px 0;  font-size: 12px; text-align: left ">
+                                    <div class="t849__title t-name t-name_xl" field="li_title__1531218700960" style="">
+                                        НАШИ РЕКВИЗИТЫ
+                                    </div>
+                                    <div class="t849__icon">
+                                        <div class="t849__lines">
+                                            <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                                   stroke-linecap="square">
+                                                    <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                        <path d="M0,11 L22,11"></path>
+                                                        <path d="M11,0 L11,22"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="t849__circle" style="background-color: transparent;"></div>
+                                    </div>
+                                    <div class="t849__icon t849__icon-hover">
+                                        <div class="t849__lines">
+                                            <svg width="24px" height="24px" viewBox="0 0 24 24"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
+                                                   stroke-linecap="square">
+                                                    <g transform="translate(1.000000, 1.000000)" stroke="#000000">
+                                                        <path d="M0,11 L22,11"></path>
+                                                        <path d="M11,0 L11,22"></path>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                        <div class="t849__circle"></div>
+                                    </div>
+                                </div>
+                                <div class="t849__content">
+                                    <div class="t849__textwrapper">
+                                        <div class="t849__text t-descr t-descr_sm" field="li_descr__1531218700960" style="text-align: left;">
+                                            <p>ИП</p>
+                                            <p class="shadow">Петрова Евгения Сергеевна
+                                                Свидетельство выдано Межрайонной инспекцией Федеральной налоговой службы № 14 по Свердловской области: 4 февраля 2014 Серия 66 № 007495373</p>
+                                            <p>Юридический адрес</p>
+                                            <p class="shadow">192242
+                                                г. Санкт-Петербург, район Фрунзенский
+                                                Белградская 6,  кор 4 лит А,  кв 15</p>
+                                            <p>ИНН</p>
+                                            <p class="shadow">661708094860</p>
+                                            <p>ОГРНИП</p>
+                                            <p class="shadow">314661703500010</p>
+                                            <p>Наименование банка</p>
+                                            <p class="shadow">Северо-Западный Банк ОАО «Сбербанк России»
+                                                Санкт-Петербург</p>
+                                            <p>БИК банка</p>
+                                            <p class="shadow">044030653</p>
+                                            <p>Расчетный счет</p>
+                                            <p class="shadow">40802810555130002066</p>
+                                            <p>Кор. счет</p>
+                                            <p class="shadow">30101810500000000653</p>
+                                            <p>ОКП</p>
+                                            <p class="shadow">878300</p>
+                                            <p>ОКПО</p>
+                                            <p class="shadow">0191351180</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="t849__border" style="height: 1px; background-color: #000000;"></div>
+                    </div>
+                </div>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script>
+                function t849_init(recid) {
+                    var rec = $('#rec' + recid);
+                    var toggler = rec.find('.t849__header');
+                    toggler.click(function () {
+                        $(this).toggleClass('t849__opened');
+                        $(this).next().slideToggle();
+                        if (window.lazy == 'y') {
+                            t_lazyload_update()
+                        }
+                    })
+                }
+            </script>
+            <script type="text/javascript"> $(document).ready(function () {
+                t849_init('90700796');
+            });</script>
+
+
+        </div>
+    </div>
+    <div class="lower">
+        <img src="{% static 'oscar/img/artskill-logo-black.svg' %}" style="width: 230px; margin: 30px;">
+        <p class="design">дизайн и производство аксессуаров</p>
+        <p class="leather">из 100%  натуральной кожи</p>
+        <img src="{% static 'oscar/img/leather.jpg' %}" style="height: 150px; margin: 30px">
+        <p class="saintp">Санкт-Петербург</p>
+
+    </div>
+
+</div>
 
 {% endblock content %}

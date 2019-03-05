@@ -1,6 +1,8 @@
 from django import forms
-from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import mail_admins
+from django.template.loader import render_to_string
+
+from .models import Subscriber
 
 
 class ContactForm(forms.Form):
@@ -11,18 +13,19 @@ class ContactForm(forms.Form):
 
     def send_email(self):
         # send email using the self.cleaned_data dictionary
-        # name = self.changed_data.get('name')
-        # email = self.changed_data.get('email')
-        # message = self.changed_data.get('message')
-        #
-        # if hasattr(settings, 'ADMIN_EMAIL'):
-        #     send_mail(
-        #         'Subject here',
-        #         'Here is the message.',
-        #         'from@example.com',
-        #         ['to@example.com'],
-        #         fail_silently=False,
-        #     )
+        ctx = {
+            'name': self.cleaned_data['name'],
+            'email': self.cleaned_data.get('email'),
+            'message': self.cleaned_data.get('message'),
+        }
+        msg_plain = render_to_string('artskill/emails/collaboration.txt', ctx)
+        msg_html = render_to_string('artskill/emails/collaboration.html', ctx)
 
-        print("\nsend_email\n")
-        pass
+        mail_admins('Сотрудничество',
+                    msg_plain,
+                    # fail_silently=False,
+                    html_message=msg_html)
+
+
+class SubscriberForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))

@@ -74,6 +74,7 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
 
+    'app.artskill',
     'app.robokassa',
 ]
 # Add forked oscar apps
@@ -202,12 +203,22 @@ HAYSTACK_CONNECTIONS = {
 # Email config
 # ==============
 
-ADMIN_EMAIL = 'admin@example.com'
+ADMINS = [('Igor', 'smurov_igor@mail.ru'),]  # [('John', 'john@example.com'), ('Mary', 'mary@example.com')]
 
+EMAIL_SUBJECT_PREFIX = 'Artskill - '
+SERVER_EMAIL = 'smurov@yandex.ru'
+DEFAULT_FROM_EMAIL = 'smurov@yandex.ru'
+
+# used default
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+# or
 # EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp-pulse.com:2525'
-# EMAIL_HOST_USER = 'example@gmail.com'
-# EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''  # !!! PASSWORD
 
 
 # ==============
@@ -310,12 +321,12 @@ SHIPPING_METHODS_STANDARD_OPTIONS = {
     'boxberry-currier': {
         'name': 'Курьерская доставка Boxberry',
         'description': "Описание для курьерской доставка Boxberry",
-        'base_price': '1000.00',
+        'base_price': '500.00',
     },
     'boxberry-take-away': {
         'name': 'Пункт выдачи Boxberry',
         'description': "Описание для курьерской доставка Boxberry",
-        'base_price': '1000.00',
+        'base_price': '500.00',
     },
 }
 
