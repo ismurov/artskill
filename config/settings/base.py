@@ -81,6 +81,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS = INSTALLED_APPS + oscar.get_core_apps([
     'app.shipping',
     'app.checkout',
+    'app.basket',
     # 'app.catalogue',
     # 'app.customer',
 ])
@@ -107,6 +108,7 @@ TEMPLATES = [
         'DIRS': [
             app_root('templates'),
             app_root('templates/oscar'),
+            app_root('templates/oscar_original'),
             # oscar.OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,
