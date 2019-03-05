@@ -199,6 +199,18 @@ HAYSTACK_CONNECTIONS = {
 
 
 # ==============
+# Email config
+# ==============
+
+ADMIN_EMAIL = 'admin@example.com'
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp-pulse.com:2525'
+# EMAIL_HOST_USER = 'example@gmail.com'
+# EMAIL_HOST_PASSWORD = ''
+
+
+# ==============
 # Robokassa config
 # ==============
 
