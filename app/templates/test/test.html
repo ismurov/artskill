@@ -31,6 +31,22 @@
     <p>static_prefix: {% get_static_prefix %}</p>
 
 
+    <form ...>
+<label>Paste your HTML in the box below</label>
+<textarea style='display:none' id='foo'></textarea>
+<div id='htmlsource' contenteditable style='border:solid 1px black;padding:1em;width:100%;min-height:2em;' ></div>
+<input type='submit' />
+</form>
+
+<script>
+jQuery(function(){
+    jQuery('form').submit( function(e) {
+        jQuery('textarea').val( jQuery('#htmlsource').html() );
+      });
+});
+</script>
+
+
     Check!
     {{ search_form }}
 

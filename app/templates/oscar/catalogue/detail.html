@@ -12,13 +12,16 @@
 {# Preprocessing images #}
 {% load thumbnail %}
 
+{% load find_parent_tags %}
+
 
 {% block title %}
     {{ product.title }} | {{ block.super }}
 {% endblock %}
 
 {% block description %}
-    {{ product.description|default:""|striptags }}
+    {% get_product_parent product as product_parent %}
+    {{ product_parent.description|default:""|striptags }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -52,7 +55,9 @@
 {% block header %}
 {% endblock header %}
 
+
 {% block content %}
+    {% get_product_parent product as product_parent %}
 
     <article class="product_page"><!-- Start of product page -->
 
@@ -79,28 +84,23 @@
                         <div class='aspect-ratio aspect-ratio-item item-description'>
                             {% if user.is_staff %}
                                 <a class="pull-right hidden-xs"
-                                   href="{% url 'dashboard:catalogue-product' pk=product.id %}">
+                                   href="{% url 'dashboard:catalogue-product' pk=product_parent.id %}">
                                     <small><i class="icon-edit"></i> {% trans "Edit this product" %}</small>
                                 </a>
                             {% endif %}
 
-                            {% if product.upc %}
-                                <p class="shadow"
-                                   style="text-transform: uppercase;">{% trans "UPC" %} {{ product.upc }}</p>
-                            {% endif %}
 
-                            {% comment %}
-                            {% if user.is_staff %}
-                                <a class="pull-right hidden-xs"
-                                   href="{% url 'dashboard:catalogue-product' pk=product.id %}">
-                                    <small><i class="icon-edit"></i> {% trans "Edit this product" %}</small>
-                                </a>
-                            {% endif %}
-                            {% endcomment %}
+                            <p class="shadow"
+                               style="text-transform: uppercase;">{% trans "UPC" %}
+                                {% if product.upc %}
+                                    {{ product.upc }}
+                                {% elif product_parent.upc %}
+                                    {{ product_parent.upc }}
+                                {% endif %}</p>
 
-                            <h1 class="title" style="text-align: left">{{ product.get_title }}</h1>
+                            <h1 class="title" style="text-align: left">{{ product_parent.get_title }}</h1>
 
-                            <p class="classname">{{ product.get_product_class.name }}</p>
+                            <p class="classname">{{ product_parent.get_product_class.name }}</p>
 
 
                             <div class="price">
@@ -109,45 +109,47 @@
                                 {% endblock %}
                             </div>
 
-                            <div class="description">
-                                {% block product_description %}
-                                    {% if product.description %}
+
+                            <dif>
+                                {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    {% for child in product_parent.children.all %}
+                                        <a href="{{ child.get_absolute_url }}">
+                                            <p style="width: 50px;
+                                                    height: 50px;
+                                                    background:
+                                                    {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};
+                                                    border-radius: 50%;
+                                                    display: inline-block;
+                                                    margin-left: 10px;"></p>
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
+                            </dif>
+
+
+                            {% block product_description %}
+                                <div class="description">
+                                    {% if product_parent.description %}
                                         <div id="product_description" class="desc-header">
                                             <h2 class="description"
                                                 style="text-align: left">{% trans "Product Description" %}</h2>
                                         </div>
-                                        <div class="shadow" style="margin-top: ">{{ product.description|safe }}</div>
+                                        <div class="shadow">{{ product_parent.description|safe }}</div>
                                     {% endif %}
-                                    </div>
-
-                                    {% block product_basket_form %}
-                                        {% include "catalogue/partials/add_to_basket_form.html" %}
-                                    {% endblock %}
-
-
-
+                                </div>
+                                {% block product_basket_form %}
+                                    {% include "catalogue/partials/add_to_basket_form.html" %}
                                 {% endblock %}
+
+                            {% endblock %}
                         </div><!-- /col-sm-6 -->
                     </div>
                 </div>
-
-
-                <h1>Здесь будет подробное описание товара</h1>
-                <h3>{{ product.details_description|safe }}</h3>
-                <h2>Конец описания</h2>
-
-                {% for av in product.attribute_values.all %}
-                    {{ av.attribute.name }}<br>
-                    {{ av.value_as_html }}<br><br>
-                {% endfor %}
-
             {% endblock %}
 
-
-
-
-
-            {% with all_images=product.get_all_images %}
+            {% with all_images=product_parent.get_all_images %}
 
                 <div class="col-sm-6">
                     <div class="box-item">
@@ -170,12 +172,23 @@
         </div><!-- /row -->
 
 
+        <div>
+            <h2 class="mt-5">Здесь будет подробное описание товара</h2>
+            <h3>{{ product_parent.details_description|safe }}</h3>
+            <h2>Конец описания</h2>
+
+            {% for av in product.attribute_values.all %}
+                {{ av.attribute.name }}<br>
+                {{ av.value_as_html }}<br><br>
+            {% endfor %}
+        </div>
 
 
 
 
 
-        {% with recommended_products=product.sorted_recommended_products|slice:":6" %}
+
+        {% with recommended_products=product_parent.sorted_recommended_products|slice:":6" %}
             {% if recommended_products %}
                 <div class="sub-header">
                     <h2 class="t-align_center" style="font-size: 36px;">{% trans "Recommended items" %}</h2>
@@ -234,6 +247,11 @@
 {% block extrascripts %}
     {{ block.super }}
 {% endblock %}
+
+
+
+
+
 
 
 
