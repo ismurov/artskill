@@ -82,7 +82,8 @@ INSTALLED_APPS = INSTALLED_APPS + oscar.get_core_apps([
     'app.shipping',
     'app.checkout',
     'app.basket',
-    # 'app.catalogue',
+    'app.catalogue',
+    'app.dashboard.catalogue',
     # 'app.customer',
 ])
 
