@@ -21,9 +21,9 @@
 
                 <li class="t229__list_item dropdownm"
                     style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
-                        class="dropbtnm t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}" href="{% url 'catalogue:index' %}" >Каталог</a>
+                        onclick="myFunction()" class="dropbtnm t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}" href="{% url 'catalogue:index' %}" >Каталог</a>
 
-                    <div class="dropdownm-content col-sm-12">
+                    <div id="myDropdownm" class="dropdownm-content col-sm-12">
                         <div class="col-sm-3"></div>
                         <div class="dropdownm-link col-sm-1">
                             <a tabindex="-1" href="/catalogue/category/penaly-pro_1/">Пеналы PRO</a>
@@ -63,3 +63,23 @@
         <div class="t229__padding40px"></div>
     </div>
 </div>
+
+<script>
+
+    function myFunction() {
+        document.getElementById("myDropdownm").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtnm')) {
+            var dropdowns = document.getElementsByClassName("dropdownm-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>

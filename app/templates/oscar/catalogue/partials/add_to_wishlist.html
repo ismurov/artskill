@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load wishlist_tags %}
 
+
 {% if user.is_authenticated %}
     {% with wishlists=user.wishlists.all %}
         {# Select wishlists that contains product #}
