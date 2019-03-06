@@ -344,7 +344,14 @@
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].style.display = "none";
         }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.fontWeight = "400";
+            tablinks[i].style.borderBottomColor= "#999999";
+        }
         document.getElementById(cityName).style.display = "block";
+        elmnt.style.fontWeight = 600;
+        elmnt.style.borderBottomColor = "#000000";
     }
     document.getElementById("defaultOpen").click();
 </script>
