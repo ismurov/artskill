@@ -29,7 +29,11 @@ class ProductDetailView(DetailView):
     enforce_paths = True
 
     # Whether to redirect child products to their parent's URL
-    enforce_parent = True
+    # enforce_parent = True
+    enforce_parent = False
+
+    # Whether to redirect parent's products to first child URL
+    enforce_first_child = True
 
     def get(self, request, **kwargs):
         """
@@ -61,6 +65,10 @@ class ProductDetailView(DetailView):
             expected_path = product.get_absolute_url()
             if expected_path != urlquote(current_path):
                 return HttpResponsePermanentRedirect(expected_path)
+
+        if self.enforce_first_child and product.is_parent:
+            return HttpResponsePermanentRedirect(
+                product.children.all()[0].get_absolute_url())
 
     def get_context_data(self, **kwargs):
         ctx = super(ProductDetailView, self).get_context_data(**kwargs)

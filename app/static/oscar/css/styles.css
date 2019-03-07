@@ -8497,14 +8497,13 @@ input[type="number"][id*="quantity"] {
 .basket-title {
   clear: both;
   border-bottom: 1px solid #c4c4c4;
-  padding: 0 10px;
 }
 .basket-title h4 {
   margin: 0;
 }
 .basket-items {
   border-bottom: 1px solid #c4c4c4;
-  padding: 10px;
+  padding: 10px 0;
   margin-bottom: 20px;
 }
 .basket-items:nth-child(even) {
@@ -8782,7 +8781,7 @@ input[type="number"][id*="quantity"] {
   display: none !important;
 }
 .show {
-  display: block !important;
+  display: block;
 }
 .invisible {
   visibility: hidden;
@@ -10733,9 +10732,6 @@ float: none !important;
 
 .dropdown:hover .dropdown-content {display: block;}
 
-
-
-
 /*dropdown menu*/
 .dropbtnm {
   border: none;
@@ -10755,18 +10751,6 @@ float: none !important;
   margin-top: 10px;
   background-color: #ffffff;
 }
-.white-bcg {
-
-  opacity: 0;
-  position: absolute;
-  width: 100%;
-  height: 145px;
-  top: 95px;
-  left: 0;
-  z-index: 1;
-  background-color: #ffffff;
-}
-
 
 .dropdownm-content a {
   text-align: left;
@@ -10781,7 +10765,8 @@ float: none !important;
 
 .dropdownm-content a:hover {opacity: 1; transition: 0.3s}
 
-.dropdownm:hover .dropdownm-content {display: block;}
+.show {display:block;}
+
 
 /*contacts*/
 .contacts p {
@@ -10899,4 +10884,127 @@ button:focus {
 
 h2.category-heading {
   margin: 50px;
+}
+/*thanks*/
+.thanks {
+  text-align: center;
+  background-color: #f3f3f5;
+}
+.thanks img {
+  margin: 80px 0 60px 0;
+}
+.thanks h1 {
+  font-size: 36px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+.thanks p {
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.33;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #000000;
+  margin: 40px 0 40% 0;
+}
+/*busket*/
+.align-left {
+  text-align: left;
+}
+.basket-title {
+  border-bottom: 1px solid #ffffff;
+}
+.basket-items {
+  background-color: #ffffff!important;
+  border-bottom: 1px solid #000000;
+  border-top: 1px solid #000000;
+}
+.page-header {
+  border-bottom: 1px solid #ffffff !important;
+}
+.pad30 {
+  padding: 0 200px;
+}
+#id_code {
+  height: 48px;
+}
+
+.kupon {
+  background-color: #f3f3f5;
+  padding: 20px;
+  vertical-align: center;
+  margin-top: 21px;
+  margin-bottom: 20px;
+}
+form, input {
+  margin: 0;
+}
+.basket-items {
+
+    margin-bottom: -1px;
+}
+.total {
+  background-color: #ffffff!important;
+}
+th,td {
+  border-top: 1px solid #ffffff!important;
+}
+.price_color {
+  margin: 0!important;
+}
+.basket-styles h1{
+  margin: 0;
+}
+.basket-styles p{
+  margin: 0;
+}
+.basket-styles .classname {
+  margin-bottom: 20px;
+}
+.basket-styles .basket-items .price_color {
+  font-size: 18px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.basket-col {
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000000;
+}
+.basket-styles .title {
+  font-size: 18px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  color: #000000;
+}
+.basket-styles .classname {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  color: #000000;
+}
+#default {
+
 }

@@ -33,7 +33,9 @@
 {% block headertext %}{{ title }}{% endblock %}
 
 {% block dashboard_content %}
-    <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" method="post" class="form-stacked wysiwyg fixed-actions" enctype="multipart/form-data" data-behaviour="affix-nav-errors" autocomplete="off">
+    <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}" method="post"
+          class="form-stacked wysiwyg fixed-actions" enctype="multipart/form-data" data-behaviour="affix-nav-errors"
+          autocomplete="off">
         {% csrf_token %}
 
         {% if parent %}
@@ -67,22 +69,26 @@
                                 only one template block (instead of all affected) has to be altered.
                             {% endcomment %}
                             {% block tabs %}
-                                <li class="active"><a href="#product_details" data-toggle="tab">{% trans 'Product details' %}</a></li>
+                                <li class="active"><a href="#product_details"
+                                                      data-toggle="tab">{% trans 'Product details' %}</a></li>
                                 {% if not parent %}
                                     <li><a href="#product_category" data-toggle="tab">{% trans 'Categories' %}</a></li>
                                 {% endif %}
                                 {% if product_class.has_attributes %}
-                                    <li><a href="#product_attributes" data-toggle="tab">{% trans 'Attributes' %}</a></li>
+                                    <li><a href="#product_attributes" data-toggle="tab">{% trans 'Attributes' %}</a>
+                                    </li>
                                 {% endif %}
                                 <li><a href="#product_images" data-toggle="tab">{% trans 'Images' %}</a></li>
                                 {% if not product.is_parent %}
-                                    <li><a href="#product_stock" data-toggle="tab">{% trans 'Stock and pricing' %}</a></li>
+                                    <li><a href="#product_stock" data-toggle="tab">{% trans 'Stock and pricing' %}</a>
+                                    </li>
                                 {% endif %}
                                 {% if user.is_staff and not parent %}
                                     <li><a href="#child_products" data-toggle="tab">{% trans 'Variants' %}</a></li>
                                 {% endif %}
                                 {% if not parent %}
-                                    <li><a href="#product_recommended" data-toggle="tab">{% trans 'Upselling' %}</a></li>
+                                    <li><a href="#product_recommended" data-toggle="tab">{% trans 'Upselling' %}</a>
+                                    </li>
                                 {% endif %}
                             {% endblock tabs %}
                         </ul>
@@ -107,9 +113,28 @@
 
                                         {% for field in form.visible_fields %}
                                             {% if 'attr' not in field.id_for_label %}
-                                                {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                {# FIXIT: need init form from view #}
+                                                {% if field.name == 'details_description' %}
+                                                    {% if product and not product.is_child %}
+                                                        {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                    {% endif %}
+
+                                                {% elif field.name == 'use_colors' %}
+                                                    {% if product and product.can_be_parent %}
+                                                        {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                    {% endif %}
+
+                                                {% elif field.name == 'color' %}
+                                                    {% if product.is_child and product.parent.use_colors %}
+                                                        {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                    {% endif %}
+
+                                                {% else %}
+                                                    {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
+
                                     {% endblock product_details_content %}
                                 </div>
                             </div>
@@ -185,50 +210,52 @@
                                         {{ stockrecord_formset.management_form }}
                                         {{ stockrecord_formset.non_form_errors }}
                                         <thead>
-                                            <tr>
-                                                <th>{% trans "Partner" %}</th>
-                                                <th>{% trans "SKU" %}</th>
-                                                {% if product_class.track_stock %}
-                                                    <th>{% trans "Num in stock" %}</th>
-                                                    <th>{% trans "Num allocated" %}</th>
-                                                    <th>{% trans "Low stock threshold" %}</th>
-                                                {% endif %}
-                                                <th>{% trans "Currency" %}</th>
-                                                <th>{% trans "Cost price" %}</th>
-                                                <th>{% trans "Price (excl tax)" %}</th>
-                                                <th>{% trans "Retail price" %}</th>
-                                                <th>{% trans "Delete?" %}</th>
-                                            </tr>
+                                        <tr>
+                                            <th>{% trans "Partner" %}</th>
+                                            <th>{% trans "SKU" %}</th>
+                                            {% if product_class.track_stock %}
+                                                <th>{% trans "Num in stock" %}</th>
+                                                <th>{% trans "Num allocated" %}</th>
+                                                <th>{% trans "Low stock threshold" %}</th>
+                                            {% endif %}
+                                            <th>{% trans "Currency" %}</th>
+                                            {#                                                <th>{% trans "Cost price" %}</th>#}
+                                            <th>{% trans "Price (excl tax)" %}</th>
+                                            {#                                                <th>{% trans "Retail price" %}</th>#}
+                                            <th>{% trans "Delete?" %}</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
-                                            {% for stockrecord_form in stockrecord_formset %}
-                                                {% if stockrecord_form.non_field_errors %}
+                                        {% for stockrecord_form in stockrecord_formset %}
+                                            {% if stockrecord_form.non_field_errors %}
                                                 <tr>
                                                     <td colspan="{% if product_class.track_stock %}10{% else %}7{% endif %}">
-                                                        {% for error in stockrecord_form.non_field_errors  %}
-                                                            <span class="error-block errorlist"><i class="icon-exclamation-sign"></i> {{ error }}</span>
+                                                        {% for error in stockrecord_form.non_field_errors %}
+                                                            <span class="error-block errorlist"><i
+                                                                    class="icon-exclamation-sign"></i> {{ error }}</span>
                                                         {% endfor %}
                                                     </td>
                                                 </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.partner nolabel=True %}</td>
+                                                <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.partner_sku nolabel=True %}</td>
+                                                {% if product_class.track_stock %}
+                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.num_in_stock nolabel=True %}</td>
+                                                    <td>{{ stockrecord_form.instance.num_allocated|default:"-" }}</td>
+                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.low_stock_threshold nolabel=True %}</td>
                                                 {% endif %}
-                                                <tr>
-                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.partner nolabel=True %}</td>
-                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.partner_sku nolabel=True %}</td>
-                                                    {% if product_class.track_stock %}
-                                                        <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.num_in_stock nolabel=True %}</td>
-                                                        <td>{{ stockrecord_form.instance.num_allocated|default:"-" }}</td>
-                                                        <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.low_stock_threshold nolabel=True %}</td>
-                                                    {% endif %}
-                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_currency nolabel=True %}</td>
-                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.cost_price nolabel=True %}</td>
-                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_excl_tax nolabel=True %}</td>
-                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_retail nolabel=True %}</td>
-                                                    <td>
-                                                        {% include "dashboard/partials/form_field.html" with field=stockrecord_form.id nolabel=True %}
-                                                        {% include "dashboard/partials/form_field.html" with field=stockrecord_form.DELETE nolabel=True %}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
+
+                                                <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_currency nolabel=True %}</td>
+                                                {#                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.cost_price nolabel=True %}</td>#}
+                                                <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_excl_tax nolabel=True %}</td>
+                                                {#                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_retail nolabel=True %}</td>#}
+                                                <td>
+                                                    {% include "dashboard/partials/form_field.html" with field=stockrecord_form.id nolabel=True %}
+                                                    {% include "dashboard/partials/form_field.html" with field=stockrecord_form.DELETE nolabel=True %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 {% endblock stockrecords_content %}
@@ -242,7 +269,9 @@
                                         <table class='table table-striped table-bordered'>
                                             <caption>
                                                 {% trans "Variants" %}
-                                                <button class="btn btn-primary pull-right{% if not product.can_be_parent %} disabled{% endif %}" name="action" type="submit" value="create-child" data-loading-text="{% trans 'Adding...' %}">
+                                                <button class="btn btn-primary pull-right{% if not product.can_be_parent %} disabled{% endif %}"
+                                                        name="action" type="submit" value="create-child"
+                                                        data-loading-text="{% trans 'Adding...' %}">
                                                     <i class="icon-plus"></i>
                                                     {% trans "Add variant" %}
                                                 </button>
@@ -260,10 +289,12 @@
                                                         <td>{{ child.attribute_summary }}</td>
                                                         <td>{{ child.stockrecords.count }}</td>
                                                         <td>
-                                                            <a href="{% url 'dashboard:catalogue-product' pk=child.id %}" class="btn btn-primary">
+                                                            <a href="{% url 'dashboard:catalogue-product' pk=child.id %}"
+                                                               class="btn btn-primary">
                                                                 {% trans "Edit" %}
                                                             </a>
-                                                            <a href="{% url 'dashboard:catalogue-product-delete' pk=child.id %}" class="btn btn-danger">
+                                                            <a href="{% url 'dashboard:catalogue-product-delete' pk=child.id %}"
+                                                               class="btn btn-danger">
                                                                 {% trans "Delete" %}
                                                             </a>
                                                         </td>
@@ -321,19 +352,23 @@
                         </a>
                         {% trans "or" %}
                         {% if parent %}
-                            <button class="btn btn-default btn-lg" name="action" type="submit" value="create-another-child" data-loading-text="{% trans 'Saving...' %}">
+                            <button class="btn btn-default btn-lg" name="action" type="submit"
+                                    value="create-another-child" data-loading-text="{% trans 'Saving...' %}">
                                 {% trans "Save and add another variant" %}
                             </button>
                         {% endif %}
-                        <button class="btn btn-default btn-lg" name="action" type="submit" value="continue" data-loading-text="{% trans 'Saving...' %}">
+                        <button class="btn btn-default btn-lg" name="action" type="submit" value="continue"
+                                data-loading-text="{% trans 'Saving...' %}">
                             {% trans "Save and continue editing" %}
                         </button>
-                        <button class="btn btn-primary btn-lg" name="action" type="submit" value="save" data-loading-text="{% trans 'Saving...' %}">
+                        <button class="btn btn-primary btn-lg" name="action" type="submit" value="save"
+                                data-loading-text="{% trans 'Saving...' %}">
                             {% trans "Save" %}
                         </button>
                     </div>
                     {% if product %}
-                        <a class="btn btn-success btn-lg" href="{{ product.get_absolute_url }}">{% trans "View on site" %}</a>
+                        <a class="btn btn-success btn-lg"
+                           href="{{ product.get_absolute_url }}">{% trans "View on site" %}</a>
                     {% endif %}
                 </div>
             </div>
