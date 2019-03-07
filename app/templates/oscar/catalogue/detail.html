@@ -112,6 +112,7 @@
                                 {# Colors Panel #}
                                 {% get_product_parent product as product_parent %}
                                 {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    <h3>Цвет:</h3>
                                     {% for child in product_parent.children.all %}
                                         <a href="{{ child.get_absolute_url }}">
                                             <p style="width: 50px;
