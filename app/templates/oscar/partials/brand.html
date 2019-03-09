@@ -1,15 +1,20 @@
 {% load static %}
+
+
+{% load currency_filters %}
+{% load i18n %}
+
 <div class="desktop-header">
 
     <div class="col-sm-1"></div>
 
-    <div class="col-sm-8 col-xs-9 h1">
+    <div class="col-sm-8 col-xs-8 h1">
         <a href="javascript:void(0);" class="menubars col-xs-2" onclick="menuFunction()">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
                 <path fill="#3C3D41" fill-rule="nonzero" d="M8 21.5V19h25v2.5H8zM8 19h25v2.5H8V19zm0 10.5V27h25v2.5H8zM8 27h25v2.5H8V27zm0-13.5V11h25v2.5H8zM8 11h25v2.5H8V11z"/>
             </svg>
         </a>
-        <a href="{{ homepage_url }}" class="col-sm-4 col-xs-10"><img src="{% static 'oscar/img/artskill-logo-black.svg' %}"></a>
+        <a href="{{ homepage_url }}" class="col-sm-4 col-xs-10"><img src="{% static 'oscar/img/artskill-logo-black.svg' %}" class="logo"></a>
     </div>
     <script>
         function menuFunction() {
@@ -23,35 +28,20 @@
     </script>
 
 
-    <div class="col-sm-3 col-xs-3 h1">
+    <div class="col-sm-3 col-xs-4 h1">
 
-        <button id="myBtn" style="border: none; text-align: left; padding: 1px 12px;" class="col-sm-4 col-xs-6"><img src="{% static '/oscar/img/icons/search-icon.svg' %}"></button>
-        <div id="myModal" class="modal">
+        <button id="myBtn" data-modal="myModal1" style="border: none; text-align: left; padding: 1px 12px;" class="myBtn col-lg-2  col-sm-4 col-xs-6"><img src="{% static '/oscar/img/icons/search-icon.svg' %}"></button>
+
+        <div id="myModal1" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span class="close" data-modal="myModal1">&times;</span>
                 {% include 'partials/search.html' %}
             </div>
         </div>
-        <script>
-            var modal = document.getElementById('myModal');
-            var btn = document.getElementById("myBtn");
-            var span = document.getElementsByClassName("close")[0];
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        </script>
 
 
 
-        <div class="dropdown user-desctop col-sm-4 col-xs-6">
+        <div class="dropdown user-desctop col-lg-2  col-sm-4 col-xs-6">
             <button class="dropbtn"><img src="{% static '/oscar/img/icons/user-icon.svg' %}"></button>
             <div class="dropdown-content">
                 {% if user.is_authenticated %}
@@ -63,18 +53,115 @@
                 </a>
                 {% else %}
                 <a href="{% url 'customer:login' %}?next={{ request.path }}">
-                    Регистрация/Войти
+                    Войти
                 </a>
+
+                <button class="myBtn" data-modal="myModal2" >Регистрация</button>
+                <div id="myModal2" class="modal">
+                    <div class="trtrtr">
+                        <div class="modal-container">
+                            <h1 class="modal-form-heading">Регистрация</h1>
+                            <span class="close" data-modal="myModal2">&times;&nbsp;</span>
+
+
+                            <div class="form-container t-align_center">
+                                <form class="modal-form form" id="register_form" action="{% url 'customer:register' %}?next={{ request.path }}" method="post" class="form-stacked">
+
+                                    {% csrf_token %}
+                                    <div class="form-bcg">
+                                        <div class="form-group ">
+                                            <div class="">
+                                                <input type="name" name="name" class="form-control" required id="id_name" placeholder="Ваше имя">
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="">
+                                                <input type="email" name="email" class="form-control" required id="id_email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="">
+                                                <input type="password" name="password1" class="form-control" required id="id_password1" placeholder="••••••••••••••">
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="">
+                                                <input type="password" name="password2" class="form-control" required id="id_password2" placeholder="••••••••••••••">
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="redirect_url" value="/" id="id_redirect_url">
+                                        <button name="registration_submit" type="submit" value="Register" class="btn btn-primary" style="color: #fff;width: 100%;height: 48px;background-color: #000000;border-color: #000000;"
+                                                data-loading-text="Регистрация...">Отправить</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
                 {% endif %}
+
+
+
+
+
+
+
 
             </div>
         </div>
 
 
 
-        <a href="{% url 'basket:summary' %}" class="col-sm-4 col-xs-6">
-            <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
-        </a>
+        <div class="basket-mini"
+             style="display: inline-block;
+        cursor: pointer;" class="col-lg-2 col-sm-4 col-xs-6">
+        <span class="btn-group">
+            <span class="dropdown-toggle circle-parent" data-toggle="dropdown">
+                <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
+                {# Count of items in basket #}
+                {% if request.basket.num_items %}
+                    <div class="busket-circle">{{ request.basket.num_items }}</div>
+                {% endif %}
+            </span>
+
+            <ul class="dropdown-menu pull-right">
+                <li>{% include "basket/partials/basket_quick.html" %}</li>
+            </ul>
+        </span>
+        </div>
 
     </div>
 </div>
+
+<script>
+    var modal = document.getElementById('myModal');
+    var buttons = document.getElementsByClassName("myBtn")
+    var span = document.getElementsByClassName("close");
+
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = function() {
+            var id = this.getAttribute('data-modal');
+            var modal = document.getElementById(id);
+            modal.style.display = 'block';
+        }
+    }
+
+    for (var i = 0; i < span.length; i++) {
+        span[i].onclick = function() {
+            var id = this.getAttribute('data-modal');
+            var modal = document.getElementById(id);
+            modal.style.display = 'none';
+        }
+    }
+
+    window.onclick = function(event) {
+        var isModal = (' ' + event.target.className + ' ').indexOf(' modal ') > -1;
+        if (isModal) {
+            event.target.style.display = "none";
+        }
+    }
+
+
+</script>
