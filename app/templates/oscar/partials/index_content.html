@@ -1,58 +1,37 @@
 {% load i18n %}
+{% load static %}
 
-<div class="slideshow-container">
-    <div class="mySlides dis slide_visible">
-        <img src="../../../static/oscar/img/slides/slider1.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides dis">
-        <img src="../../../static/oscar/img/slides/slider2.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides dis">
-        <img src="../../../static/oscar/img/slides/slider3.jpg" style="width:100%">
-    </div>
-
-    <a class="prev" onclick="plusSlides(-1)"><img src="../../../static/oscar/img/slides/left-arrow.svg"></a>
-    <a class="next" onclick="plusSlides(1)"><img src="../../../static/oscar/img/slides/right-arrow.svg"></a>
-
-    <div class="dots" style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
+<div class="owl-carousel owl-theme slideshow-container">
+    <div class="item"><img src="../../../static/oscar/img/slides/slider1.jpg"></div>
+    <div class="item"><img src="../../../static/oscar/img/slides/slider2.jpg"></div>
+    <div class="item"><img src="../../../static/oscar/img/slides/slider3.jpg"></div>
 </div>
 <script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            slideIndex = 1
+    $(document).ready(function(){
+        $(".owl-carousel").owlCarousel();
+    });
+    $('.owl-carousel').owlCarousel({
+        center: true,
+        items:1,
+        loop:true,
+        margin:10,
+        responsiveClass:true,
+        responsive:{
+            0:{
+                items:1,
+                nav:true
+            },
+            600:{
+                items:1,
+                nav:false
+            },
+            1000:{
+                items:1,
+                nav:true,
+                loop:false
+            }
         }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" slide_visible", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " slide_visible";
-    }
+    })
 </script>
 
 <!-- T795 -->
@@ -61,7 +40,7 @@
         <div class="t-rec_pb_30" style="font-size:36px;">
             Artskill
         </div>
-        <div style="font-size:16px;width: 60%; margin-left: 20%">Мы
+        <div class="T795-desc">Мы
             создаем яркие и функциональные аксессуары ручной работы из натуральной кожи, подчеркивающие
             индивидуальность обладателя.
         </div>
@@ -89,7 +68,6 @@
 <div class="col-sm-12">
     <div class="col-sm-6 big-box">
 
-
         <a href="#">
             <div class="box">
                 <div class='aspect-ratio box-relative bcg HIT-1-Big'>
@@ -107,14 +85,12 @@
 
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-3 col-xs-6">
         <div class=col-sm-6">
 
             <a href="#">
                 <div class="box">
                     <div class='aspect-ratio bcg HIT-2-Small'>
-
-
                         <div class="category-name">
                             <h3 class="category-name-h3">Artskill mini</h3>
                             <p>малый пенал</p>
@@ -142,11 +118,11 @@
         </div>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-3 col-xs-6">
         <div class=col-sm-6">
             <a href="#">
                 <div class="box">
-                    <div class='aspect-ratio bcg HIT-4-Small'>
+                    <div class='aspect-ratio bcg HIT-4-Small '>
                         <div class="category-name">
                             <h3 class="category-name-h3">Artskill Brush</h3>
                             <p>пенал для кистей</p>
@@ -159,7 +135,7 @@
         <div class=col-sm-6">
             <a href="#">
                 <div class="box">
-                    <div class='aspect-ratio bcg HIT-5-Small'>
+                    <div class='aspect-ratio bcg HIT-5-Small '>
                         <div class="category-name">
                             <h3 class="category-name-h3">Artskill Brush Mini</h3>
                             <p>пенал для кистей</p>
@@ -174,7 +150,7 @@
 
 
 <div class="col-sm-12">
-    <div id="rec88585884" class="r t-rec t-rec_pt_90 t-rec_pb_90" style="background-color: #FFFFFF "
+    <div id="rec88585884" class="r t-rec t-rec_pt_90 mt600 t-rec_pb_90" style="background-color: #FFFFFF "
          data-record-type="594"><!-- t594 -->
         <div class="t594">
             <div class="t594__container t-container">

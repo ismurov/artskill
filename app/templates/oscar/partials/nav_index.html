@@ -11,56 +11,113 @@
      style="background-color: rgba(255,255,255,0.70); height:50px; " data-bgcolor-hex="#ffffff"
      data-bgcolor-rgba="rgba(255,255,255,0.70)" data-navmarker="nav88585007marker" data-appearoffset=""
      data-bgopacity="0.70" data-menu="yes">
-    <div class="t229__maincontainer " style="height:50px;">
-        <div class="t229__padding40px"></div>
-        <div class="t229__centerside ">
-            <ul class="uppercase">
-                <li class="t229__list_item"
-                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
-                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:brand' %}active-tab{% endif %}" href="{% url 'artskill:brand' %}">Бренд</a></li>
 
-                <li class="t229__list_item dropdownm"
-                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
-                        onclick="myFunction()" class="dropbtnm t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}" href="{% url 'catalogue:index' %}" >Каталог</a>
 
-                    <div id="myDropdownm" class="dropdownm-content col-sm-12">
-                        <div class="col-sm-3"></div>
-                        <div class="dropdownm-link col-sm-1">
-                            <a tabindex="-1" href="/catalogue/category/penaly-pro_1/">Пеналы PRO</a>
-                            <a tabindex="-1" href="/catalogue/category/dlia-puteshestvii_2/">Для путешествий</a>
-                            <a tabindex="-1" href="/catalogue/category/kosmetichki_3/">Косметички</a>
-                            <a tabindex="-1" href="/catalogue/category/koshelki-i-kardkholdery_4/">Кошельки и кардхолдеры</a>
 
-                        </div>
-                        <div class="dropdownm-link col-sm-1">
-                            <a tabindex="-1" href="/catalogue/category/dlia-avto-dokumentov_5/">Для авто-документов</a>
-                            <a tabindex="-1" href="/catalogue/category/chekhly-i-papki_6/">Чехлы и папки</a>
-                            <a tabindex="-1" href="/catalogue/category/sumki-i-ru_7/">Сумки и рюкзаки</a>
-                            <a tabindex="-1" href="/catalogue/category/breloki_8/">Брелоки</a>
+    <div class="mobile-menu" id="myLinks">
+        <div class="t229__maincontainer" style="height:50px;">
+            <div class="t229__padding40px"></div>
+            <div class="t229__centerside ">
+                <ul class="uppercase">
+                    <li class="t229__list_item"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:brand' %}active-tab{% endif %}" href="{% url 'artskill:brand' %}">Бренд</a></li>
 
-                        </div>
-                        <div class="dropdownm-link col-sm-1">
-                            <a tabindex="-1" href="/catalogue/category/obuv_9/">Обувь</a>
-                            <a tabindex="-1" href="/catalogue/category/remni_10/">Ремни</a>
-                        </div>
-                        <div class="col-sm-6"></div>
+                    <li class="t229__list_item dropdownm"><a href="{% url 'catalogue:index' %}"
+                             class=" t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}">Каталог</a>
+                    </li>
 
-                    </div>
+                    <li class="t229__list_item"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}" href="{% url 'artskill:where-to-buy' %}" >Где купить?</a></li>
+                    <li class="t229__list_item"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:collaboration' %}active-tab{% endif %}" href="{% url 'artskill:collaboration' %}">Сотрудничество</a></li>
 
-                </li>
 
-                <li class="t229__list_item"
-                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
-                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}" href="{% url 'artskill:where-to-buy' %}" >Где купить?</a></li>
-                <li class="t229__list_item"
-                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
-                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:collaboration' %}active-tab{% endif %}" href="{% url 'artskill:collaboration' %}">Сотрудничество</a></li>
-                <li class="t229__list_item"
-                    style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
-                        class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:sale' %}active-tab{% endif %}" href="{% url 'artskill:sale' %}">Sale</a></li>
-            </ul>
+
+                    <li class="t229__list_item">
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                            href="{% url 'customer:profile-view'%}">
+                            Личный кабинет
+                        </a>
+                    </li>
+                    <li class="t229__list_item">
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                           href="{% url 'artskill:delivery' %}">
+                            Доставка
+                        </a>
+                    </li>
+                    <li class="t229__list_item">
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                           href="{% url 'artskill:delivery' %}">
+                            Возврат
+                        </a>
+                    </li>
+                    <li class="t229__list_item">
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                           href="{% url 'artskill:contacts' %}">
+                            Контакты
+                        </a>
+                    </li>
+                    <li class="t229__list_item"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:sale' %}active-tab{% endif %}" href="{% url 'artskill:sale' %}">Sale</a></li>
+                </ul>
+            </div>
+            <div class="t229__padding40px"></div>
         </div>
-        <div class="t229__padding40px"></div>
+
+    </div>
+
+
+    <div class="desktop-menu">
+        <div class="t229__maincontainer" style="height:50px;">
+            <div class="t229__padding40px"></div>
+            <div class="t229__centerside ">
+                <ul class="uppercase">
+                    <li class="t229__list_item"
+                        style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:brand' %}active-tab{% endif %}" href="{% url 'artskill:brand' %}">Бренд</a></li>
+
+                    <li class="t229__list_item dropdownm"
+                        style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                            onclick="myFunction()" class="dropbtnm t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}">Каталог</a>
+
+                        <div id="myDropdownm" class="dropdownm-content col-sm-12">
+                            <div class="col-sm-3"></div>
+                            <div class="dropdownm-link col-sm-1">
+                                <a tabindex="-1" href="{% url 'catalogue:index' %}" style="opacity: 1">Все категории</a>
+                                <a tabindex="-1" href="/catalogue/category/penaly-pro_1/">Пеналы PRO</a>
+                                <a tabindex="-1" href="/catalogue/category/dlia-puteshestvii_2/">Для путешествий</a>
+                                <a tabindex="-1" href="/catalogue/category/kosmetichki_3/">Косметички</a>
+                            </div>
+                            <div class="dropdownm-link col-sm-1">
+                                <a tabindex="-1" href="/catalogue/category/koshelki-i-kardkholdery_4/">Кошельки и кардхолдеры</a>
+                                <a tabindex="-1" href="/catalogue/category/dlia-avto-dokumentov_5/">Для авто-документов</a>
+                                <a tabindex="-1" href="/catalogue/category/chekhly-i-papki_6/">Чехлы и папки</a>
+                                <a tabindex="-1" href="/catalogue/category/sumki-i-ru_7/">Сумки и рюкзаки</a>
+                            </div>
+                            <div class="dropdownm-link col-sm-1">
+                                <a tabindex="-1" href="/catalogue/category/breloki_8/">Брелоки</a>
+                                <a tabindex="-1" href="/catalogue/category/obuv_9/">Обувь</a>
+                                <a tabindex="-1" href="/catalogue/category/remni_10/">Ремни</a>
+                            </div>
+                            <div class="col-sm-6"></div>
+
+                        </div>
+
+                    </li>
+
+                    <li class="t229__list_item"
+                        style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}" href="{% url 'artskill:where-to-buy' %}" >Где купить?</a></li>
+                    <li class="t229__list_item"
+                        style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:collaboration' %}active-tab{% endif %}" href="{% url 'artskill:collaboration' %}">Сотрудничество</a></li>
+                    <li class="t229__list_item"
+                        style="color:#000000;font-size:13px;font-weight:400;text-transform:uppercase;"><a
+                            class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:sale' %}active-tab{% endif %}" href="{% url 'artskill:sale' %}">Sale</a></li>
+                </ul>
+            </div>
+            <div class="t229__padding40px"></div>
+        </div>
     </div>
 </div>
 
