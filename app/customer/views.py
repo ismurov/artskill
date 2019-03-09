@@ -18,7 +18,7 @@ from oscar.core.loading import (
 from oscar.core.utils import safe_referrer
 from oscar.views.generic import PostActionMixin
 
-from . import signals
+from oscar.apps.customer import signals
 
 PageTitleMixin, RegisterUserMixin = get_classes(
     'customer.mixins', ['PageTitleMixin', 'RegisterUserMixin'])

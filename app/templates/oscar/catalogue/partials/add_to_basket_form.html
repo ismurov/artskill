@@ -14,7 +14,8 @@
     </form>
 {#{% comment %}#}
     {% iffeature "wishlists" %}
-        {% include "catalogue/partials/add_to_wishlist.html" %}
+        {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
+        {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
     {% endiffeature %}
 {#{% endcomment %}#}
 {% else %}
@@ -25,10 +26,11 @@
             {% csrf_token %}
             <p>{% trans "You can get an email alert when this product is back in stock." %}</p>
             {% include "partials/form_fields.html" with form=alert_form %}
-            <button type="submit" class="btn btn-lg btn-info btn-add-to-basket" data-loading-text="{% trans 'Submitting...' %}">{% trans "Notify me" %}</button>
+            <button type="submit" class="btn btn-lg btn-primary btn-add-to-basket" data-loading-text="{% trans 'Submitting...' %}">{% trans "Notify me" %}</button>
         </form>
     {% endif %}
     {% iffeature "wishlists" %}
-        {% include "catalogue/partials/add_to_wishlist.html" %}
+        {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
+        {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
     {% endiffeature %}
 {% endif %}

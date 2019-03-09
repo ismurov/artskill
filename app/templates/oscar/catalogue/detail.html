@@ -28,16 +28,17 @@
     <div class="col-sm-1"></div>
     <div class="col-sm-11">
         <ul class="breadcrumb">
+            {% get_product_parent product as product_parent %}
             <li>
-                <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+                <a href="{% url 'catalogue:index' %}">Каталог товаров</a>
             </li>
-            {% with category=product.categories.all.0 %}
+            {% with category=product_parent.categories.all.0 %}
                 {% for c in category.get_ancestors_and_self %}
                     <li>
                         <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                     </li>
                 {% endfor %}
-                <li class="active">{{ product.title }}</li>
+                <li class="active">{{ product_parent.title }}</li>
 
                 {% get_back_button as backbutton %}
                 {% if backbutton %}
@@ -115,13 +116,20 @@
                                     <h3>Цвет:</h3>
                                     {% for child in product_parent.children.all %}
                                         <a href="{{ child.get_absolute_url }}">
-                                            <p style="width: 50px;
-                                                    height: 50px;
+                                            <p style="display: inline-block;
+                                                    width: 30px;
+                                                    height: 30px;
+                                                    margin-left: 12px;
+                                                    border-radius: 50%;
                                                     background:
                                                     {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};
-                                                    border-radius: 50%;
-                                                    display: inline-block;
-                                                    margin-left: 10px;"></p>
+                                                    border: solid 1.5px
+                                                    {% if product.id == child.id %}
+                                                        #000000
+                                                    {% else %}
+                                                        #ffffff
+                                                    {% endif %};
+                                                    "></p>
                                         </a>
                                     {% endfor %}
                                 {% endif %}

@@ -40,9 +40,9 @@
 
 
 <div class="col-lg-12 col-sm-12 t-align_center" style="width: 80%; margin-left: 10%">
-    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('Moscow', this)" id="defaultOpen">Моя информация</button>
-    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('SPb', this)">Мои заказы</button>
-    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('Ekb', this)">Избранные</button>
+    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('Moscow', this)" {% if active_tab == 'profile' %}id="defaultOpen"{% endif %}>Моя информация</button>
+    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('SPb', this)" {% if active_tab == 'orders' %}id="defaultOpen"{% endif %}>Мои заказы</button>
+    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('Ekb', this)" {% if active_tab == 'wishlists' %}id="defaultOpen"{% endif %}>Избранные</button>
 </div>
 
 
@@ -59,6 +59,7 @@
 <div id="SPb" class="tabcontent col-sm-12">
     <div class="tab-border col-sm-12">
         {% block tabcontent1 %}
+
         {% endblock tabcontent1 %}
     </div>
 </div>

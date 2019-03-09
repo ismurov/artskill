@@ -35,6 +35,9 @@ def get_env_variable(var_name):
         raise ImproperlyConfigured(error_msg)
 
 
+SITE_NAME = 'Artskill'
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*'
 # DEBUG = True
@@ -84,7 +87,7 @@ INSTALLED_APPS = INSTALLED_APPS + oscar.get_core_apps([
     'app.basket',
     'app.catalogue',
     'app.dashboard.catalogue',
-    # 'app.customer',
+    'app.customer',
 ])
 
 # for FlatPages
@@ -109,7 +112,7 @@ TEMPLATES = [
         'DIRS': [
             app_root('templates'),
             app_root('templates/oscar'),
-            app_root('templates/oscar_original'),
+            # app_root('templates/oscar_original'),
             # oscar.OSCAR_MAIN_TEMPLATE_DIR
         ],
         'APP_DIRS': True,

@@ -1,19 +1,23 @@
 {% extends "catalogue/browse.html" %}
 
+{% load find_parent_tags %}
+
 {% load i18n %}
 
 {% block title %}
-    {{shop_name}} - {{ category.name }}
+    {{ shop_name }} - {{ category.name }}
 {% endblock %}
 
 {% block description %}
     {{ category.description|default:""|striptags }}
 {% endblock %}
 
-{% block header%}
+{% block header %}
     <div class="page-header action">
         {% if user.is_staff %}
-            <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-category-update' pk=category.id %}"><small><i class="icon-edit"></i> {% trans "Edit this category" %}</small></a>
+            <a class="pull-right hidden-xs" href="{% url 'dashboard:catalogue-category-update' pk=category.id %}">
+                <small><i class="icon-edit"></i> {% trans "Edit this category" %}</small>
+            </a>
         {% endif %}
         <h1>{% block headertext %}{{ category.name }}{% endblock %}</h1>
     </div>
@@ -21,20 +25,20 @@
 
 {% block breadcrumbs %}
 
-<div class="col-sm-1"></div>
-<div class="col-sm-11">
-    <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        {% for category in category.get_ancestors %}
-        <li>
-            <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
-        </li>
-        {% endfor %}
-        <li class="active">{{ category.name }}</li>
-    </ul>
-</div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <ul class="breadcrumb">
+            <li>
+                <a href="{% url 'catalogue:index' %}">Каталог товаров</a>
+            </li>
+            {% for category in category.get_ancestors %}
+                <li>
+                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+            <li class="active">{{ category.name }}</li>
+        </ul>
+    </div>
 
 {% endblock breadcrumbs %}
 
@@ -49,38 +53,60 @@
 
 
 
-<div class="col-sm-1"></div>
-<div class="col-sm-11">
-    <h2 class="category-heading">{{ category.name }}</h2>
-</div>
-
-
-
-{% if category.image %}
-{% for product in products %}
-<div class="col-sm-3">
-    <a href="{{product.get_absolute_url}}">
-    <div class="box">
-        <div class='aspect-ratio  grey'>
-                <img src="{{product.primary_image.original.url}}" alt="">
-                <h4>{{product}}</h4>
-                {% block product_description %}
-                {% if product.description %}
-
-                <p>{{ product.description|safe }}</p>
-                {% endif %}
-                {% endblock %}
-                <p class="price">
-                    {% block product_stock_record %}
-                    {% include "catalogue/partials/stock_record.html" with verbose=1 %}
-                    {% endblock %}
-                </p>
-        </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
+        <h2 class="category-heading">{{ category.name }}</h2>
     </div>
-    </a>
-</div>
-{% endfor %}
-{% endif %}
+
+
+
+    {% if category.image %}
+        {% for product in products %}
+            <div class="col-sm-3">
+                <a href="{{ product.get_absolute_url }}">
+                    <div class="box">
+                        <div class='aspect-ratio  grey'>
+                            <img src="{{ product.primary_image.original.url }}" alt="">
+
+                            {% load display_tags %}
+                            {% iffeature "wishlists" %}
+                                {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
+                                {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
+                            {% endiffeature %}
+
+                            {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    {% for child in product_parent.children.all %}
+                                        <p style="display: inline-block;
+                                                width: 20px;
+                                                height: 20px;
+                                                margin-left: 6px;
+                                                border-radius: 50%;
+                                                background:
+                                                {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};
+                                                border: solid 1px #000000;
+                                                "></p>
+                                    {% endfor %}
+                                {% endif %}
+
+                            <h4>{{ product }}</h4>
+                            {% block product_description %}
+                                {% if product.description %}
+                                    <p>{{ product.description|safe }}</p>
+                                {% endif %}
+                            {% endblock %}
+                            <p class="price">
+                                {% block product_stock_record %}
+                                    {% include "catalogue/partials/stock_record.html" with verbose=1 %}
+                                {% endblock %}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
 
 
 

@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout_2_col.html" %}
 
 {% load i18n %}
 
@@ -15,21 +15,27 @@
     </ul>
 {% endblock %}
 
+{% block navigation %}
+    {% include "partials/nav_index.html" %}
+{% endblock %}
+
 {% block headertext %}
     {% trans "Register" %}
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-6 register_form">
-            <form id="register_form" action="." method="post" class="form-stacked">
-                {% csrf_token %}
-                {% include "partials/form_fields.html"  %}
-                <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg" data-loading-text="{%trans 'Registering...' %}">{% trans 'Register' %}</button>
-                {% if cancel_url %}
-                    {% trans "or" %} <a href="{{ cancel_url }}">{% trans "cancel" %}</a>.
-                {% endif %}
-            </form>
-        </div>
+    <div class="form-container t-align_center">
+        <form class="well form" id="register_form" action="." method="post" class="form-stacked">
+            <h1 class="h2-art">Регистрация</h1>
+            {% csrf_token %}
+            {% include "partials/form_fields.html" %}
+            <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg"
+                    data-loading-text="{% trans 'Registering...' %}">{% trans 'Register' %}</button>
+            {% if cancel_url %}
+                <br>
+                {% trans "or" %} <a href="{{ cancel_url }}"> отмена.</a>
+            {% endif %}
+        </form>
     </div>
 {% endblock content %}
+

@@ -1,13 +1,15 @@
 {% load static %}
 
+{% load currency_filters %}
+{% load i18n %}
+
 <div class="col-sm-1"></div>
-<div class="col-sm-8 h1"><a href="{{ homepage_url }}"><img src="{% static 'oscar/img/artskill-logo-black.svg' %}"></a></div>
+<div class="col-sm-8 h1"><a href="{{ homepage_url }}"><img src="{% static 'oscar/img/artskill-logo-black.svg' %}"></a>
+</div>
 
 <div class="col-sm-3 h1">
-
-
-
-    <button id="myBtn" style="border: none; padding: 0"><img src="{% static '/oscar/img/icons/search-icon.svg' %}"></button>
+    <button id="myBtn" style="border: none; padding: 0"><img src="{% static '/oscar/img/icons/search-icon.svg' %}">
+    </button>
 
     <div id="myModal" class="modal">
 
@@ -21,13 +23,13 @@
         var modal = document.getElementById('myModal');
         var btn = document.getElementById("myBtn");
         var span = document.getElementsByClassName("close")[0];
-        btn.onclick = function() {
+        btn.onclick = function () {
             modal.style.display = "block";
         }
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
@@ -35,32 +37,70 @@
     </script>
 
 
-
     <div class="dropdown">
         <button class="dropbtn"><img src="{% static '/oscar/img/icons/user-icon.svg' %}"></button>
         <div class="dropdown-content">
             {% if user.is_authenticated %}
-            <a href="{% url 'customer:profile-view'%}">
-                Личный кабинет
-            </a>
-            <a href="{% url 'customer:logout' %}">
-                Выйти
-            </a>
+                <a href="{% url 'customer:profile-view' %}">
+                    Личный кабинет
+                </a>
+                <a href="{% url 'customer:logout' %}?next={{ request.path }}">
+                    Выйти
+                </a>
             {% else %}
-            <a href="{% url 'customer:login' %}?next={{ request.path }}">
-                Регистрация/Войти
-            </a>
+                <a href="{% url 'customer:login' %}?next={{ request.path }}">
+                    Войти
+                </a>
+                <a href="{% url 'customer:register' %}?next={{ request.path }}">
+                    Регистрация
+                </a>
             {% endif %}
 
         </div>
     </div>
 
 
-
-
-
     <a href="{% url 'basket:summary' %}">
         <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
+
+        {# Count of items in basket #}
+        {% if request.basket.num_items %}
+            <div style="display: inline-block;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    border-radius: 50%;
+                    font-size: 1rem;
+                    color: #fff;
+                    line-height: 1.5rem;
+                    text-align: center;
+                    background: #000">{{ request.basket.num_items }}</div>
+        {% endif %}
     </a>
+
+    <div class="basket-mini"
+        style="display: inline-block;
+        cursor: pointer;">
+        <span class="btn-group">
+            <span class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
+                {# Count of items in basket #}
+                {% if request.basket.num_items %}
+                    <div style="display: inline-block;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    border-radius: 50%;
+                    font-size: 1rem;
+                    color: #fff;
+                    line-height: 1.5rem;
+                    text-align: center;
+                    background: #000">{{ request.basket.num_items }}</div>
+                {% endif %}
+            </span>
+
+            <ul class="dropdown-menu pull-right">
+                <li>{% include "basket/partials/basket_quick.html" %}</li>
+            </ul>
+        </span>
+    </div>
 
 </div>
