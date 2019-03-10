@@ -100,6 +100,14 @@ class SubscribeThanksView(generic.TemplateView):
     }
 
 
+class RegistrationThanksView(generic.TemplateView):
+    template_name = 'artskill/thanks.html'
+    extra_context = {
+        'thanks_head': 'Спасибо',
+        'thanks_body': 'Регистрация прошла успешно.',
+    }
+
+
 class ThanksView(generic.TemplateView):
     template_name = 'artskill/thanks.html'
     extra_context = {

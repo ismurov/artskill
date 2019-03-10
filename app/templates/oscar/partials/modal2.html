@@ -6,33 +6,46 @@
             <h1 class="modal-form-heading">Регистрация</h1>
             <span class="close" data-modal="myModal2">&times;&nbsp;</span>
             <div class="form-container t-align_center">
-                <form class="modal-form form" id="register_form" action="{% url 'customer:register' %}?next={{ request.path }}" method="post" class="form-stacked">
+
+                <form class="modal-form form" id="register_form"
+                      action="{% url 'customer:register' %}" method="post" class="form-stacked">
 
                     {% csrf_token %}
+
                     <div class="form-bcg">
+
                         <div class="form-group ">
                             <div class="">
-                                <input type="name" name="name" class="form-control" required id="id_name" placeholder="Ваше имя">
+                                <input type="name" name="first_name" class="form-control" required id="id_name"
+                                       placeholder="Ваше имя">
+                            </div>
+                        </div>
+
+                        <div class="form-group ">
+                            <div class="">
+                                <input type="email" name="email" class="form-control" required id="id_email"
+                                       placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="">
-                                <input type="email" name="email" class="form-control" required id="id_email" placeholder="Email">
+                                <input type="password" name="password1" class="form-control" required id="id_password1"
+                                       placeholder="••••••••••••••">
                             </div>
                         </div>
                         <div class="form-group ">
                             <div class="">
-                                <input type="password" name="password1" class="form-control" required id="id_password1" placeholder="••••••••••••••">
+                                <input type="password" name="password2" class="form-control" required id="id_password2"
+                                       placeholder="••••••••••••••">
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="">
-                                <input type="password" name="password2" class="form-control" required id="id_password2" placeholder="••••••••••••••">
-                            </div>
-                        </div>
-                        <input type="hidden" name="redirect_url" value="/" id="id_redirect_url">
+
+                        <input type="checkbox" name="subscribe" id="id_subscribe">
+
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}" id="id_redirect_url">
                         <button name="registration_submit" type="submit" value="Register" class="btn btn-primary" style="color: #fff;width: 100%;height: 48px;background-color: #000000;border-color: #000000;"
                                 data-loading-text="Регистрация...">Отправить</button>
+
                     </div>
                 </form>
             </div>

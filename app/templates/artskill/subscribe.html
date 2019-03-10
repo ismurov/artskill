@@ -18,6 +18,7 @@
     <div class="form-container t-align_center">
         <form class="form" method="post">
             {% csrf_token %}
+            {{ form.non_field_errors }}
             {% for field in form %}
                 {{ field.errors }}
                 {{ field }}

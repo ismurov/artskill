@@ -6,24 +6,24 @@
             <h1 class="modal-form-heading">Войти</h1>
             <span class="close" data-modal="myModal3">&times;&nbsp;</span>
             <div class="form-container t-align_center">
-                <form class="modal-form form" id="login_form" action="{% url 'customer:login' %}?next={{ request.path }}" method="post" class="form-stacked">
+                <form class="modal-form form" id="login_form" action="{% url 'customer:login' %}" method="post" class="form-stacked">
 
                     {% csrf_token %}
                     <div class="form-bcg">
                         <div class="form-group ">
-                            <div class="" >
-                                <input type="email" name="email" class="form-control" required placeholder="Email">
+                            <div>
+                                <input type="email" name="login-username" class="form-control" required placeholder="Email">
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="">
-                                <input type="password" name="password1" class="form-control" required  placeholder="••••••••••••••">
+                        <div class="form-group">
+                            <div>
+                                <input type="password" name="login-password" class="form-control" required placeholder="••••••••••••••">
                             </div>
                         </div>
-                        <input type="hidden" name="redirect_url" value="/">
-                        <button name="registration_submit" type="submit" value="Register" class="btn btn-primary" style="color: #fff;width: 100%;height: 48px;background-color: #000000;border-color: #000000;"
-                                data-loading-text="Регистрация...">Отправить</button>
-                        <a href="#" style="font-size:14px; margin-top: 30px; color: #000000">Забыли пароль &#8250;</a>
+                        <input type="hidden" name="login-redirect_url" value="{{ request.path }}">
+                        <button name="login_submit" type="submit" value="Login" class="btn btn-primary" style="color: #fff;width: 100%;height: 48px;background-color: #000000;border-color: #000000;"
+                                data-loading-text="Авторизация...">Отправить</button>
+                        <a href="{% url 'password-reset' %}" style="font-size:14px; margin-top: 30px; color: #000000">Забыли пароль &#8250;</a>
                     </div>
                 </form>
             </div>

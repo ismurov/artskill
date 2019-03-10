@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans 'Login or register' %} | {{ block.super }}
+    Войти | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,7 +10,7 @@
         <li>
             <a href="{{ homepage_url }}">{% trans 'Home' %}</a>
         </li>
-        <li class="active">{% trans 'Login or register' %}</li>
+        <li class="active">Войти</li>
     </ul>
 {% endblock %}
 
@@ -18,38 +18,22 @@
 
 {% block content %}
     <div class="form-container t-align_center">
-        <form id="login_form" action="{{ request.get_full_path }}" method="post" class="well form">
-            <h2 class="h2-art">{% trans 'Log In' %}</h2>
+        <form class="form" method="post">
+            <h1 class="h2-art">Войти</h1>
             {% csrf_token %}
-            {% include "partials/form_fields.html" with form=login_form %}
-            <p><a href="{% url 'password-reset' %}">{% trans "I've forgotten my password" %}</a></p>
-            <button name="login_submit" type="submit" value="Log In" class="btn btn-lg btn-primary" style="width: 100%;"
-                    data-loading-text="{% trans "Logging in..." %}">{% trans 'Log In' %}</button>
+            {{ login_form.non_field_errors }}
+            {% for field in login_form %}
+                <div>
+                    {{ field }}<br>
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <button name="login_submit" type="submit" value="Login" class="btn btn-primary btn-lg"
+                    data-loading-text="Авторизация...">Отправить
+            </button>
+            <br><br>
+            <p><a href="{% url 'password-reset' %}" style="font-size:14px; margin-top: 30px; color: #000000">Забыли
+                пароль &#8250;</a></p>
         </form>
     </div>
-
-    {#    <div class="row">#}
-    {#        <div class="col-sm-6 login_form">#}
-    {#            <form id="login_form" action="{{ request.get_full_path }}" method="post" class="well form">#}
-    {#                <h2 class="h2-art">{% trans 'Log In' %}</h2>#}
-    {#                {% csrf_token %}#}
-    {#                {% include "partials/form_fields.html" with form=login_form %}#}
-    {#                <p><a href="{% url 'password-reset' %}">{% trans "I've forgotten my password" %}</a></p>#}
-    {#                <button name="login_submit" type="submit" value="Log In" class="btn btn-lg btn-primary"#}
-    {#                        style="width: 100%;"#}
-    {#                        data-loading-text="{% trans "Logging in..." %}">{% trans 'Log In' %}</button>#}
-    {#            </form>#}
-    {#        </div>#}
-    {#        <div class="col-sm-6 register_form">#}
-    {#            <form id="register_form" action="{{ request.get_full_path }}" method="post" class="well form">#}
-    {#                <h2 class="h2-art">Регистрация</h2>#}
-    {#                {% csrf_token %}#}
-    {#                {% include "partials/form_fields.html" with form=registration_form %}#}
-    {#                <button name="registration_submit" type="submit" value="Register" class="btn btn-lg btn-primary"#}
-    {#                        data-loading-text="{% trans 'Registering...' %}"#}
-    {#                        style="    width: 100%;">{% trans 'Register' %}</button>#}
-    {#            </form>#}
-    {#        </div>#}
-    {#    </div>#}
-
 {% endblock content %}
