@@ -10338,13 +10338,14 @@ padding: 60px;
   border-bottom: 1px solid black;
   font-weight: 600;
 }
+/*
 .tab-border {
   border-bottom: 1px solid #000000;
   border-left: 1px solid transparent;
   border-top: 1px solid #000000;
   border-right: 1px solid transparent;
   margin-top: -1px;
-}
+}*/
 
 .tabcontent {
   color: #000000;
@@ -10384,8 +10385,7 @@ text-align: left;
 /*collaboration*/
 
 
-input, textarea {
-  width: 350px;
+input, textarea, select {
   padding: 12px;
   background-color: rgba(9, 19, 33, 0.06);
   box-sizing: border-box;
@@ -10397,7 +10397,19 @@ input, textarea {
 .form .btn-primary {
   width: 350px;
 }
-
+input, textarea {
+  width: 350px;
+}
+.hundred {
+  width: 100%;
+  text-align: center;
+}
+.select-container {
+  width: 350px;
+}
+select {
+  width: 30%;
+}
 /*
 input[type=submit] {
   background-color: #4CAF50;
