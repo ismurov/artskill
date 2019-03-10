@@ -1,0 +1,32 @@
+{% extends "user_profile/base_user_page.html" %}
+
+{% load i18n %}
+
+{% block tabcontent %}
+    {% if wishlist %}
+
+        {# wishlist #}
+
+        {% with wishlist.lines.all as items %}
+            {% if items %}
+
+                {# products are in the wishlist #}
+
+                {% for product in items %}
+                    <p class="p-art">{{ product }}</p>
+                {% endfor %}
+            {% else %}
+
+                {# wishlist is empty #}
+
+                <p class="p-art">У вас пока нет ни одного товара в списка желаемых покупок.</p>
+            {% endif %}
+        {% endwith %}
+
+    {% else %}
+
+        {# no wishlist #}
+
+        <p class="p-art">У вас пока нет ни одного товара в списка желаемых покупок.</p>
+    {% endif %}
+{% endblock %}

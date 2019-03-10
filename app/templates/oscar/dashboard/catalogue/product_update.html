@@ -111,21 +111,25 @@
                                             {{ field }}
                                         {% endfor %}
 
+                                        {{ form.errors }}
                                         {% for field in form.visible_fields %}
                                             {% if 'attr' not in field.id_for_label %}
-                                                {# FIXIT: need init form from view #}
-                                                {% if field.name == 'details_description' %}
-                                                    {% if product and not product.is_child %}
+                                                {% if field.name == 'details_description' or field.name == 'use_colors' %}
+                                                    {% if not parent %}
                                                         {% include 'dashboard/partials/form_field.html' with field=field %}
                                                     {% endif %}
 
-                                                {% elif field.name == 'use_colors' %}
-                                                    {% if product and product.can_be_parent %}
+                                                {% elif field.name == 'rating' %}
+                                                    {% if not parent %}
                                                         {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                    {% else %}
+                                                        <div style="display: none">
+                                                            {% include 'dashboard/partials/form_field.html' with field=field %}
+                                                        </div>
                                                     {% endif %}
 
                                                 {% elif field.name == 'color' %}
-                                                    {% if product.is_child and product.parent.use_colors %}
+                                                    {% if parent and parent.use_colors %}
                                                         {% include 'dashboard/partials/form_field.html' with field=field %}
                                                     {% endif %}
 

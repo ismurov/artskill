@@ -1,15 +1,38 @@
 {% extends "layout_2_col.html" %}
+{% load static %}
 {% load i18n %}
 
 {% block navigation %}
-{% include "partials/nav_index.html" %}
+    {% include "partials/nav_index.html" %}
 {% endblock %}
 
 {% block extra %}
-{% include "partials/index_content.html" %}
+
+    {{ product_hits }}
+    <br>
+    {% for product in product_hits %}
+        {{ product }}
+        <br>
+    {% endfor %}
+
+
+    {% include "partials/index_content.html" %}
 {% endblock %}
 
 {% block header %}{% endblock %}
 
 {% block column_left %}
+{% endblock %}
+
+
+{% block extrastyles %}
+
+    <script src="{% static 'oscar/owlcarousel/jquery.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'oscar/owlcarousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oscar/owlcarousel/owl.theme.default.min.css' %}">
+
+
+    <script src="{% static 'oscar/owlcarousel/owl.carousel.min.js' %}"></script>
+
 {% endblock %}

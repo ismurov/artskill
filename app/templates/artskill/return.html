@@ -1,8 +1,9 @@
 {% extends "layout_2_col.html" %}
-{% load i18n %}
+
+{% block title %}Возврат{% endblock %}
 
 {% block navigation %}
-    {% include "partials/nav_primary.html" %}
+    {% include "partials/nav_index.html" %}
 {% endblock %}
 
 {% block header %}{% endblock %}
@@ -11,6 +12,18 @@
 {% endblock %}
 
 {% block content %}
-    {% include "artskill/_test_links.html" %}
-    <h1>RETURN</h1>
+    <h1 class="h1-art">Возврат</h1>
+    <p class="p-art">Если у Вас возник вопрос по нашему продукту, пожалуйста свяжитесь с нами.<br>
+        Мы все решим.</p>
+    <div class="form-container t-align_center">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field }}
+                <br>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+    </div>
 {% endblock content %}

@@ -9,4 +9,4 @@ class ProductForm(base_forms.ProductForm):
     class Meta(base_forms.ProductForm.Meta):
         fields = (
             'title', 'upc', 'description', 'details_description',
-            'is_discountable', 'structure', 'use_colors', 'color')
+            'is_discountable', 'structure', 'use_colors', 'color', 'rating')

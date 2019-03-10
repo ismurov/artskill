@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from oscar.apps.catalogue.abstract_models import AbstractProduct
 
@@ -42,6 +43,12 @@ class Product(AbstractProduct):
                                                 ' Товары добавляются в разделе Варианты.'))
     # color = models.IntegerField('Цвет', choices=COLOR_SET, default=NO_COLOR)
     color = models.CharField('Цвет', max_length=24, choices=COLOR_SET, default=NO_COLOR, blank=True)
+
+    rating = models.FloatField('Рейтинг товара', default=0,
+                               validators=[MinValueValidator(0),
+                                           MaxValueValidator(10)],
+                               help_text=('Хиты продаж на главной странице выводятся согласно рейтингу.<br>'
+                                          'Допустимые значения рейтинга от 0 до 5.'))
 
 
 from oscar.apps.catalogue.models import *

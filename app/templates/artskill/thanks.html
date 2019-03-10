@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block navigation %}
-{% include "partials/nav_index.html" %}
+    {% include "partials/nav_index.html" %}
 {% endblock %}
 
 {% block header %}{% endblock %}
@@ -11,8 +11,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="thanks col-sm-12">
-    <img src="{% static '/oscar/img/icons/success.svg' %}">
-    <h1 class="">Спасибо</h1>
-</div>
+    <div class="thanks col-sm-12">
+        <img src="{% static '/oscar/img/icons/success.svg' %}">
+        <h1 class="h1-art">{{ thanks_head }}</h1>
+        <p class="p-art">{{ thanks_body }}</p>
+    </div>
 {% endblock content %}

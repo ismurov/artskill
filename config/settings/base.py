@@ -14,6 +14,7 @@ import os
 import oscar
 
 from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -78,6 +79,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'app.artskill',
+    'app.user_profile',
     'app.robokassa',
 ]
 # Add forked oscar apps
@@ -111,9 +113,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             app_root('templates'),
-            app_root('templates/oscar'),
             # app_root('templates/oscar_original'),
-            # oscar.OSCAR_MAIN_TEMPLATE_DIR
+            app_root('templates/oscar'),
+            # oscar.OSCAR_MAIN_TEMPLATE_DIR,
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -274,6 +276,9 @@ OSCAR_SHOP_NAME = 'Artskill'
 OSCAR_SHOP_TAGLINE = 'Tagline'
 
 OSCAR_FROM_EMAIL = 'team@artskill.com'
+
+OSCAR_PROMOTIONS_ENABLED = False
+OSCAR_HOMEPAGE = reverse_lazy('artskill:home')
 
 OSCAR_DEFAULT_CURRENCY = 'RUB'
 # OSCAR_CURRENCY_FORMAT = {
