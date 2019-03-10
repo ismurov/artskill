@@ -84,23 +84,27 @@
 
                         <div id="myDropdownm" class="dropdownm-content col-sm-12">
                             <div class="col-sm-3"></div>
+
+                            {% category_tree depth=1 as category %}
+
                             <div class="dropdownm-link col-sm-1">
                                 <a tabindex="-1" href="{% url 'catalogue:index' %}" style="opacity: 1">Все категории</a>
-                                <a tabindex="-1" href="/catalogue/category/penaly-pro_1/">Пеналы PRO</a>
-                                <a tabindex="-1" href="/catalogue/category/dlia-puteshestvii_2/">Для путешествий</a>
-                                <a tabindex="-1" href="/catalogue/category/kosmetichki_3/">Косметички</a>
+                                <a tabindex="-1" href="{{ category.0.0.get_absolute_url }}">{{ category.0.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.1.0.get_absolute_url }}">{{ category.1.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.2.0.get_absolute_url }}">{{ category.2.0.name }}</a>
                             </div>
                             <div class="dropdownm-link col-sm-1">
-                                <a tabindex="-1" href="/catalogue/category/koshelki-i-kardkholdery_4/">Кошельки и кардхолдеры</a>
-                                <a tabindex="-1" href="/catalogue/category/dlia-avto-dokumentov_5/">Для авто-документов</a>
-                                <a tabindex="-1" href="/catalogue/category/chekhly-i-papki_6/">Чехлы и папки</a>
-                                <a tabindex="-1" href="/catalogue/category/sumki-i-ru_7/">Сумки и рюкзаки</a>
+                                <a tabindex="-1" href="{{ category.3.0.get_absolute_url }}">{{ category.3.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.4.0.get_absolute_url }}">{{ category.4.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.5.0.get_absolute_url }}">{{ category.5.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.6.0.get_absolute_url }}">{{ category.6.0.name }}</a>
                             </div>
                             <div class="dropdownm-link col-sm-1">
-                                <a tabindex="-1" href="/catalogue/category/breloki_8/">Брелоки</a>
-                                <a tabindex="-1" href="/catalogue/category/obuv_9/">Обувь</a>
-                                <a tabindex="-1" href="/catalogue/category/remni_10/">Ремни</a>
+                                <a tabindex="-1" href="{{ category.7.0.get_absolute_url }}">{{ category.7.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.8.0.get_absolute_url }}">{{ category.8.0.name }}</a>
+                                <a tabindex="-1" href="{{ category.9.0.get_absolute_url }}">{{ category.9.0.name }}</a>
                             </div>
+
                             <div class="col-sm-6"></div>
 
                         </div>

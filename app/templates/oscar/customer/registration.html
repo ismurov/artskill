@@ -24,20 +24,24 @@
 {% endblock %}
 
 {% block content %}
-    <div class="modal-container">
-        <div class="form-container t-align_center">
-            <form class="well form" id="register_form" action="." method="post" class="form-stacked">
-                <h1 class="h2-art">Регистрация</h1>
-                {% csrf_token %}
-                {% include "partials/form_fields.html" %}
-                <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg"
-                        data-loading-text="{% trans 'Registering...' %}">{% trans 'Register' %}</button>
-                {% if cancel_url %}
+    <div class="form-container t-align_center">
+        <form class="form" method="post">
+            <h1 class="h2-art">Регистрация</h1>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div>
+                    {{ field }}<br>
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg"
+                    data-loading-text="{% trans 'Registering...' %}">Отправить</button>
+            {% if cancel_url %}
                 <br>
                 {% trans "or" %} <a href="{{ cancel_url }}"> отмена.</a>
-                {% endif %}
-            </form>
-        </div>
+            {% endif %}
+        </form>
     </div>
 {% endblock content %}
 

@@ -274,7 +274,7 @@ from oscar.defaults import *
 OSCAR_SHOP_NAME = 'Artskill'
 # OSCAR_SHOP_TAGLINE = 'Tagline'
 
-OSCAR_FROM_EMAIL = 'team@artskill.com'
+OSCAR_FROM_EMAIL = 'team@artskill.store'
 
 OSCAR_PROMOTIONS_ENABLED = False
 OSCAR_HOMEPAGE = reverse_lazy('artskill:home')

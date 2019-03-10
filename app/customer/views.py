@@ -6,11 +6,15 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import generic
 from django.shortcuts import render
 from django.db import transaction
+from django.urls import reverse, reverse_lazy
 
 from oscar.core.compat import get_user_model
 from oscar.core.loading import (
     get_class, get_classes, get_model, get_profile_class)
 from oscar.views.generic import PostActionMixin
+from oscar.core.utils import safe_referrer
+
+from app.artskill.models import Subscriber
 
 from .forms import MyUserForm, MyProfileForm
 
@@ -30,6 +34,48 @@ ProfileForm, ConfirmPasswordForm = get_classes(
 UserAddressForm = get_class('address.forms', 'UserAddressForm')
 Line = get_model('basket', 'Line')
 Basket = get_model('basket', 'Basket')
+
+
+class AccountRegistrationView(RegisterUserMixin, generic.FormView):
+    form_class = EmailUserCreationForm
+    template_name = 'customer/registration.html'
+    redirect_field_name = 'next'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(settings.LOGIN_REDIRECT_URL)
+        return super(AccountRegistrationView, self).get(
+            request, *args, **kwargs)
+
+    def get_logged_in_redirect(self):
+        return reverse('customer:summary')
+
+    def get_form_kwargs(self):
+        kwargs = super(AccountRegistrationView, self).get_form_kwargs()
+        kwargs['initial'] = {
+            'subscribe': True,
+            'email': self.request.GET.get('email', ''),
+            'redirect_url': self.request.GET.get(self.redirect_field_name, '')
+        }
+        kwargs['host'] = self.request.get_host()
+        return kwargs
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(AccountRegistrationView, self).get_context_data(
+            *args, **kwargs)
+        ctx['cancel_url'] = safe_referrer(self.request, '')
+        return ctx
+
+    def form_valid(self, form):
+        self.register_user(form)
+        email = form.cleaned_data['email']
+        subscribe = form.cleaned_data.get('subscribe')
+        if subscribe:
+            subscriber, created = Subscriber.objects.get_or_create(email=email)
+            if created:
+                subscriber.save()
+        return redirect(reverse_lazy('artskill:registration-thanks'))
+        # return redirect(form.cleaned_data['redirect_url'])
 
 
 # =============
