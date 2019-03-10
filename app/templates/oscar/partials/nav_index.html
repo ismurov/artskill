@@ -23,15 +23,17 @@
                             class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:brand' %}active-tab{% endif %}" href="{% url 'artskill:brand' %}">Бренд</a></li>
 
                     <li class="t229__list_item dropdownm"><a href="{% url 'catalogue:index' %}"
-                             class=" t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}">Каталог</a>
+                             class=" t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}">Каталог<!--<img src="{% static 'oscar/img/icons/down-arrow.svg' %}" style="width: 20px; margin-left: 10px;"--></a>
                     </li>
+
+
+
+
 
                     <li class="t229__list_item"><a
                             class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}" href="{% url 'artskill:where-to-buy' %}" >Где купить?</a></li>
                     <li class="t229__list_item"><a
                             class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:collaboration' %}active-tab{% endif %}" href="{% url 'artskill:collaboration' %}">Сотрудничество</a></li>
-
-
 
                     <li class="t229__list_item">
                         <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
