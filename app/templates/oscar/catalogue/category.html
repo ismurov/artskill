@@ -43,14 +43,7 @@
 {% endblock breadcrumbs %}
 
 
-
-
-
-
 {% block content %}
-
-
-
 
 
     <div class="col-sm-1"></div>
@@ -59,88 +52,73 @@
     </div>
 
 
+    {% for product in products %}
+        <div class="col-sm-3">
 
-    {% if category.image %}
-        {% for product in products %}
-            <div class="col-sm-3">
+            <a href="{{ product.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey bcgi category-hover{{ forloop.counter0 }}'>
 
-                <a href="{{ product.get_absolute_url }}">
-                    <div class="box">
-                        <div class='aspect-ratio grey bcgi category-hover{{ forloop.counter0 }}'>
+                        <div class="item-opt col-sm-12">
 
-                            <div class="item-opt col-sm-12">
-
-
-                                <div class="item-opt-colours col-sm-6">
-                                    {# Colors Panel #}
-                                    {% get_product_parent product as product_parent %}
-                                    {% if product_parent.can_be_parent and product_parent.use_colors %}
+                            <div class="item-opt-colours col-sm-6">
+                                {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
                                     {% for child in product_parent.children.all %}
-                                    <p class="item-circle" style="
+                                        <p class="item-circle" style="
                                                 background:
                                                 {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};"></p>
                                     {% endfor %}
-                                    {% endif %}
-                                </div>
-
-                                <div class="item-opt-like col-sm-6" style="text-align: right;">
-                                    {% load display_tags %}
-                                    {% iffeature "wishlists" %}
-                                    {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
-                                    {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
-                                    {% endiffeature %}
-                                </div>
-
-
-
-                            </div>
-
-                            <div class="item-descr">
-                                <h4>{{ product }}</h4>
-                                {% block product_description %}
-                                {% if product.description %}
-                                <p>{{ product.description|safe }}</p>
                                 {% endif %}
-                                {% endblock %}
-                                <p class="price">
-                                    {% block product_stock_record %}
-                                    {% include "catalogue/partials/stock_record.html" with verbose=1 %}
-                                    {% endblock %}
-                                </p>
                             </div>
 
-
-
-
-
-
-
+                            <div class="item-opt-like col-sm-6" style="text-align: right;">
+                                {% load display_tags %}
+                                {% iffeature "wishlists" %}
+                                    {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
+                                {% endiffeature %}
+                            </div>
 
                         </div>
 
-                        {% with all_images=product.get_all_images %}
-                        <style>
-                            .category-hover{{ forloop.counter0 }} {background-image: url('{{ all_images.0.original.url }}');}
-                            .category-hover{{ forloop.counter0 }}:hover {
-                                                                     background-image: url('{{ all_images.1.original.url }}');
-                                                                 }
-                            .category-hover{{ forloop.counter0 }}:hover .item-opt {
-                                display: block;
-                                                                 }
-                        </style>
-                        {% endwith %}
-
-
-
-
+                        <div class="item-descr">
+                            <h4>{{ product }}</h4>
+                            {% block product_description %}
+                                {% if product.description %}
+                                    <p>{{ product.description|safe }}</p>
+                                {% endif %}
+                            {% endblock %}
+                            <p class="price">
+                                {% block product_stock_record %}
+                                    {% include "catalogue/partials/stock_record.html" with verbose=1 %}
+                                {% endblock %}
+                            </p>
+                        </div>
 
                     </div>
-                </a>
-            </div>
-        {% endfor %}
-    {% endif %}
+
+                    {% with all_images=product.get_all_images %}
+                        <style>
+                            .category-hover{{ forloop.counter0 }} {
+                                background-image: url('{{ all_images.0.original.url }}');
+                            }
+
+                            .category-hover{{ forloop.counter0 }}:hover {
+                                background-image: url('{{ all_images.1.original.url }}');
+                            }
+
+                            .category-hover{{ forloop.counter0 }}:hover .item-opt {
+                                display: block;
+                            }
+                        </style>
+                    {% endwith %}
 
 
+                </div>
+            </a>
+        </div>
+    {% endfor %}
 
 
 {% endblock %}
