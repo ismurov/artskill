@@ -8,6 +8,7 @@ from oscar.core import prices
 
 shipping = settings.SHIPPING_METHODS_STANDARD_OPTIONS
 
+
 class Standard(methods.Base):
     code = 'standard'
     name = shipping[code]['name']

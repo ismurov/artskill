@@ -31,66 +31,23 @@
     </ul>
 {% endblock %}
 
-
-
-
 {% block content %}
-<h1>Личный кабинет</h1>
-<p class="t-align_center">Здравствуйте, {{ user.get_full_name|default:'заполните пожалуйста личные данные' }}!</p>
+    <h1>Личный кабинет</h1>
+    <p class="t-align_center">Здравствуйте, {{ user.get_full_name|default:'заполните пожалуйста личные данные' }}!</p>
 
-
-<div class="col-lg-12 col-sm-12 t-align_center" style="width: 80%; margin-left: 10%">
-    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('Moscow', this)" {% if active_tab == 'profile' %}id="defaultOpen"{% endif %}>Моя информация</button>
-    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('SPb', this)" {% if active_tab == 'orders' %}id="defaultOpen"{% endif %}>Мои заказы</button>
-    <button class="tablink col-lg-4 col-sm-4 col-12" onclick="openCity('Ekb', this)" {% if active_tab == 'wishlists' %}id="defaultOpen"{% endif %}>Избранные</button>
-</div>
-
-
-
-<div id="Moscow" class="tabcontent col-sm-12">
-    <div class="tab-border col-sm-12">
-        {% block tabcontent %}
-        {% include 'partials/form.html' with form_id="profile_form" action="." %}
-        {% endblock tabcontent %}
+    <div class="col-lg-12 col-sm-12 t-align_center" style="width: 80%; margin-left: 10%">
+        <a class="col-lg-4 col-sm-4 col-12 {% if active_tab == 'profile' %}user-active-tab{% else %}user-tab{% endif %}"
+           href="{% url 'customer:profile-view' %}">Моя информация</a>
+        <a class="col-lg-4 col-sm-4 col-12 {% if active_tab == 'orders' %}user-active-tab{% else %}user-tab{% endif %}"
+           href="{% url 'customer:order-list' %}">Мои заказы</a>
+        <a class="col-lg-4 col-sm-4 col-12 {% if active_tab == 'wishlists' %}user-active-tab{% else %}user-tab{% endif %}"
+           href="{% url 'customer:wishlists-list' %}">Избранные</a>
     </div>
-</div>
 
-
-<div id="SPb" class="tabcontent col-sm-12">
-    <div class="tab-border col-sm-12">
-        {% block tabcontent1 %}
-
-        {% endblock tabcontent1 %}
+    <div class="col-sm-12">
+        <div class="tab-border col-sm-12">
+            {% block tabcontent %}
+            {% endblock tabcontent %}
+        </div>
     </div>
-</div>
-
-
-<div id="Ekb" class="tabcontent col-sm-12">
-    <div class="tab-border col-sm-12">
-        {% block tabcontent2 %}
-        {% endblock tabcontent2 %}
-    </div>
-</div>
-
-
-
-<script>
-    function openCity(cityName, elmnt) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].style.fontWeight = "400";
-            tablinks[i].style.borderBottomColor= "#999999";
-        }
-        document.getElementById(cityName).style.display = "block";
-        elmnt.style.fontWeight = 600;
-        elmnt.style.borderBottomColor = "#000000";
-    }
-    document.getElementById("defaultOpen").click();
-</script>
-
 {% endblock content %}

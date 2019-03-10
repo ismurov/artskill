@@ -33,7 +33,6 @@ urlpatterns = [
     # Nonetheless, it's often useful for debugging.
     path('admin/', admin.site.urls),
     path('', include('app.artskill.urls')),
-    path('user/', include('app.user_profile.urls')),
     path('', application.urls),
 
     path('payment/', include('app.robokassa.urls')),

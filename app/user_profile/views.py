@@ -2,16 +2,20 @@ from django.views import generic
 from django.shortcuts import render
 from django.db import transaction
 from django.contrib import messages
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from oscar.core.compat import get_user_model
+from oscar.core.loading import get_model
 
 # same
 # from django.contrib.auth.models import User
 
 from .forms import UserForm, ProfileForm
 
+
 User = get_user_model()
+Order = get_model('order', 'Order')
 
 
 class ProfileView(generic.View):
@@ -46,11 +50,17 @@ class ProfileView(generic.View):
         })
 
 
-class OrdersView(generic.TemplateView):
+class OrdersView(generic.ListView):
+    context_object_name = "orders"
     template_name = 'user_profile/orders.html'
+    paginate_by = settings.OSCAR_ORDERS_PER_PAGE
+    model = Order
     extra_context = {
         'active_tab': 'orders',
     }
+
+    def get_queryset(self):
+        return self.model._default_manager.filter(user=self.request.user)
 
 
 class FavoritesView(generic.View):

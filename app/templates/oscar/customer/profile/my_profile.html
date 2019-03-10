@@ -1,0 +1,42 @@
+{% extends "customer/baseaccountpage.html" %}
+
+{% load i18n %}
+
+{% block tabcontent %}
+    <div class="form-container t-align_center">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ user_form.non_field_errors }}
+            {{ profile_form.non_field_errors }}
+            {% for field in user_form %}
+                <div>
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                    {{ field }}<br>
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+
+            {% for field in profile_form %}
+                {% if field.name == 'gender' %}
+                    <div>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                        {% for radio in field %}
+                            <div class="myradio">
+                                {{ radio }}
+                            </div>
+                        {% endfor %}
+                        {{ field.errors }}
+                    </div>
+                {% else %}
+                    <div>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                        {{ field }}<br>
+                        {{ field.errors }}
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Сохранить изменения</button>
+        </form>
+    </div>
+{% endblock %}

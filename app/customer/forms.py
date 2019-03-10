@@ -1,10 +1,12 @@
+from oscar.apps.customer.forms import *
+
 from django import forms
 from django.utils import timezone
 
-from .models import User, Profile
+from .models import Profile
 
 
-class UserForm(forms.ModelForm):
+class MyUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
@@ -13,7 +15,7 @@ class UserForm(forms.ModelForm):
         }
 
 
-class ProfileForm(forms.ModelForm):
+class MyProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('phone', 'birth_date', 'gender')

@@ -79,7 +79,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'app.artskill',
-    'app.user_profile',
     'app.robokassa',
 ]
 # Add forked oscar apps
@@ -273,7 +272,7 @@ from oscar.defaults import *
 # ====
 
 OSCAR_SHOP_NAME = 'Artskill'
-OSCAR_SHOP_TAGLINE = 'Tagline'
+# OSCAR_SHOP_TAGLINE = 'Tagline'
 
 OSCAR_FROM_EMAIL = 'team@artskill.com'
 
