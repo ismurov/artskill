@@ -8,24 +8,7 @@
 
     <div class="col-sm-1"></div>
 
-    <div class="col-sm-8 col-xs-8 h1">
-        <a href="javascript:void(0);" class="menubars col-xs-2" onclick="menuFunction()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-                <path fill="#3C3D41" fill-rule="nonzero" d="M8 21.5V19h25v2.5H8zM8 19h25v2.5H8V19zm0 10.5V27h25v2.5H8zM8 27h25v2.5H8V27zm0-13.5V11h25v2.5H8zM8 11h25v2.5H8V11z"/>
-            </svg>
-        </a>
-        <a href="{{ homepage_url }}" class="col-sm-4 col-xs-10"><img src="{% static 'oscar/img/artskill-logo-black.svg' %}" class="logo"></a>
-    </div>
-    <script>
-        function menuFunction() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
-        }
-    </script>
+    {% include 'partials/mobile_menu.html' %}
 
 
     <div class="col-sm-3 col-xs-4 h1">
@@ -41,7 +24,7 @@
 
 
 
-        <div class="dropdown user-desctop col-lg-2  col-sm-4 col-xs-6">
+        <div class="dropdown user-desctop col-lg-2 col-sm-4 col-xs-6">
             <button class="dropbtn"><img src="{% static '/oscar/img/icons/user-icon.svg' %}"></button>
             <div class="dropdown-content">
                 {% if user.is_authenticated %}
@@ -52,63 +35,16 @@
                     Выйти
                 </a>
                 {% else %}
-                <a href="{% url 'customer:login' %}?next={{ request.path }}">
-                    Войти
-                </a>
+
+
+                <button class="myBtn" data-modal="myModal3" >Войти</button>
+                {% include "partials/modal3.html" %}
+
 
                 <button class="myBtn" data-modal="myModal2" >Регистрация</button>
-                <div id="myModal2" class="modal">
-                    <div class="trtrtr">
-                        <div class="modal-container">
-                            <h1 class="modal-form-heading">Регистрация</h1>
-                            <span class="close" data-modal="myModal2">&times;&nbsp;</span>
+                {% include "partials/modal2.html" %}
 
-
-                            <div class="form-container t-align_center">
-                                <form class="modal-form form" id="register_form" action="{% url 'customer:register' %}?next={{ request.path }}" method="post" class="form-stacked">
-
-                                    {% csrf_token %}
-                                    <div class="form-bcg">
-                                        <div class="form-group ">
-                                            <div class="">
-                                                <input type="name" name="name" class="form-control" required id="id_name" placeholder="Ваше имя">
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="">
-                                                <input type="email" name="email" class="form-control" required id="id_email" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="">
-                                                <input type="password" name="password1" class="form-control" required id="id_password1" placeholder="••••••••••••••">
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="">
-                                                <input type="password" name="password2" class="form-control" required id="id_password2" placeholder="••••••••••••••">
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="redirect_url" value="/" id="id_redirect_url">
-                                        <button name="registration_submit" type="submit" value="Register" class="btn btn-primary" style="color: #fff;width: 100%;height: 48px;background-color: #000000;border-color: #000000;"
-                                                data-loading-text="Регистрация...">Отправить</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
                 {% endif %}
-
-
-
-
-
-
-
-
             </div>
         </div>
 
@@ -136,7 +72,7 @@
 </div>
 
 <script>
-    var modal = document.getElementById('myModal');
+
     var buttons = document.getElementsByClassName("myBtn")
     var span = document.getElementsByClassName("close");
 
@@ -162,6 +98,4 @@
             event.target.style.display = "none";
         }
     }
-
-
 </script>

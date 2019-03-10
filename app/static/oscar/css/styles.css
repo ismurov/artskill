@@ -10101,7 +10101,7 @@ p.pr {
 
 .category-name {
   position: absolute;
-  bottom: 1%;
+  bottom: 0;
   left: 10%;
   font-size: 18px;
   font-weight: 600;
@@ -10287,13 +10287,7 @@ h2.description {
   color: #000000;
   text-transform: uppercase;
 }
-.desc-header {
-  border-bottom: 2px solid #4a4a4a;
- margin-right: 60px;
-}
-.desc-header h2 {
 
-}
 
 a {
   color: #777777;
@@ -10656,7 +10650,7 @@ float: none !important;
   z-index: 1;
 }
 
-.dropdown-content button {
+.dropdown-content button, .dropdown-content a{
   border: none;
   background: transparent;
   color: black;
@@ -10669,6 +10663,7 @@ float: none !important;
 }
 
 .dropdown-content button:hover {opacity: 1; transition: 0.3s}
+.dropdown-content a:hover {opacity: 1; transition: 0.3s}
 
 .dropdown:hover .dropdown-content {display: block;}
 
@@ -11348,6 +11343,57 @@ button.like {
   width: 50%;
   margin: 10% 25%;
 }
-#login_form input, #register_form input {
-  background: rgba(9, 19, 33, 0.06) !important;
+
+@media screen and (max-width: 981px) {
+  .side-desktop-menu {
+display: none;
+  }
+  .catalogue-desktop-content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .category-name {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .category-name {
+    font-size: 18px;
+  }
+}
+/*detail*/
+.mobile-detail {
+  display: none;
+}
+.desktop-detail {
+  display: block;
+}
+@media screen and (max-width: 767px) {
+  .mobile-detail {
+    display: block;
+  }
+  .desktop-detail {
+    display: none;
+  }
+  .desc-header {
+    margin-right: 0;
+  }
+  .add-to-basket {
+    width: 100%;
+  }
+  .add-to-basket .btn {
+    width: 100%;
+  }
+}
+/*slider*/
+.mobile-detail .owl-theme .owl-dots .owl-dot span {
+  border-radius: 0;
+  height: 2px;
+  width: 100%;
+}
+.mobile-detail .owl-carousel .owl-nav button.owl-next, .mobile-detail .owl-carousel .owl-nav button.owl-prev, .mobile-detail .owl-carousel button.owl-dot {
+  width: 15%;
+  margin: 1%;
 }

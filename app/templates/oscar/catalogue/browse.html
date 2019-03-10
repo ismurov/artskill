@@ -22,7 +22,7 @@
 
 <div class="catalogue_content">
 
-    <div class="col-sm-2">
+    <div class="col-sm-2 side-desktop-menu">
         {% block nav_dropdown %}
         <h2 style="font-size: 20px; text-align: left;letter-spacing: normal; margin-top:0;margin-bottom: 5%">Категории</h2>
         <ul id="browse" class="list-goods">
@@ -57,8 +57,8 @@
     </div><!-- /navbar-collapse -->
 
 
-    <div class="col-sm-10">
-        <div class="col-sm-6 big-box">
+    <div class="col-sm-10 catalogue-desktop-content">
+        <div class="col-sm-6 col-xs-12 big-box">
 
             {# Load categories! #}
             {% category_tree as categories %}
@@ -80,8 +80,8 @@
             {% endwith %}
         </div>
 
-        <div class="col-sm-3">
-            <div class=col-sm-6">
+        <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.2.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -97,7 +97,7 @@
                 </a>
                 {% endwith %}
             </div>
-            <div class=col-sm-6">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.3.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -114,10 +114,8 @@
                 </a>
                 {% endwith %}
             </div>
-        </div>
 
-        <div class="col-sm-3">
-            <div class=col-sm-6">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.4.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -134,7 +132,7 @@
                 </a>
                 {% endwith %}
             </div>
-            <div class=col-sm-6">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.7.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -157,10 +155,10 @@
 
 
     <div class="col-sm-2"></div>
-    <div class="col-sm-10">
+    <div class="col-sm-10 catalogue-desktop-content">
 
-        <div class="col-sm-3">
-            <div class=col-sm-6">
+        <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.5.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -177,7 +175,7 @@
                 </a>
                 {% endwith %}
             </div>
-            <div class=col-sm-6">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.6.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -194,11 +192,8 @@
                 </a>
                 {% endwith %}
             </div>
-        </div>
 
-
-        <div class="col-sm-3">
-            <div class=col-sm-6">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.9.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -215,7 +210,7 @@
                 </a>
                 {% endwith %}
             </div>
-            <div class=col-sm-6">
+            <div class="col-sm-6 col-xs-6">
                 {% with category=categories.8.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class="box">
@@ -234,7 +229,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-6 col-xs-12">
             <div class="box">
                 {% with category=categories.1.0 %}
                 <a href="{{ category.get_absolute_url }}">
@@ -247,20 +242,20 @@
                     {% endif %}
 
                 </div>
+                </a>
             </div>
-            </a>
             {% endwith %}
         </div>
     </div>
-    </div>
-
-
-
-
-
-
-
 </div>
+
+
+
+
+
+
+
+
 
 
 
