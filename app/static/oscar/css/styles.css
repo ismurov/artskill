@@ -10102,7 +10102,7 @@ p.pr {
 
 .category-name {
   position: absolute;
-  bottom: 0;
+  bottom: 3%;
   left: 10%;
   font-size: 18px;
   font-weight: 600;
@@ -10387,6 +10387,7 @@ text-align: left;
 
 
 input, textarea, select {
+  width: 350px;
   padding: 12px;
   background-color: rgba(9, 19, 33, 0.06);
   box-sizing: border-box;
@@ -10398,18 +10399,14 @@ input, textarea, select {
 .form .btn-primary {
   width: 350px;
 }
-input, textarea {
-  width: 350px;
+.select-container select {
+  width: 116.6px;
 }
-.hundred {
-  width: 100%;
-  text-align: center;
-}
-.select-container {
-  width: 350px;
-}
-select {
-  width: 30%;
+
+.myradio input {
+  width: 20px;
+  margin: 10px 0;
+
 }
 /*
 input[type=submit] {
@@ -11409,4 +11406,73 @@ display: none;
 .mobile-detail .owl-carousel .owl-nav button.owl-next, .mobile-detail .owl-carousel .owl-nav button.owl-prev, .mobile-detail .owl-carousel button.owl-dot {
   width: 15%;
   margin: 1%;
+}
+.datetimepicker-days {
+  padding: 0 20px;
+}
+.filter .input-group {
+  width: 60%;
+  margin-left: 20px;
+}
+.filter .form-group #id_order_number {
+  width: 60%;
+  margin-left: 20px;
+}
+.filter-buttons {
+  width: 60%;
+  margin-left: 35%;
+}
+.filter-buttons button {
+  width: 30%;
+}
+.filter-btn {
+  display: inline-block;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 14px 12px;
+  font-size: 14px;
+  color: #ccc;
+  width: 27.5%;
+  height: 48px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 0;
+}
+.filter-btn:hover {
+  color: #000000;
+  border: 1px solid #000000;
+  transition: 0.3s;
+}
+table.filter-table {
+  width: 60%;
+  margin-top: 20px;
+  margin-left: 20%;
+  text-align: center;
+}
+.table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border: 1px solid #ffffff;
+  text-align: center;
+}
+.wishlist .btn-add-to-basket {
+  margin: 20px 0;
+}
+.wishlist .form-group {
+  display: none;
+}
+.wishlist .unlike-btn {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  color: #000000;
+  margin: 0;
+}
+h3.category-name-top {
+  font-size: 40px;
+}
+#browse {
+  padding-left: 0;
+}
+#browse .list-goods {
+  padding-left: 0;
 }

@@ -356,9 +356,7 @@
 
 
         <div>
-            <h2 class="mt-5">Здесь будет подробное описание товара</h2>
-            <h3>{{ product_parent.details_description|safe }}</h3>
-            <h2>Конец описания</h2>
+            <p style="margin: 50px 20%;">{{ product_parent.details_description|safe }}</p>
 
             {% for av in product.attribute_values.all %}
                 {{ av.attribute.name }}<br>

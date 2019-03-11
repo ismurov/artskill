@@ -18,7 +18,7 @@
 
             {% for field in profile_form %}
                 {% if field.name == 'gender' %}
-                    <div class="hundred t-align_center">
+                    <div class=" t-align_center">
                         <div  class="select-container t-align_center">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
                             {% for radio in field %}
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="hundred t-align_center">
+                    <div class=" t-align_center">
                         <div  class="select-container t-align_center ">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
                             {{ field }}<br>

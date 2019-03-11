@@ -26,7 +26,7 @@
         {% for wishlist in product_wishlists %}
             <form action="{% url 'customer:wishlists-remove-product' key=wishlist.key product_pk=product.id %}" method="post">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-lg btn-primary btn-add-to-basket">Unlike it!</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-add-to-basket unlike-btn">Удалить</button>
             </form>
         {% endfor %}
     {% endwith %}
