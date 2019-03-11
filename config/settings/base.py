@@ -177,7 +177,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -280,15 +280,11 @@ OSCAR_PROMOTIONS_ENABLED = False
 OSCAR_HOMEPAGE = reverse_lazy('artskill:home')
 
 OSCAR_DEFAULT_CURRENCY = 'RUB'
-# OSCAR_CURRENCY_FORMAT = {
-#     'USD': {
-#         'currency_digits': False,
-#         'format_type': "accounting",
-#     },
-#     'EUR': {
-#         'format': u'#,##0\xa0¤',
-#     }
-# }
+OSCAR_CURRENCY_FORMAT = {
+    'RUB': {
+        'format': u'#####;',
+    },
+}
 
 # Order processing
 # ================

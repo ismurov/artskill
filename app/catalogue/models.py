@@ -9,29 +9,31 @@ class Product(AbstractProduct):
     NO_COLOR = ''
     BLACK = '#000000'
     GRAY = '#81858b'
-    BROWN = '#ad7c51'
     WHITE = '#ffffff'
-    BEIGE = '#f4dfbc'
-    GREEN = '#8ab162'
     RED = '#f53b3b'
+    ORANGE = '#ff6500'
     YELLOW = '#f5a623'
-    BLUE = '#3653a5'
-    OCHER = '#d9b06b'
+    GREEN = '#8ab162'
     LIGHT_BLUE = '#5487ae'
+    BLUE = '#3653a5'
+    BEIGE = '#f4dfbc'
+    OCHER = '#d9b06b'
+    BROWN = '#ad7c51'
 
     COLOR_SET = (
         (NO_COLOR, 'цвет не установлен'),
         (BLACK, 'черные'),
         (GRAY, 'серый'),
-        (BROWN, 'коричневый'),
         (WHITE, 'белый'),
-        (BEIGE, 'бежевый'),
-        (GREEN, 'зеленый'),
         (RED, 'красный'),
+        (ORANGE, 'оранжевый'),
         (YELLOW, 'желтый'),
-        (BLUE, 'синий'),
-        (OCHER, 'охра'),
+        (GREEN, 'зеленый'),
         (LIGHT_BLUE, 'голубой'),
+        (BLUE, 'синий'),
+        (BEIGE, 'бежевый'),
+        (OCHER, 'охра'),
+        (BROWN, 'коричневый'),
     )
 
     description = models.TextField('Краткое описание', blank=True)
