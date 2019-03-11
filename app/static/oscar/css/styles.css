@@ -11157,7 +11157,7 @@ input {
   margin-bottom: 10px;
 }
 .mini-busket-price {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -11249,6 +11249,7 @@ button.like {
   height: 560px;
   background-position: right;
   background-repeat: no-repeat;
+  background-size: cover;
   transition: 0.1s;
 }
 @media screen and (max-width: 1055px) {
@@ -11455,6 +11456,10 @@ table.filter-table {
   border: 1px solid #ffffff;
   text-align: center;
 }
+.table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > th, .table > caption + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > td, .table > thead:first-child > tr:first-child > td {
+  border: 1px solid #ffffff;
+  text-align: center;
+}
 .wishlist .btn-add-to-basket {
   margin: 20px 0;
 }
@@ -11534,6 +11539,7 @@ h3.category-name-top {
 }
 #checkbox:checked + label{
   color: #000;
+  line-height: 0.68;
 }
 #checkbox:checked + label:before{
   color: #000000;
@@ -11548,4 +11554,25 @@ h3.category-name-top {
   color: #000000;
   text-align: left;
   margin-top: 4px;
+}
+@media (max-width: 600px) {
+  table.filter-table {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0;
+    text-align: center;
+  }
+  .btn-info {
+    width: 100%;
+  }
+}
+img.logo {
+  margin-top: 3%;
+  width: 87px;
+}
+.category-name-top p.price_color{
+  margin:5px 0 0 0!important;
+}
+.search-result {
+  margin-top: 20px;
 }

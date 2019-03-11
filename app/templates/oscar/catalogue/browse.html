@@ -234,7 +234,7 @@
                 {% with category=categories.1.0 %}
                 <a href="{{ category.get_absolute_url }}">
                 <div class='aspect-ratio dark-grey'>
-
+                    <h3 class="category-name-top" style="color: #ffffff">{{category.name}}</h3>
                     <h3 class="category-name-top">{{category.name}}</h3>
                     {% if category.image %}
                     <img src="{{ category.image.url }}" alt="{{category.name}}">

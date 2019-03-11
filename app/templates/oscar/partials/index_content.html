@@ -7,23 +7,35 @@
         <div class="slide-text">
             <p>Новинка</p>
             <h2>Линейка пеналов для<br>кистей</h2>
-            <a href="#">перейти в раздел</a>
+            <a href="{{ category.0.0.get_absolute_url }}">перейти в раздел</a>
         </div>
     </div>
-    <div class="item bcgslide slide2"></div>
-    <div class="item bcgslide slide3"></div>
+    <div class="item bcgslide slide2">
+        <div class="slide-text">
+            <p>Новинка</p>
+            <h2>Линейка пеналов для<br>кистей</h2>
+            <a href="{{ category.0.0.get_absolute_url }}">перейти в раздел</a>
+        </div>
+    </div>
+    <div class="item bcgslide slide3">
+        <div class="slide-text">
+            <p>Коллаборация Avgvst x Artskill</p>
+            <h2>Холдер для хранения<br>украшений</h2>
+            <a href="{{ category.2.0.get_absolute_url }}">перейти в раздел</a>
+        </div>
+    </div>
 </div>
 <style>
     .slide1 {
-        background-image: url('{% static '/oscar/img/slides/slider1.jpg' %}');
+        background-image: url('{% static '/oscar/img/slides/slide1.jpg' %}');
     }
 
     .slide2 {
-        background-image: url('{% static '/oscar/img/slides/slider2.jpg' %}');
+        background-image: url('{% static '/oscar/img/slides/slide2.jpg' %}');
     }
 
     .slide3 {
-        background-image: url('{% static '/oscar/img/slides/slider3.jpg' %}');
+        background-image: url('{% static '/oscar/img/slides/slide3.jpg' %}');
     }
 </style>
 <script>
@@ -119,11 +131,12 @@
 
                                 </div>
 
-                                <div class="category-name-top">
+                                <div class="category-name-top item-descr">
+
                                     <h3 class="category-name-h3">{{ product }}</h3>
                                     <p>{{ product_parent.get_product_class.name }}</p>
 
-                                    <p class="pr">
+                                    <p class="price_color" style="margin:5px 0 0 0!important;">
                                         {% include "catalogue/partials/stock_record.html" %}
                                     </p>
                                 </div>
@@ -223,3 +236,8 @@
 </div>
 
 </div>
+
+
+
+
+
