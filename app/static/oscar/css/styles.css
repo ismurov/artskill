@@ -11476,3 +11476,76 @@ h3.category-name-top {
 #browse .list-goods {
   padding-left: 0;
 }
+.breadcrumb a, .breadcrumb > .active{
+  color: #000000;
+}
+.alert-success {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #999999;
+}
+.alert-info {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #999999;
+}
+.alert {
+  padding: 0 15px;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn-info {
+  color: #fff;
+  background-color: #999999;
+  border-color: #999999;
+  border-radius: 0;
+  margin-bottom: 15px;
+}
+.btn-info:hover {
+  background-color: #000000;
+  border-color: #000000;
+}
+.btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-color: rgba(0, 0, 0, 0.6);
+}
+.full-description {
+  margin: 50px 20%;
+}
+
+
+/*checkbox*/
+#checkbox{
+  display: none;
+}
+#checkbox + label{
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: rgba(9, 19, 33, 0.06);
+  color: transparent;
+  border: 1px solid #000000;
+  text-align: center;
+}
+#checkbox + label:before{
+  content: "\02715";
+  font-size: 20px;
+}
+#checkbox:checked + label{
+  color: #000;
+}
+#checkbox:checked + label:before{
+  color: #000000;
+}
+.p-subscribe {
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #000000;
+  text-align: left;
+  margin-top: 4px;
+}

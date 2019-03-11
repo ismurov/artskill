@@ -15,8 +15,8 @@
 {#{% comment %}#}
     {% iffeature "wishlists" %}
         {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
-        {% include "catalogue/partials/add_to_first_wishlist.html" %}
-{#        {% include "catalogue/partials/add_to_first_wishlist_min.html" %}#}
+{#       {% include "catalogue/partials/add_to_first_wishlist.html" %}#}
+       {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
     {% endiffeature %}
 {#{% endcomment %}#}
 {% else %}
@@ -32,7 +32,7 @@
     {% endif %}
     {% iffeature "wishlists" %}
         {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
-        {% include "catalogue/partials/add_to_first_wishlist.html" %}
-{#        {% include "catalogue/partials/add_to_first_wishlist_min.html" %}#}
+{#      {% include "catalogue/partials/add_to_first_wishlist.html" %}#}
+       {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
     {% endiffeature %}
 {% endif %}

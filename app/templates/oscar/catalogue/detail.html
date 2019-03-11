@@ -355,8 +355,8 @@
         </div><!-- /row -->
 
 
-        <div>
-            <p style="margin: 50px 20%;">{{ product_parent.details_description|safe }}</p>
+        <div class="full-description">
+            {{ product_parent.details_description|safe }}
 
             {% for av in product.attribute_values.all %}
                 {{ av.attribute.name }}<br>
