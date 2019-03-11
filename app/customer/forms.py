@@ -84,7 +84,8 @@ class EmailUserCreationForm(forms.ModelForm):
         widget=forms.HiddenInput)
     subscribe = forms.BooleanField(
         label='Подписаться на рассылку',
-        required=False)
+        required=False,
+        widget=forms.CheckboxInput(attrs={'id': 'checkbox'}))
 
     class Meta:
         model = User
