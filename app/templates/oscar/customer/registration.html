@@ -30,13 +30,18 @@
             {% csrf_token %}
             {{ form.non_field_errors }}
             {% for field in form %}
-                <div>
-                    {{ field }}<br>
-                    {{ field.errors }}
-                </div>
+                {% if field.name == 'subscribe' %}
+
+                {% else %}
+                    <div>
+                        {{ field }}<br>
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
             {% endfor %}
             <button name="registration_submit" type="submit" value="Register" class="btn btn-primary btn-lg"
-                    data-loading-text="{% trans 'Registering...' %}">Отправить</button>
+                    data-loading-text="{% trans 'Registering...' %}">Отправить
+            </button>
             {% if cancel_url %}
                 <br>
                 {% trans "or" %} <a href="{{ cancel_url }}"> отмена.</a>

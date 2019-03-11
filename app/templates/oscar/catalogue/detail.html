@@ -70,6 +70,7 @@
 
 {% block content %}
     {% get_product_parent product as product_parent %}
+    {% get_all_images_for_product product as detail_images %}
 
     <article class="product_page"><!-- Start of product page -->
 
@@ -79,26 +80,20 @@
                 <div class="col-sm-6 desktop-detail">
                     <div class="box-item">
                         <div class='aspect-ratio aspect-ratio-item grey'>
-                            {% with all_images=product.get_all_images %}
-                                <img src="{{ all_images.2.original.url }}" alt="" class="product_img">
-                            {% endwith %}
+                            <img src="{{ detail_images.0.original.url }}" alt="" class="product_img">
                         </div>
                     </div>
                 </div>
             {% endblock %}
 
 
-
-
             <div class="mobile-detail t-rec_pt_30">
                 <div class="owl-carousel owl-theme">
-                    {% with all_images=product.get_all_images %}
-                    <div class="item"><img src="{{ all_images.2.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ all_images.3.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ all_images.4.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ all_images.5.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ all_images.6.original.url }}" alt="" class="product_img"></div>
-                    {% endwith %}
+                    <div class="item"><img src="{{ detail_images.0.original.url }}" alt="" class="product_img"></div>
+                    <div class="item"><img src="{{ detail_images.1.original.url }}" alt="" class="product_img"></div>
+                    <div class="item"><img src="{{ detail_images.2.original.url }}" alt="" class="product_img"></div>
+                    <div class="item"><img src="{{ detail_images.3.original.url }}" alt="" class="product_img"></div>
+                    <div class="item"><img src="{{ detail_images.4.original.url }}" alt="" class="product_img"></div>
                 </div>
 
                 <script>
@@ -316,28 +311,18 @@
                 </div>
             {% endblock %}
 
-            {% with all_images=product_parent.get_all_images %}
-
-                <div class="col-sm-6 desktop-detail">
-                    <div class="box-item">
-                        <div class='aspect-ratio aspect-ratio-item item-margin '>
-                            <img src="{{ all_images.3.original.url }}" alt="" class="product_img">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-6 desktop-detail">
-                    <div class="box-item ">
-                        <div class='aspect-ratio aspect-ratio-item item-margin '>
-                            <img src="{{ all_images.4.original.url }}" alt="" class="product_img">
-                        </div>
-                    </div>
-                </div>
-
             <div class="col-sm-6 desktop-detail">
                 <div class="box-item">
                     <div class='aspect-ratio aspect-ratio-item item-margin '>
-                        <img src="{{ all_images.5.original.url }}" alt="" class="product_img">
+                        <img src="{{ detail_images.1.original.url }}" alt="" class="product_img">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 desktop-detail">
+                <div class="box-item ">
+                    <div class='aspect-ratio aspect-ratio-item item-margin '>
+                        <img src="{{ detail_images.2.original.url }}" alt="" class="product_img">
                     </div>
                 </div>
             </div>
@@ -345,12 +330,19 @@
             <div class="col-sm-6 desktop-detail">
                 <div class="box-item">
                     <div class='aspect-ratio aspect-ratio-item item-margin '>
-                        <img src="{{ all_images.6.original.url }}" alt="" class="product_img">
+                        <img src="{{ detail_images.3.original.url }}" alt="" class="product_img">
                     </div>
                 </div>
             </div>
 
-            {% endwith %}
+            <div class="col-sm-6 desktop-detail">
+                <div class="box-item">
+                    <div class='aspect-ratio aspect-ratio-item item-margin '>
+                        <img src="{{ detail_images.4.original.url }}" alt="" class="product_img">
+                    </div>
+                </div>
+            </div>
+
 
         </div><!-- /row -->
 
