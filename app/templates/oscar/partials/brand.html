@@ -28,12 +28,19 @@
             <button class="dropbtn" style="background-color: #ffffff;"><img src="{% static '/oscar/img/icons/user-icon.svg' %}"></button>
             <div class="dropdown-content">
                 {% if user.is_authenticated %}
-                <a href="{% url 'customer:profile-view'%}">
-                    Личный кабинет
-                </a>
-                <a href="{% url 'customer:logout' %}">
-                    Выйти
-                </a>
+                    <a href="{% url 'customer:profile-view' %}">
+                        Личный кабинет
+                    </a>
+
+                    {% if user.is_staff %}
+                        <a href="{% url 'dashboard:index' %}">
+                            Панель управления
+                        </a>
+                    {% endif %}
+
+                    <a href="{% url 'customer:logout' %}">
+                        Выйти
+                    </a>
                 {% else %}
 
 
