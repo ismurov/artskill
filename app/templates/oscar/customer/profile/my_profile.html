@@ -19,19 +19,19 @@
             {% for field in profile_form %}
                 {% if field.name == 'gender' %}
                     <div class=" t-align_center">
-                        <div  class="select-container t-align_center">
+                        <div class="select-container t-align_center">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
                             {% for radio in field %}
-                            <div class="myradio">
-                                {{ radio }}
-                            </div>
+                                <div class="myradio">
+                                    {{ radio }}
+                                </div>
                             {% endfor %}
                             {{ field.errors }}
                         </div>
                     </div>
                 {% else %}
                     <div class=" t-align_center">
-                        <div  class="select-container t-align_center ">
+                        <div class="select-container t-align_center ">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
                             {{ field }}<br>
                             {{ field.errors }}

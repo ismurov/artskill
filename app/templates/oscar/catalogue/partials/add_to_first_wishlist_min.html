@@ -7,36 +7,55 @@
         {% wishlists_containing_product wishlists product as product_wishlists %}
 
         {% if wishlists %}
+            {# Add in first wishlist #}
             {% with wishlist=wishlists.0 %}
                 {% if wishlist not in product_wishlists %}
-                    <a href="{% url 'customer:wishlists-add-product' key=wishlist.key product_pk=product.pk %}">
-                        <button type="submit" class="like"><div class="heart" style="width: 26px;height: 25px"></div></button>
+                    <form action="{% url 'customer:wishlists-add-product' key=wishlist.key product_pk=product.pk %}"
+                          method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="like">
+                            <div class="heart" style="width: 26px;height: 25px"></div>
+                        </button>
                         <style>
                             .heart {
                                 background-image: url('{% static '/oscar/img/heart/heart.svg' %}');
                                 background-size: contain;
                                 transition: 0.1s;
                             }
+
                             .heart:hover, .heart:active {
                                 background-image: url('{% static '/oscar/img/heart/full-heart.svg' %}');
                                 background-size: contain;
                                 transition: 0.1s;
                             }
                         </style>
-                    </a>
+                    </form>
                 {% endif %}
             {% endwith %}
+
         {% else %}
-            {# 1 or no existing wishlists - show a simple button #}
-            <form id="add_to_wishlist_form" action="{% url 'customer:wishlists-add-product' product_pk=product.pk %}" method="post" class="btn-wishlist">
+            {# User hasn't a wishlist #}
+            <form action="{% url 'customer:wishlists-add-product' product_pk=product.pk %}"
+                  method="post">
                 {% csrf_token %}
+                <button type="submit" class="like">
+                    <div class="heart" style="width: 26px;height: 25px"></div>
+                </button>
+                <style>
+                    .heart {
+                        background-image: url('{% static '/oscar/img/heart/heart.svg' %}');
+                        background-size: contain;
+                        transition: 0.1s;
+                    }
 
-                <button type="submit" class="like"><div class="heart" style="width: 26px;height: 25px"></div></button>
-
+                    .heart:hover, .heart:active {
+                        background-image: url('{% static '/oscar/img/heart/full-heart.svg' %}');
+                        background-size: contain;
+                        transition: 0.1s;
+                    }
+                </style>
             </form>
-
         {% endif %}
-
 
         {% for wishlist in product_wishlists %}
             <form action="{% url 'customer:wishlists-remove-product' key=wishlist.key product_pk=product.id %}" method="post">
@@ -54,7 +73,6 @@
                         transition: 0.1s;
                     }
                 </style>
-
             </form>
         {% endfor %}
     {% endwith %}
