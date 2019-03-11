@@ -82,113 +82,15 @@
     </div>
 </div>
 
-
 <div class="col-sm-12">
     <div class="col-sm-6 big-box">
-
-        <a href="#">
-            <div class="box">
-                <div class='aspect-ratio box-relative bcg HIT-1-Big'>
-
-                    <div class="category-name-top">
-                        <h3 class="category-name-h3">Artskill Shoes</h3>
-                        <p>малый пенал</p>
-                        <p class="pr">1 800 Р</p>
-                    </div>
-
-
-                </div>
-            </div>
-        </a>
-
-    </div>
-
-    <div class="col-sm-3 col-xs-6">
-        <div class=col-sm-6">
-
-            <a href="#">
-                <div class="box">
-                    <div class='aspect-ratio bcg HIT-2-Small'>
-                        <div class="category-name">
-                            <h3 class="category-name-h3">Artskill mini</h3>
-                            <p>малый пенал</p>
-                            <p class="pr">1 800 Р</p>
-                        </div>
-
-                    </div>
-                </div>
-            </a>
-
-        </div>
-        <div class=col-sm-6">
-            <a href="#">
-                <div class="box">
-                    <div class='aspect-ratio bcg HIT-3-Small'>
-
-                        <div class="category-name">
-                            <h3 class="category-name-h3">Artskill Pro</h3>
-                            <p>профессиональный пенал</p>
-                            <p class="pr">4 200 Р</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-sm-3 col-xs-6">
-        <div class=col-sm-6">
-            <a href="#">
-                <div class="box">
-                    <div class='aspect-ratio bcg HIT-4-Small '>
-                        <div class="category-name">
-                            <h3 class="category-name-h3">Artskill Brush</h3>
-                            <p>пенал для кистей</p>
-                            <p class="pr">4 360 Р</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class=col-sm-6">
-            <a href="#">
-                <div class="box">
-                    <div class='aspect-ratio bcg HIT-5-Small '>
-                        <div class="category-name">
-                            <h3 class="category-name-h3">Artskill Brush Mini</h3>
-                            <p>пенал для кистей</p>
-                            <p class="pr">3 200 Р</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
-
-
-
-{########################}
-{###### LOAD HITS #######}
-{########################}
-
-    <div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
-    <div class="t-col t-col_12 ">
-        <div class="t-rec_pb_30" style="font-size:36px;">
-            Загруженные хиты по рейтингу
-        </div>
-    </div>
-</div>
-
-    {% for product in product_hits %}
-        <div class="col-sm-3">
-
+        {# 1 #}
+        {% with product=product_hits.0 num=0 %}
             <a href="{{ product.get_absolute_url }}">
                 <div class="box">
-                    <div class='aspect-ratio grey bcgi category-hover{{ forloop.counter0 }}'>
+                    <div class='aspect-ratio grey bcgi category-hover{{ num }}'>
 
                         <div class="item-opt col-sm-12">
-
 
                             <div class="item-opt-colours col-sm-6">
                                 {# Colors Panel #}
@@ -205,60 +107,302 @@
                             <div class="item-opt-like col-sm-6" style="text-align: right;">
                                 {% load display_tags %}
                                 {% iffeature "wishlists" %}
-                                    {#{% include "catalogue/partials/add_to_wishlist.html" %}#}
                                     {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
                                 {% endiffeature %}
                             </div>
 
-
                         </div>
 
-                        <div class="item-descr">
-                            <h4>{{ product }}</h4>
-                            {% block product_description %}
-                                {% if product.description %}
-                                    <p>{{ product.description|safe }}</p>
-                                {% endif %}
-                            {% endblock %}
-                            <p class="price">
-                                {% block product_stock_record %}
-                                    {% include "catalogue/partials/stock_record.html" with verbose=1 %}
-                                {% endblock %}
+                        <div class="category-name-top">
+                            <h3 class="category-name-h3">{{ product }}</h3>
+                            <p>{{ product_parent.get_product_class.name }}</p>
+
+                            <p class="pr">
+                                {% include "catalogue/partials/stock_record.html" %}
                             </p>
                         </div>
-
-
                     </div>
 
                     {% with all_images=product.get_all_images %}
                         <style>
-                            .category-hover{{ forloop.counter0 }} {
+                            .category-hover{{ num }} {
                                 background-image: url('{{ all_images.0.original.url }}');
                             }
 
-                            .category-hover{{ forloop.counter0 }}:hover {
+                            .category-hover{{ num }}:hover {
                                 background-image: url('{{ all_images.1.original.url }}');
                             }
 
-                            .category-hover{{ forloop.counter0 }}:hover .item-opt {
+                            .category-hover{{ num }}:hover .item-opt {
                                 display: block;
                             }
                         </style>
                     {% endwith %}
 
+                </div>
+            </a>
+        {% endwith %}
+
+    </div>
+
+    <div class="col-sm-3 col-xs-6">
+        <div class=col-sm-6">
+
+            {# 2 #}
+            {% with product=product_hits.1 num=1 %}
+                <a href="{{ product.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey bcgi category-hover{{ num }}'>
+
+                        <div class="item-opt col-sm-12">
+
+                            <div class="item-opt-colours col-sm-6">
+                                {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    {% for child in product_parent.children.all %}
+                                        <p class="item-circle" style="
+                                                background:
+                                                {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};"></p>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="item-opt-like col-sm-6" style="text-align: right;">
+                                {% load display_tags %}
+                                {% iffeature "wishlists" %}
+                                    {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
+                                {% endiffeature %}
+                            </div>
+
+                        </div>
+
+                        <div class="item-descr">
+                            <h4>{{ product }}</h4>
+                            <p>{{ product_parent.get_product_class.name }}</p>
+
+                            <p class="price">
+                                {% include "catalogue/partials/stock_record.html" %}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% with all_images=product.get_all_images %}
+                        <style>
+                            .category-hover{{ num }} {
+                                background-image: url('{{ all_images.0.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover {
+                                background-image: url('{{ all_images.1.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover .item-opt {
+                                display: block;
+                            }
+                        </style>
+                    {% endwith %}
 
                 </div>
             </a>
+            {% endwith %}
+
         </div>
-    {% endfor %}
+        <div class=col-sm-6">
 
+            {# 3 #}
+            {% with product=product_hits.2 num=2 %}
+                <a href="{{ product.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey bcgi category-hover{{ num }}'>
 
-{########################}
-{####### END HITS #######}
-{########################}
+                        <div class="item-opt col-sm-12">
 
+                            <div class="item-opt-colours col-sm-6">
+                                {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    {% for child in product_parent.children.all %}
+                                        <p class="item-circle" style="
+                                                background:
+                                                {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};"></p>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
 
+                            <div class="item-opt-like col-sm-6" style="text-align: right;">
+                                {% load display_tags %}
+                                {% iffeature "wishlists" %}
+                                    {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
+                                {% endiffeature %}
+                            </div>
 
+                        </div>
+
+                        <div class="item-descr">
+                            <h4>{{ product }}</h4>
+                            <p>{{ product_parent.get_product_class.name }}</p>
+
+                            <p class="price">
+                                {% include "catalogue/partials/stock_record.html" %}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% with all_images=product.get_all_images %}
+                        <style>
+                            .category-hover{{ num }} {
+                                background-image: url('{{ all_images.0.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover {
+                                background-image: url('{{ all_images.1.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover .item-opt {
+                                display: block;
+                            }
+                        </style>
+                    {% endwith %}
+
+                </div>
+            </a>
+            {% endwith %}
+
+        </div>
+    </div>
+
+    <div class="col-sm-3 col-xs-6">
+        <div class=col-sm-6">
+
+            {# 4 #}
+            {% with product=product_hits.3 num=3 %}
+                <a href="{{ product.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey bcgi category-hover{{ num }}'>
+
+                        <div class="item-opt col-sm-12">
+
+                            <div class="item-opt-colours col-sm-6">
+                                {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    {% for child in product_parent.children.all %}
+                                        <p class="item-circle" style="
+                                                background:
+                                                {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};"></p>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="item-opt-like col-sm-6" style="text-align: right;">
+                                {% load display_tags %}
+                                {% iffeature "wishlists" %}
+                                    {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
+                                {% endiffeature %}
+                            </div>
+
+                        </div>
+
+                        <div class="item-descr">
+                            <h4>{{ product }}</h4>
+                            <p>{{ product_parent.get_product_class.name }}</p>
+
+                            <p class="price">
+                                {% include "catalogue/partials/stock_record.html" %}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% with all_images=product.get_all_images %}
+                        <style>
+                            .category-hover{{ num }} {
+                                background-image: url('{{ all_images.0.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover {
+                                background-image: url('{{ all_images.1.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover .item-opt {
+                                display: block;
+                            }
+                        </style>
+                    {% endwith %}
+
+                </div>
+            </a>
+            {% endwith %}
+
+        </div>
+        <div class=col-sm-6">
+
+            {# 5 #}
+            {% with product=product_hits.4 num=4 %}
+                <a href="{{ product.get_absolute_url }}">
+                <div class="box">
+                    <div class='aspect-ratio grey bcgi category-hover{{ num }}'>
+
+                        <div class="item-opt col-sm-12">
+
+                            <div class="item-opt-colours col-sm-6">
+                                {# Colors Panel #}
+                                {% get_product_parent product as product_parent %}
+                                {% if product_parent.can_be_parent and product_parent.use_colors %}
+                                    {% for child in product_parent.children.all %}
+                                        <p class="item-circle" style="
+                                                background:
+                                                {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};"></p>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <div class="item-opt-like col-sm-6" style="text-align: right;">
+                                {% load display_tags %}
+                                {% iffeature "wishlists" %}
+                                    {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
+                                {% endiffeature %}
+                            </div>
+
+                        </div>
+
+                        <div class="item-descr">
+                            <h4>{{ product }}</h4>
+                            <p>{{ product_parent.get_product_class.name }}</p>
+
+                            <p class="price">
+                                {% include "catalogue/partials/stock_record.html" %}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% with all_images=product.get_all_images %}
+                        <style>
+                            .category-hover{{ num }} {
+                                background-image: url('{{ all_images.0.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover {
+                                background-image: url('{{ all_images.1.original.url }}');
+                            }
+
+                            .category-hover{{ num }}:hover .item-opt {
+                                display: block;
+                            }
+                        </style>
+                    {% endwith %}
+
+                </div>
+            </a>
+            {% endwith %}
+
+        </div>
+    </div>
+</div>
 
 
 <div class="col-sm-12">

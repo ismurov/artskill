@@ -280,11 +280,11 @@ OSCAR_PROMOTIONS_ENABLED = False
 OSCAR_HOMEPAGE = reverse_lazy('artskill:home')
 
 OSCAR_DEFAULT_CURRENCY = 'RUB'
-OSCAR_CURRENCY_FORMAT = {
-    'RUB': {
-        'format': u'#####;',
-    },
-}
+# OSCAR_CURRENCY_FORMAT = {
+#     'RUB': {
+#         'format': u'#####;',
+#     },
+# }
 
 # Order processing
 # ================
