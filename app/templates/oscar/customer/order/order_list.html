@@ -25,7 +25,9 @@
                 <div class="form-group">
                     <div class="col-sm-4"></div>
                     <div class="filter-buttons col-sm-7">
-                        <button type="submit" class="btn btn-primary" data-loading-text="{% trans 'Filtering...' %}">Результат</button>
+                        <button type="submit" class="btn btn-primary" data-loading-text="{% trans 'Filtering...' %}">
+                            Результат
+                        </button>
                         <a href="{% url 'customer:order-list' %}" class="filter-btn">{% trans 'Reset' %}</a>
                     </div>
                 </div>
@@ -44,22 +46,24 @@
                     <th>{% trans "Date submitted" %}</th>
                 </tr>
                 {% for order in orders %}
-                <tr>
-                    <td><a href="{% url 'customer:order' order_number=order.number %}">{{ order.number }}</a></td>
-                    <td>{{ order.num_items }}</td>
-                    <td>{{ order.total_incl_tax|currency:order.currency }}</td>
-                    <td>{{ order.date_placed }}</td>
-                </tr>
+                    <tr>
+                        <td><a href="{% url 'customer:order' order_number=order.number %}">{{ order.number }}</a></td>
+                        <td>{{ order.num_items }}</td>
+                        <td>{{ order.total_incl_tax|currency:order.currency }}</td>
+                        <td>{{ order.date_placed }}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
         {% include "partials/pagination.html" %}
     {% else %}
-        {% if form.is_bound %}
-            <p>{% trans "No orders match your search." %}</p>
-        {% else %}
-            <p>{% trans "You haven't placed any orders." %}</p>
-        {% endif %}
+        <div class="t-align_center">
+            {% if form.is_bound %}
+                <p>{% trans "No orders match your search." %}</p>
+            {% else %}
+                <p>{% trans "You haven't placed any orders." %}</p>
+            {% endif %}
+        </div>
     {% endif %}
 
 {% endblock tabcontent %}

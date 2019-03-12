@@ -26,35 +26,31 @@
                              class=" t-menu__link-item {% if request.resolver_match.view_name == 'catalogue:index' %}active-tab{% endif %}">Каталог<!--<img src="{% static 'oscar/img/icons/down-arrow.svg' %}" style="width: 20px; margin-left: 10px;"--></a>
                     </li>
 
-
-
-
-
                     <li class="t229__list_item"><a
                             class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}" href="{% url 'artskill:where-to-buy' %}" >Где купить?</a></li>
                     <li class="t229__list_item"><a
                             class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:collaboration' %}active-tab{% endif %}" href="{% url 'artskill:collaboration' %}">Сотрудничество</a></li>
 
                     <li class="t229__list_item">
-                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'customer:profile-view' %}active-tab{% endif %}"
                             href="{% url 'customer:profile-view'%}">
                             Личный кабинет
                         </a>
                     </li>
                     <li class="t229__list_item">
-                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:delivery' %}active-tab{% endif %}"
                            href="{% url 'artskill:delivery' %}">
                             Доставка
                         </a>
                     </li>
                     <li class="t229__list_item">
-                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
-                           href="{% url 'artskill:delivery' %}">
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:return' %}active-tab{% endif %}"
+                           href="{% url 'artskill:return' %}">
                             Возврат
                         </a>
                     </li>
                     <li class="t229__list_item">
-                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:where-to-buy' %}active-tab{% endif %}"
+                        <a class="t-menu__link-item {% if request.resolver_match.view_name == 'artskill:contacts' %}active-tab{% endif %}"
                            href="{% url 'artskill:contacts' %}">
                             Контакты
                         </a>

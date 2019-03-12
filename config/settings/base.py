@@ -215,9 +215,10 @@ ADMINS = [('Igor', 'smurov_igor@mail.ru'),]  # [('John', 'john@example.com'), ('
 EMAIL_SUBJECT_PREFIX = 'Artskill - '
 SERVER_EMAIL = 'smurov@yandex.ru'
 DEFAULT_FROM_EMAIL = 'smurov@yandex.ru'
+OSCAR_FROM_EMAIL = 'team@artskill.store'
 
 # used default
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
@@ -273,8 +274,6 @@ from oscar.defaults import *
 
 OSCAR_SHOP_NAME = 'Artskill'
 # OSCAR_SHOP_TAGLINE = 'Tagline'
-
-OSCAR_FROM_EMAIL = 'team@artskill.store'
 
 OSCAR_PROMOTIONS_ENABLED = False
 OSCAR_HOMEPAGE = reverse_lazy('artskill:home')
@@ -431,32 +430,32 @@ OSCAR_DASHBOARD_NAVIGATION = [
 
         ],
     },
-    {
-        'label': _('Content'),
-        'icon': 'icon-folder-close',
-        'children': [
-            {
-                'label': _('Content blocks'),
-                'url_name': 'dashboard:promotion-list',
-            },
-            {
-                'label': _('Content blocks by page'),
-                'url_name': 'dashboard:promotion-list-by-page',
-            },
-            {
-                'label': _('Pages'),
-                'url_name': 'dashboard:page-list',
-            },
-            {
-                'label': _('Email templates'),
-                'url_name': 'dashboard:comms-list',
-            },
-            {
-                'label': _('Reviews'),
-                'url_name': 'dashboard:reviews-list',
-            },
-        ]
-    },
+    # {
+    #     'label': _('Content'),
+    #     'icon': 'icon-folder-close',
+    #     'children': [
+    #         {
+    #             'label': _('Content blocks'),
+    #             'url_name': 'dashboard:promotion-list',
+    #         },
+    #         {
+    #             'label': _('Content blocks by page'),
+    #             'url_name': 'dashboard:promotion-list-by-page',
+    #         },
+    #         {
+    #             'label': _('Pages'),
+    #             'url_name': 'dashboard:page-list',
+    #         },
+    #         {
+    #             'label': _('Email templates'),
+    #             'url_name': 'dashboard:comms-list',
+    #         },
+    #         {
+    #             'label': _('Reviews'),
+    #             'url_name': 'dashboard:reviews-list',
+    #         },
+    #     ]
+    # },
     {
         'label': _('Reports'),
         'icon': 'icon-bar-chart',

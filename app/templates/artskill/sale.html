@@ -1,6 +1,10 @@
 {% extends "layout_2_col.html" %}
 {% load i18n %}
 
+{% block title %}
+    Sela | {{ block.super }}
+{% endblock %}
+
 {% block navigation %}
     {% include "partials/nav_index.html" %}
 {% endblock %}
@@ -11,8 +15,12 @@
 {% endblock %}
 
 {% block content %}
+    <h2 class="t-align_center">SALE</h2>
+    <p class="p-art t-align_center">В данный момент распродаж нет</p>
 
-
-
-
+    <div class="col-sm-12">
+        <div class="subsript t-rec t-rec_pt_60 t-rec_pb_60" style="margin-bottom: 60px">
+            {% include 'artskill/includes/subscribe_form.html' %}
+        </div>
+    </div>
 {% endblock content %}
