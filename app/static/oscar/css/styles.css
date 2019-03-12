@@ -11565,6 +11565,17 @@ h3.category-name-top {
   .btn-info {
     width: 100%;
   }
+  .centered-par {
+    width: auto;
+    text-align: center;
+    margin: 20px;
+  }
+  .brand h2, .brand p {
+    margin-left: 20px;
+  }
+  .brand h2 {
+    font-size: 28px;
+  }
 }
 img.logo {
   margin-top: 3%;
@@ -11575,4 +11586,10 @@ img.logo {
 }
 .search-result {
   margin-top: 20px;
+}
+
+@media (min-width: 767px) and (max-width: 872px){
+  .tablink {
+    font-size: 10px;
+  }
 }
