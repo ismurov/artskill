@@ -32,31 +32,28 @@ Up project:
 #   таблица address_country колонка s_shipping_country
 #       РФ - 191
 
-TODO:   Igy:
-        - index - слайдер
-        + хиты - через рейтинг
-        + циферка у корзины в кружочке
-        + цвета если есть в каталог
-        + ! при удалении товара из списка желаемго, перенаправляет на страницу списка
-            или добавление только на странице товара?
-        + редерек wishlists -> first wishlist
-            ! лайк ставится на конкретный товар, в каталоге лайк на товар родитель
-        + разнести регистрацию и вход
-        - личный кабинет: моя инф, мои заказы, избранное
-        - корзина упаковкаe
-        - упаковка
-        - доставка
-        - оплата
-        - SALE
-        - подписка/отписка на почту, отправка почти
-        + цвет при создании нового товара
-        - ! когда не используется цвет! нету выбора между товарами!
-        Oly:
-        - страница результатов поиска
-        - доб к списку желаемого в виде сердечка
-        - меню
-        - регистрация и вход модал
-        - ховер на каьегории? доб по 2 картинки и с 3 в карточку товара
-        - письмо заказ
-            new: - nav bar, корзина
-                 - каталог цветные кружки
+
+
+
+
+# PostgreSQL install
+# Port: 5432
+yum install postgresql-server
+postgresql-setup initdb
+
+systemctl enable postgresql
+systemctl start postgresql
+
+# Open port from outside
+# iptables -A IN_public_allow -p tcp -m tcp --dport 5432 -m conntrack --ctstate NEW -j ACCEPT
+# vim /var/lib/pgsql/data/postgresql.conf
+# listen_addresses = '*'
+#
+# vim /var/lib/pgsql/data/pg_hba.conf
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+# hostssl all             artskill        0.0.0.0/0               md5
+#
+# Add user
+# su postgres
+# createuser -s -r -d -P artskill
+service postgresql restart
