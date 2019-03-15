@@ -31,16 +31,20 @@ INTERNAL_IPS = ['127.0.0.1', '::1']
 # Email config
 # ==============
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SERVER_EMAIL = 'smurov@yandex.ru'
-DEFAULT_FROM_EMAIL = 'smurov@yandex.ru'
+ADMINS = [('Team', 'team@artskill.store'), ]
+
+SERVER_EMAIL = 'team@artskill.store'
+DEFAULT_FROM_EMAIL = 'team@artskill.store'
+OSCAR_FROM_EMAIL = 'team@artskill.store'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'smurov'
-EMAIL_HOST_PASSWORD = 'igor'  # !!! PASSWORD
+
+EMAIL_HOST_USER = 'team@artskill.store'
+EMAIL_HOST_PASSWORD = 'deadsister1'
 
 
 # ==============

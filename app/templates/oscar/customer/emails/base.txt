@@ -1,4 +1,6 @@
-{% load i18n %}{% block header %}{% endblock %}{% block body %}{% endblock %}{% block footer %}
+{% block header %}{% endblock %}{% block body %}{% endblock %}{% block footer %}
 
-{% trans "Thanks for using our site!" %}
-{% blocktrans with name=site.name %}The {{ name }} team{% endblocktrans %}{% endblock %}
+Команда сайта Artskill.store
+
+Напишите нам: artskillstore@gmail.com
+Звоните нам: 8 921 586 88 90{% endblock %}

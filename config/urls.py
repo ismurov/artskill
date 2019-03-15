@@ -31,10 +31,10 @@ urlpatterns = [
 
     # The Django admin is not officially supported; expect breakage.
     # Nonetheless, it's often useful for debugging.
-    path('admin/', admin.site.urls),
+    path('secret/secret/admin/', admin.site.urls),
+
     path('', include('app.artskill.urls')),
     path('', application.urls),
-
     path('payment/', include('app.robokassa.urls')),
 ]
 

@@ -1,1 +1,1 @@
-{% load i18n %}{% trans 'Thank you for registering.' %}
+Artskill - Спасибо за регистрацию

@@ -1,1 +1,8 @@
-{% load i18n %}<p>{% trans 'Thank you for registering.' %}</p>
+{% extends "customer/emails/base.html" %}
+
+{% block body %}
+    <h2>Для вас был создан аккаунт на нашем сайте.</h2>
+    <p>Вы можете войти в личный кабинет по ссылке</p>
+    <a href="http://artskill.store">http://artskill.store</a>
+    <p>используя вашу почту и пароль, который вы установили при регистрации.</p>
+{% endblock %}

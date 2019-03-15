@@ -33,6 +33,7 @@ sentry-sdk = "==0.7.3"
 pycountry = "*"
 south = "*"
 psycopg2 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 

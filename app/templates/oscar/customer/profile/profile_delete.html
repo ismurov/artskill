@@ -2,21 +2,23 @@
 {% load i18n %}
 
 {% block tabcontent %}
-    <p>{% trans "Please confirm your password to delete your profile." %}</p>
-    <form id="delete_profile_form" action="." method="post" class="form-horizontal">
-        {% csrf_token %}
-        {% include "partials/form_fields.html" %}
-        <div class="alert alert-warning">
-            <h3>{% trans "Warning" %}</h3>
-            {% blocktrans %}
-                This will delete all information about you from the site.  Deleting your profile cannot be
-                undone.
-            {% endblocktrans %}
+    <div class="t-align_center">
+        <div class="alert alert-warning" style="margin: 0 auto 30px auto; padding: 20px 0;">
+            <h3>Внимание</h3>
+            <p>Здесь вы можите удалить свой профиль с сайта.</p>
+            <p>Удаленный профиль нельзя востановить.</p>
         </div>
-        <div class="form-group">
-            <button class="btn btn-lg btn-danger" type="submit" data-loading-text="{% trans 'Deleting...' %}">{% trans "Delete" %}</button>
-            {% trans "or" %} <a href="{% url "customer:profile-view" %}">{% trans "cancel" %}</a>.
-        </div>
-    </form>
+        <p>{% trans "Please confirm your password to delete your profile." %}</p>
+        <form id="delete_profile_form" action="." method="post" class="form-horizontal">
+            {% csrf_token %}
+            {% include "partials/form_fields.html" %}
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit"
+                        data-loading-text="{% trans 'Deleting...' %}">{% trans "Delete" %}</button>
+                <p>
+                    {% trans "or" %} <a href="{% url "customer:profile-view" %}">{% trans "cancel" %}</a>.
+                </p>
+            </div>
+        </form>
+    </div>
 {% endblock tabcontent %}
-z

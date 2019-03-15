@@ -25,13 +25,13 @@
 {% endblock %}
 {% block extrastyles %}
 
-<script src="{% static 'oscar/owlcarousel/jquery.min.js' %}"></script>
+    <script src="{% static 'oscar/owlcarousel/jquery.min.js' %}"></script>
 
-<link rel="stylesheet" href="{% static 'oscar/owlcarousel/owl.carousel.min.css' %}">
-<link rel="stylesheet" href="{% static 'oscar/owlcarousel/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oscar/owlcarousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oscar/owlcarousel/owl.theme.default.min.css' %}">
 
 
-<script src="{% static 'oscar/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'oscar/owlcarousel/owl.carousel.min.js' %}"></script>
 
 {% endblock %}
 
@@ -89,36 +89,36 @@
 
             <div class="mobile-detail t-rec_pt_30">
                 <div class="owl-carousel owl-theme">
-                    <div class="item"><img src="{{ detail_images.0.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ detail_images.1.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ detail_images.2.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ detail_images.3.original.url }}" alt="" class="product_img"></div>
-                    <div class="item"><img src="{{ detail_images.4.original.url }}" alt="" class="product_img"></div>
+
+                    {% for image in detail_images %}
+                        <div class="item"><img src="{{ image.original.url }}" alt="" class="product_img"></div>
+                    {% endfor %}
+
                 </div>
 
                 <script>
-                    $(document).ready(function(){
+                    $(document).ready(function () {
                         $(".owl-carousel").owlCarousel();
                     });
                     $('.owl-carousel').owlCarousel({
                         center: true,
-                        items:1,
-                        loop:true,
-                        margin:10,
-                        responsiveClass:true,
-                        responsive:{
-                            0:{
-                                items:1,
-                                nav:true
+                        items: 1,
+                        loop: true,
+                        margin: 10,
+                        responsiveClass: true,
+                        responsive: {
+                            0: {
+                                items: 1,
+                                nav: true
                             },
-                            600:{
-                                items:1,
-                                nav:false
+                            600: {
+                                items: 1,
+                                nav: false
                             },
-                            1000:{
-                                items:1,
-                                nav:true,
-                                loop:false
+                            1000: {
+                                items: 1,
+                                nav: true,
+                                loop: false
                             }
                         }
                     })
@@ -187,162 +187,145 @@
 
                             {% block product_description %}
                                 <div class="description">
+
                                     {% if product_parent.description %}
+                                        <div class="t-records" data-hook="blocks-collection-content-node">
+                                            <div id="rec90700797" style="padding-bottom:80px; "
+                                                 data-animationappear="off" data-record-type="849"><!-- t849-->
+                                                <div class="t849">
+                                                    <div class="t-container">
+                                                        <div class="t-col t-col_8 t-prefix_2">
+                                                            <div class="t849__accordion">
+                                                                <div class="t849__wrapper">
+                                                                    <div class="t849__header"
+                                                                         style=" border-top: 1px solid #ffffff;">
+                                                                        <div class=" col-sm-6"
+                                                                             field="li_title__1531218331971" style="">
+                                                                            <div id="product_description" class="">
+                                                                                <h2 class="description"
+                                                                                    style="text-align: left">{% trans "Product Description" %}</h2>
+                                                                            </div>
+                                                                            <br/></div>
+                                                                        <div class="t849__icon col-sm-6"
+                                                                             style="text-align: right">
+                                                                            <div class="t849__lines">
+                                                                                <svg width="24px" height="24px"
+                                                                                     viewBox="0 0 24 24"
+                                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                                    <g stroke="none" stroke-width="2px"
+                                                                                       fill="#000000"
+                                                                                       fill-rule="evenodd"
+                                                                                       stroke-linecap="square">
+                                                                                        <g transform="translate(1.000000, 1.000000)"
+                                                                                           stroke="#000000">
+                                                                                            <path d="M0,11 L22,11"></path>
+                                                                                        </g>
+                                                                                    </g>
+                                                                                </svg>
 
+                                                                            </div>
 
+                                                                            <div class="t849__circle"
+                                                                                 style="background-color: transparent;"></div>
+                                                                        </div>
+                                                                        <div class="div col-sm-12"
+                                                                             style="width: 100%; height: 2px; background: #000000"></div>
 
+                                                                    </div>
 
+                                                                    <div class="t849__content col-sm-12">
+                                                                        <div class="">
+                                                                            <div class=""
+                                                                                 field="li_descr__1531218331971"
+                                                                                 style="">
 
+                                                                                <div class="shadow">
+                                                                                    <p>{{ product_parent.description|safe }}</p>
+                                                                                </div>
 
-
-
-
-                            <div class="t-records" data-hook="blocks-collection-content-node">
-                                <div id="rec90700797"  style="padding-bottom:80px; "
-                                     data-animationappear="off" data-record-type="849"><!-- t849-->
-                                    <div class="t849">
-                                        <div class="t-container">
-                                            <div class="t-col t-col_8 t-prefix_2">
-                                                <div class="t849__accordion">
-                                                    <div class="t849__wrapper">
-                                                        <div class="t849__header" style=" border-top: 1px solid #ffffff;">
-                                                            <div class=" col-sm-6" field="li_title__1531218331971" style="">
-                                                                <div id="product_description" class="">
-                                                                    <h2 class="description"
-                                                                        style="text-align: left">{% trans "Product Description" %}</h2>
-                                                                </div><br/></div>
-                                                            <div class="t849__icon col-sm-6" style="text-align: right">
-                                                                <div class="t849__lines">
-                                                                    <svg width="24px" height="24px" viewBox="0 0 24 24"
-                                                                         xmlns="http://www.w3.org/2000/svg"
-                                                                         xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                        <g stroke="none" stroke-width="2px" fill="#000000" fill-rule="evenodd"
-                                                                           stroke-linecap="square">
-                                                                            <g transform="translate(1.000000, 1.000000)" stroke="#000000">
-                                                                                <path d="M0,11 L22,11"></path>
-                                                                            </g>
-                                                                        </g>
-                                                                    </svg>
-
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-
-                                                                <div class="t849__circle" style="background-color: transparent;"></div>
                                                             </div>
-                                                            <div class="div col-sm-12" style="width: 100%; height: 2px; background: #000000"></div>
-
                                                         </div>
 
-                                                        <div class="t849__content col-sm-12">
-                                                            <div class="">
-                                                                <div class="" field="li_descr__1531218331971" style="">
 
-                                                                    <div class="shadow"><p>{{ product_parent.description|safe }}</p></div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
+                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                                <script>
+                                                    function t849_init(recid) {
+                                                        var rec = $('#rec' + recid);
+                                                        var toggler = rec.find('.t849__header');
+                                                        toggler.click(function () {
+                                                            $(this).toggleClass('t849__opened');
+                                                            $(this).next().slideToggle();
+                                                            if (window.lazy == 'y') {
+                                                                t_lazyload_update()
+                                                            }
+                                                        })
+                                                    }
+                                                </script>
+                                                <script type="text/javascript"> $(document).ready(function () {
+                                                    t849_init('90700797');
+                                                });</script>
+
+
                                             </div>
-
-
-
                                         </div>
-                                    </div>
-                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                                    <script>
-                                        function t849_init(recid) {
-                                            var rec = $('#rec' + recid);
-                                            var toggler = rec.find('.t849__header');
-                                            toggler.click(function () {
-                                                $(this).toggleClass('t849__opened');
-                                                $(this).next().slideToggle();
-                                                if (window.lazy == 'y') {
-                                                    t_lazyload_update()
-                                                }
-                                            })
-                                        }
-                                    </script>
-                                    <script type="text/javascript"> $(document).ready(function () {
-                                        t849_init('90700797');
-                                    });</script>
-
-
-                                </div>
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
                                     {% endif %}
+
                                 </div>
-                            {% block product_basket_form %}
-                            {% include "catalogue/partials/add_to_basket_form.html" %}
+                                {% block product_basket_form %}
+                                    {% include "catalogue/partials/add_to_basket_form.html" %}
+                                {% endblock %}
                             {% endblock %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            {% endblock %}
-                        </div><!-- /col-sm-6 -->
+                        </div><!-- /!col-sm-6 -->
                     </div>
                 </div>
             {% endblock %}
 
-            <div class="col-sm-6 desktop-detail">
-                <div class="box-item">
-                    <div class='aspect-ratio aspect-ratio-item item-margin '>
-                        <img src="{{ detail_images.1.original.url }}" alt="" class="product_img">
+            {# Set of images 1 #}
+            {% if detail_images.1 and detail_images.2 %}
+                <div class="col-sm-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.1.original.url }}" alt="" class="product_img">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-6 desktop-detail">
-                <div class="box-item ">
-                    <div class='aspect-ratio aspect-ratio-item item-margin '>
-                        <img src="{{ detail_images.2.original.url }}" alt="" class="product_img">
+                <div class="col-sm-6 desktop-detail">
+                    <div class="box-item ">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.2.original.url }}" alt="" class="product_img">
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-sm-6 desktop-detail">
-                <div class="box-item">
-                    <div class='aspect-ratio aspect-ratio-item item-margin '>
-                        <img src="{{ detail_images.3.original.url }}" alt="" class="product_img">
+            {# Set of images 2 #}
+            {% if detail_images.3 and detail_images.4 %}
+                <div class="col-sm-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.3.original.url }}" alt="" class="product_img">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-6 desktop-detail">
-                <div class="box-item">
-                    <div class='aspect-ratio aspect-ratio-item item-margin '>
-                        <img src="{{ detail_images.4.original.url }}" alt="" class="product_img">
+                <div class="col-sm-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.4.original.url }}" alt="" class="product_img">
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            {% endif %}
 
         </div><!-- /row -->
 

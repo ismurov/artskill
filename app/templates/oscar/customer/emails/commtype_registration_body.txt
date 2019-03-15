@@ -1,1 +1,7 @@
-{% load i18n %}{% trans 'Thank you for registering.' %}
+{% extends "customer/emails/base.txt" %}
+
+{% block body %}
+Для вас был создан аккаунт на нашем сайте.
+Вы можете войти в личный кабинет по ссылке http://artskill.store/
+используя вашу почту и пароль, который вы установили при регистрации.
+{% endblock %}

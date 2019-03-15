@@ -46,7 +46,7 @@ SECRET_KEY = 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*'
 ALLOWED_HOSTS = []
 
 ROOT_URLCONF = 'config.urls'
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 BASE_DIR = root()
 
@@ -210,11 +210,9 @@ HAYSTACK_CONNECTIONS = {
 # Email config
 # ==============
 
-ADMINS = [('Igor', 'smurov_igor@mail.ru'),]  # [('John', 'john@example.com'), ('Mary', 'mary@example.com')]
-
 EMAIL_SUBJECT_PREFIX = 'Artskill - '
-SERVER_EMAIL = 'smurov@yandex.ru'
-DEFAULT_FROM_EMAIL = 'smurov@yandex.ru'
+SERVER_EMAIL = 'team@artskill.store'
+DEFAULT_FROM_EMAIL = 'team@artskill.store'
 OSCAR_FROM_EMAIL = 'team@artskill.store'
 
 # used default

@@ -57,3 +57,14 @@ systemctl start postgresql
 # su postgres
 # createuser -s -r -d -P artskill
 service postgresql restart
+
+
+    DROP DATABASE IF EXISTS artskilldb;
+    CREATE DATABASE artskilldb;
+
+    CREATE USER artskill WITH PASSWORD 'artskillpassw';
+    ALTER ROLE artskill SET client_encoding TO 'utf8';
+    ALTER ROLE artskill SET default_transaction_isolation TO 'read committed';
+    ALTER ROLE artskill SET timezone TO 'UTC';
+    ALTER USER artskill WITH SUPERUSER;
+    GRANT ALL PRIVILEGES ON DATABASE artskilldb TO artskill;
