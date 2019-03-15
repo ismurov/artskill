@@ -3,6 +3,9 @@ from .base import *
 # ALLOWED_HOSTS = ['artskill.store']
 ALLOWED_HOSTS = ['*']
 
+STATIC_ROOT = '/var/www/artskill_files/static/'
+MEDIA_ROOT = '/var/www/artskill_files/media/'
+
 '''
 DATABASES = {
     'default': {

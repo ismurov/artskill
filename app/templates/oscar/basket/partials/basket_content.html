@@ -106,14 +106,18 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-default" type="submit" data-loading-text="{% trans 'Updating...' %}">{% trans "Update" %}</button>
                                         </span>-->
+
+                                        {# Update btn #}
                                         <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove"
                                            class="inline">
-                                            <h3 style="display: inline-block; margin-left: 15px">&#10005;</h3>
+                                            <h3 style="display: inline-block; margin-left: 15px">&#8634;</h3>
                                         </a>
-                                        <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove"
-                                           class="inline">
-                                            <h3 style="display: inline-block; margin-left: 15px">&#10005;</h3>
-                                        </a>
+
+                                        {# Remove btn - not wort #}
+{#                                        <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove"#}
+{#                                           class="inline">#}
+{#                                            <h3 style="display: inline-block; margin-left: 15px">&#10005;</h3>#}
+{#                                        </a>#}
                                     </div>
                                 </div>
                                 <div>
