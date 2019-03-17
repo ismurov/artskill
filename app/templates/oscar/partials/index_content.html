@@ -37,6 +37,20 @@
     .slide3 {
         background-image: url('{% static '/oscar/img/slides/slide3.jpg' %}');
     }
+
+    @media (max-width: 500px){
+        .slide1 {
+            background-image: url('{% static '/oscar/img/slides/mob-slide1.jpeg' %}');
+        }
+
+        .slide2 {
+            background-image: url('{% static '/oscar/img/slides/mob-slide2.jpeg' %}');
+        }
+
+        .slide3 {
+            background-image: url('{% static '/oscar/img/slides/mob-slide3.jpeg' %}');
+        }
+    }
 </style>
 <script>
     $(document).ready(function () {
@@ -67,22 +81,24 @@
 </script>
 
 <!-- T795 -->
-<div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
-    <div class="t-col t-col_12 ">
-        <div class="t-rec_pb_30" style="font-size:36px;">
-            Artskill
-        </div>
-        <div class="T795-desc">Мы
-            создаем яркие и функциональные аксессуары ручной работы из натуральной кожи, подчеркивающие
-            индивидуальность обладателя.
+<div class="col-xs-12">
+    <div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
+        <div class="t-col t-col_12 ">
+            <div class="t-rec_pb_30" style="font-size:36px;">
+                Artskill
+            </div>
+            <div class="T795-desc">Мы
+                создаем яркие и функциональные аксессуары ручной работы из натуральной кожи, подчеркивающие
+                индивидуальность обладателя.
+            </div>
         </div>
     </div>
-</div>
-<div class="t-rec_pt_30  t-align_center">
-    <div class="t-container">
-        <div class="t-row">
-            <div class="t-col t-col_6 t-prefix_3">
-                <div class="t022__text">Дизайн &bull; Качество &bull; Индивидуальность<br/></div>
+    <div class="t-rec_pt_30  t-align_center">
+        <div class="t-container">
+            <div class="t-row">
+                <div class="t-col t-col_6 t-prefix_3">
+                    <div class="t022__text">Дизайн &bull; Качество &bull; Индивидуальность<br/></div>
+                </div>
             </div>
         </div>
     </div>
@@ -90,146 +106,82 @@
 
 {# Product hits panel #}
 {% if product_hits|length >= 5 %}
-    <div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
-        <div class="t-col t-col_12 ">
-            <div class="t-rec_pb_30" style="font-size:36px;">
-                Хиты продаж
+    <div class="col-xs-12">
+        <div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
+            <div class="t-col t-col_12 ">
+                <div style="font-size:36px;">
+                    Хиты продаж
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-12">
-        <div class="col-sm-6 big-box">
-            {# 1 #}
-            {% with product=product_hits.0 %}
-                {% if product %}
-                    {# Use extra styles #}
-                    <a href="{{ product.get_absolute_url }}">
-                        <div class="box">
-                            <div class='aspect-ratio grey bcgi category-hover{{ product.id }}'>
 
-                                <div class="item-opt col-sm-12">
 
-                                    <div class="item-opt-colours col-sm-6">
-                                        {# Colors Panel #}
-                                        {% get_product_parent product as product_parent %}
-                                        {% if product_parent.can_be_parent and product_parent.use_colors %}
-                                            {% for child in product_parent.children.all %}
-                                                <p class="item-circle" style="
-                                                        background:
-                                                        {% if child.color %}{{ child.color }}{% else %}#eeeeee{% endif %};"></p>
-                                            {% endfor %}
-                                        {% endif %}
-                                    </div>
-
-                                    <div class="item-opt-like col-sm-6" style="text-align: right;">
-                                        {% load display_tags %}
-                                        {% iffeature "wishlists" %}
-                                            {% include "catalogue/partials/add_to_first_wishlist_min.html" %}
-                                        {% endiffeature %}
-                                    </div>
-
-                                </div>
-
-                                <div class="category-name-top item-descr">
-
-                                    <h3 class="category-name-h3">{{ product }}</h3>
-                                    <p>{{ product_parent.get_product_class.name }}</p>
-
-                                    <p class="price_color" style="margin:5px 0 0 0!important;">
-                                        {% include "catalogue/partials/stock_record.html" %}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {% with all_images=product.get_all_images %}
-                                <style>
-                                    .category-hover{{ product.id }} {
-                                        background-image: url('{{ all_images.0.original.url }}');
-                                    }
-
-                                    .category-hover{{ product.id }}:hover {
-                                        background-image: url('{{ all_images.1.original.url }}');
-                                    }
-
-                                    .category-hover{{ product.id }}:hover .item-opt {
-                                        display: block;
-                                    }
-                                </style>
-                            {% endwith %}
-
-                        </div>
-                    </a>
-                {% endif %}
-            {% endwith %}
-
+<div class="scrollmenu">
+    {% for product in product_hits %}
+        <div class="hit it">
+            {% include 'catalogue/partials/product.html' %}
         </div>
+    {% endfor %}
+</div>
 
-        <div class="col-sm-3 col-xs-6">
-            <div class=col-sm-6">
-                {# 2 #}
-                {% with product=product_hits.1 %}
-                    {% include 'catalogue/partials/product.html' %}
-                {% endwith %}
-            </div>
-            <div class=col-sm-6">
-                {# 3 #}
-                {% with product=product_hits.2 %}
-                    {% include 'catalogue/partials/product.html' %}
-                {% endwith %}
-            </div>
-        </div>
 
-        <div class="col-sm-3 col-xs-6">
-            <div class=col-sm-6">
-                {# 4 #}
-                {% with product=product_hits.3 %}
-                    {% include 'catalogue/partials/product.html' %}
-                {% endwith %}
-            </div>
-            <div class=col-sm-6">
-                {# 5 #}
-                {% with product=product_hits.4 %}
-                    {% include 'catalogue/partials/product.html' %}
-                {% endwith %}
-            </div>
-        </div>
-    </div>
 {% endif %}
 
 
-<div class="col-sm-12">
-    <div id="rec88585884" class="r t-rec t-rec_pt_90 mt600 t-rec_pb_90" style="background-color: #FFFFFF "
-         data-record-type="594"><!-- t594 -->
-        <div class="t594">
-            <div class="t594__container t-container">
-                <div class="t-col t594__item t594__item_5-in-row"><img
-                        src="../../../static/oscar/img/partners/logo-01.svg"
-                        data-original="images/tild3962-6235-4361-b535-643038646330__20.jpg" class="t594__img t-img "
-                        imgfield="li_img__1481203544538" style="max-width:160px;"/></div>
-                <div class="t-col t594__item t594__item_5-in-row"><img
-                        src="../../../static/oscar/img/partners/logo-02.png"
-                        data-original="images/tild3865-6137-4365-b438-393534366466__21.jpg" class="t594__img t-img "
-                        imgfield="li_img__1481205129244" style="max-width:160px;"/></div>
-                <div class="t-col t594__item t594__item_5-in-row"><img
-                        src="../../../static/oscar/img/partners/logo-03.png"
-                        data-original="images/tild3362-3132-4563-a261-633639373930__blob.png" class="t594__img t-img "
-                        imgfield="li_img__1481205877302" style="max-width:160px;"/></div>
-                <div class="t-col t594__item t594__item_5-in-row"><img
-                        src="../../../static/oscar/img/partners/logo-04.png"
-                        data-original="images/tild6132-3663-4631-b230-353635316432__blob.png" class="t594__img t-img "
-                        imgfield="li_img__1481205879887" style="max-width:160px;"/></div>
-                <div class="t-col t594__item t594__item_5-in-row"><img
-                        src="../../../static/oscar/img/partners/logo-05.png"
-                        data-original="images/tild3861-6330-4137-b664-653130616331__15.jpg" class="t594__img t-img "
-                        imgfield="li_img__1481205139575" style="max-width:160px;"/></div>
-            </div>
-        </div>
+
+
+
+<div class="scrollmenu">
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-01.svg"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-02.png"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-03.png"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-04.png"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-05.png"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-06.jpg"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-07.jpg"
+                class="logo_img"/>
+    </div>
+    <div class="it">
+        <img
+                src="../../../static/oscar/img/partners/logo-08.jpg"
+                class="logo_img"/>
     </div>
 </div>
 
-<div class="col-sm-12">
-    <div class="subsript t-rec t-rec_pt_60 t-rec_pb_60" style="margin-bottom: 60px">
+
+
+
+
+<div class="col-sm-12 col-xs-12">
+    <div class="subsript t-rec t-rec_pt_30 t-rec_pb_60">
         {% include 'artskill/includes/subscribe_form.html' %}
     </div>
 </div>

@@ -35,7 +35,7 @@
     <h1>Личный кабинет</h1>
     <p class="t-align_center">Здравствуйте, {{ user.get_full_name|default:'заполните пожалуйста личные данные' }}!</p>
 
-    <div class="col-lg-12 col-sm-12 t-align_center" style="width: 80%; margin-left: 10%; margin-bottom: 5%">
+    <div class="col-lg-12 col-sm-12 t-align_center" style="width: 80%; margin-left: 10%;">
         <a class="col-lg-4 col-sm-4 col-12 {% if active_tab == 'profile' %}user-active-tab{% else %}user-tab{% endif %}"
            href="{% url 'customer:profile-view' %}">Моя информация</a>
         <a class="col-lg-4 col-sm-4 col-12 {% if active_tab == 'orders' %}user-active-tab{% else %}user-tab{% endif %}"

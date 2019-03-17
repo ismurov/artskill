@@ -10009,7 +10009,7 @@ ul.list-goods {
 }
 ul.list-goods>li a {
   color: #000000;
-}
+}/*
 .blue {
   background-color: #1e6abc;
 }
@@ -10019,6 +10019,7 @@ ul.list-goods>li a {
 .dark-grey {
   background-color: #E9E9EB;
 }
+*/
 .white {
   background-color: #ffffff;
 }
@@ -10063,8 +10064,8 @@ ul.list-goods>li a {
 }
 .category-name-top {
   position: absolute;
-  top: 6%;
-  left: 10%;
+  top: 0;
+  left: 2%;
   color: #000000;
 }
 .category-name-bottom {
@@ -10102,8 +10103,8 @@ p.pr {
 
 .category-name {
   position: absolute;
-  bottom: 3%;
-  left: 10%;
+  bottom: -6%;
+  left: 2%;
   font-size: 18px;
   font-weight: 600;
   color: #000000;
@@ -10248,7 +10249,7 @@ h2.category-heading {
   transition: 0.5s;
 }
 .item-margin {
-  margin: 30px 15px 0 15px;
+  /*margin: 30px 15px 0 15px;*/
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -10389,7 +10390,7 @@ text-align: left;
 input, textarea, select {
   width: 350px;
   padding: 12px;
-  background-color: rgba(9, 19, 33, 0.06);
+  background-color: #E5E7EA;
   box-sizing: border-box;
   margin-bottom: 16px;
   resize: vertical;
@@ -10401,6 +10402,11 @@ input, textarea, select {
 }
 .select-container select {
   width: 116.6px;
+  height: 45px;
+  outline: 2px;
+  outline-offset: -2px;
+  outline-color: #E5E7EA;
+  outline-style: double;
 }
 
 .myradio input {
@@ -10493,7 +10499,9 @@ p.small-p {
 }
 .brand-sphere-p {
   position: absolute;
-  left: 10%;
+  left: 0;
+  text-align: center;
+  width: 100%;
   bottom: 0;
   opacity: 0.96;
   font-size: 28px;
@@ -11570,9 +11578,6 @@ h3.category-name-top {
     text-align: center;
     margin: 20px;
   }
-  .brand h2, .brand p {
-    margin-left: 20px;
-  }
   .brand h2 {
     font-size: 28px;
   }
@@ -11591,5 +11596,156 @@ img.logo {
 @media (min-width: 767px) and (max-width: 872px){
   .tablink {
     font-size: 10px;
+  }
+}
+@media (max-width: 872px){
+  #rec88585884 {
+    padding: 0!important;
+  }
+  .mt600 {
+    margin-top: 0;
+  }
+}
+
+
+
+/**/
+
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+  width: 100%;
+}
+
+div.scrollmenu .it {
+  display: inline-block;
+}
+.hit {
+  width: 25%;
+}
+
+/*CUSTOM SCROLLBAR
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}*/
+.scrollmenu .it img.logo_img {
+  width: 200px;
+  margin: 50px;
+}
+#rec90700797 {
+  padding-bottom:80px;
+}
+.detail_h2 h2 {
+  font-size: 36px;
+  margin: 0;
+}
+@media (max-width: 872px){
+  .hit {
+    width: 75%;
+  }
+  .scrollmenu .it img.logo_img {
+    width: 100px;
+    margin: 0 50px;
+  }
+  .full-description {
+    margin: 0;
+  }
+  .item-description {
+    padding: 30px 20px;
+  }
+  h1.title {
+    font-size: 30px;
+  }
+  p.classname {
+    font-size: 20px;
+  }
+  .price p {
+    font-size: 24px !important;
+  }
+  .product_main h3 {
+    margin: 0 0 5px;
+  }
+  #rec90700797 {
+    padding-bottom:0;
+  }
+  .full-description {
+      padding-top: 100px;
+  }
+  .detail_h2 h2 {
+    font-size: 28px;
+  }
+  .brand_pro h2 {
+    margin-top: 6%;
+    margin-left: 20px;
+  }
+  .brand_pro p {
+    font-size: 18px;
+    margin-left: 20px;
+  }
+  .tabcontent h2 {
+    font-size: 24px;
+  }
+  h1, h2 {
+    font-size: 30px;
+  }
+  .p-art {
+    font-size: 13px;
+  }
+  p.saintp::after, p.saintp::before {
+    width: 50px;
+  }
+  .form-horizontal .form-group {
+    margin: 0;
+    padding: 0;
+  }
+  .filter .input-group {
+    margin-left: 0;
+  }
+  .tab-border {
+    margin: 60px 0;
+  }
+}
+a:hover {
+  color:  #000000!important;
+}
+.brand_pro h2 {
+  text-align: left;
+  margin-top: 23%;
+}
+.brand_pro p {
+  font-size: 18px
+}
+
+.mobile-footer .col-xs-7,.mobile-footer .col-xs-6, .mobile-footer .col-xs-5, .mobile-footer .col-xs-3, .mobile-footer .col-xs-1 {
+  padding: 0!important;
+}
+
+@media (max-width: 872px) {
+
+  .basket-items img {
+       width: 100%!important;
+     }
+  .basket-items {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+  .navbar-form {
+    padding: 0;
+    margin: 0;
+  }
+  .seach-init {
+    margin-bottom: 20px;
+  }
+  .seach-init p {
+    font-size: 13px;
   }
 }

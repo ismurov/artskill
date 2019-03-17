@@ -17,14 +17,15 @@
 
 {% block tabcontent %}
 
+{% comment %}
     {% if orders or form.is_bound %}
         <div class="filter">
             <h2>{% trans "Filter" %}</h2>
-            <form action="." method="get" class="form-horizontal">
+            <form action="." method="get" class="form-horizontal col-xs-12">
                 {% include "partials/form_fields.html" with form=form style='horizontal' %}
-                <div class="form-group">
+                <div class="form-group col-xs-12">
                     <div class="col-sm-4"></div>
-                    <div class="filter-buttons col-sm-7">
+                    <div class="filter-buttons col-sm-7 col-xs-12">
                         <button type="submit" class="btn btn-primary" data-loading-text="{% trans 'Filtering...' %}">
                             Результат
                         </button>
@@ -34,6 +35,8 @@
             </form>
         </div>
     {% endif %}
+{% endcomment %}
+
 
     {% if orders %}
         <h2>{{ form.description }}</h2>

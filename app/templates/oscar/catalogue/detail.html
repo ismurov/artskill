@@ -77,7 +77,7 @@
         <div class="row">
 
             {% block product_gallery %}
-                <div class="col-sm-6 desktop-detail">
+                <div class="col-sm-6 col-xs-12 desktop-detail">
                     <div class="box-item">
                         <div class='aspect-ratio aspect-ratio-item grey'>
                             <img src="{{ detail_images.0.original.url }}" alt="" class="product_img">
@@ -127,7 +127,7 @@
 
 
             {% block product_main %}
-                <div class="col-sm-6 product_main marpad">
+                <div class="col-sm-6 col-xs-12 product_main marpad">
                     <div class="box-item">
                         <div class='aspect-ratio aspect-ratio-item item-description'>
                             {% if user.is_staff %}
@@ -190,7 +190,7 @@
 
                                     {% if product_parent.description %}
                                         <div class="t-records" data-hook="blocks-collection-content-node">
-                                            <div id="rec90700797" style="padding-bottom:80px; "
+                                            <div id="rec90700797"
                                                  data-animationappear="off" data-record-type="849"><!-- t849-->
                                                 <div class="t849">
                                                     <div class="t-container">
@@ -291,7 +291,7 @@
 
             {# Set of images 1 #}
             {% if detail_images.1 and detail_images.2 %}
-                <div class="col-sm-6 desktop-detail">
+                <div class="col-sm-6 col-xs-6 desktop-detail">
                     <div class="box-item">
                         <div class='aspect-ratio aspect-ratio-item item-margin '>
                             <img src="{{ detail_images.1.original.url }}" alt="" class="product_img">
@@ -299,7 +299,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 desktop-detail">
+                <div class="col-sm-6 col-xs-6 desktop-detail">
                     <div class="box-item ">
                         <div class='aspect-ratio aspect-ratio-item item-margin '>
                             <img src="{{ detail_images.2.original.url }}" alt="" class="product_img">
@@ -310,7 +310,7 @@
 
             {# Set of images 2 #}
             {% if detail_images.3 and detail_images.4 %}
-                <div class="col-sm-6 desktop-detail">
+                <div class="col-sm-6 col-xs-6 desktop-detail">
                     <div class="box-item">
                         <div class='aspect-ratio aspect-ratio-item item-margin '>
                             <img src="{{ detail_images.3.original.url }}" alt="" class="product_img">
@@ -318,7 +318,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 desktop-detail">
+                <div class="col-sm-6 col-xs-6 desktop-detail">
                     <div class="box-item">
                         <div class='aspect-ratio aspect-ratio-item item-margin '>
                             <img src="{{ detail_images.4.original.url }}" alt="" class="product_img">
@@ -327,9 +327,9 @@
                 </div>
             {% endif %}
 
-        </div><!-- /row -->
 
 
+<div class="col-sm-12 col-xs-12">
         <div class="full-description">
             {{ product_parent.details_description|safe }}
 
@@ -338,36 +338,49 @@
                 {{ av.value_as_html }}<br><br>
             {% endfor %}
         </div>
+</div>
+
+
+
+            <div class="scrollmenu">
+                {% for product in product_hits %}
+                <div class="hit it">
+                    {% include 'catalogue/partials/product.html' %}
+                </div>
+                {% endfor %}
+            </div>
 
 
 
 
-
+            <div class="col-sm-12 col-xs-12">
 
         {% with recommended_products=product_parent.sorted_recommended_products|slice:":6" %}
             {% if recommended_products %}
                 <div class="sub-header">
-                    <h2 class="t-align_center" style="font-size: 36px;">{% trans "Recommended items" %}</h2>
+                    <h2 class="t-align_center detail_h2">{% trans "Recommended items" %}</h2>
                 </div>
+                <div class="scrollmenu">
                 {% for product in recommended_products %}
-                    <div class="col-sm-3">
-                        <div class="box">
-                            <div class='aspect-ratio  grey'>
+                    <a href="">
+                        <div class="hit it">
+                            <div class="box">
+                                <div class='aspect-ratio grey'>
 
-                                <img src="{{ product.primary_image.original.url }}" alt="">
-                                <h4>{{ product }}</h4>
-                                <p>{{ product.get_product_class.name }}</p>
-                                <p>{{ product.upc }}</p>
+                                    <img src="{{ product.primary_image.original.url }}" alt="">
+                                    <h4>{{ product }}</h4>
+                                    <p>{{ product.get_product_class.name }}</p>
+                                    <p>{{ product.upc }}</p>
 
-
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 {% endfor %}
-
-
+                </div>
             {% endif %}
         {% endwith %}
+            </div>
 
 
 
@@ -376,7 +389,11 @@
         {% recently_viewed_products current_product=product %}
         {%endcomment%}
 
+        </div><!-- /row -->
+
     </article><!-- End of product page -->
+
+
 {% endblock content %}
 
 {% block extrascripts %}
