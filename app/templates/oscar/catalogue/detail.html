@@ -351,35 +351,21 @@
             </div>
 
 
-
-
             <div class="col-sm-12 col-xs-12">
-
-        {% with recommended_products=product_parent.sorted_recommended_products|slice:":6" %}
-            {% if recommended_products %}
+                {% with recommended_products=product_parent.sorted_recommended_products|slice:":6" %}
+                {% if recommended_products %}
                 <div class="sub-header">
                     <h2 class="t-align_center detail_h2">{% trans "Recommended items" %}</h2>
                 </div>
                 <div class="scrollmenu">
-                {% for product in recommended_products %}
-                    <a href="">
+                    {% for product in recommended_products %}
                         <div class="hit it">
-                            <div class="box">
-                                <div class='aspect-ratio grey'>
-
-                                    <img src="{{ product.primary_image.original.url }}" alt="">
-                                    <h4>{{ product }}</h4>
-                                    <p>{{ product.get_product_class.name }}</p>
-                                    <p>{{ product.upc }}</p>
-
-                                </div>
-                            </div>
+                            {% include 'catalogue/partials/product.html' %}
                         </div>
-                    </a>
-                {% endfor %}
+                    {% endfor %}
                 </div>
-            {% endif %}
-        {% endwith %}
+                {% endif %}
+                {% endwith %}
             </div>
 
 
