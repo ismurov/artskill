@@ -26,12 +26,15 @@ MIDDLEWARE = [
 
 INTERNAL_IPS = ['127.0.0.1', '::1']
 
+# DEBUG_TOOLBAR_CONFIG = {
+#     'INTERCEPT_REDIRECTS': True,
+# }
 
 # ==============
 # Email config
 # ==============
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ADMINS = [('Team', 'team@artskill.store'), ]
 

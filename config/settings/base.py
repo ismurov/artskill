@@ -41,7 +41,6 @@ SITE_NAME = 'Artskill'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*'
-# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -283,21 +282,49 @@ OSCAR_DEFAULT_CURRENCY = 'RUB'
 #     },
 # }
 
+# ==============
+# Checout processing
+# ==============
+
+OSCAR_ALLOW_ANON_CHECKOUT = True
+OSCAR_REQUIRED_ADDRESS_FIELDS = ('first_name', 'last_name', 'line1',
+                                 'line4', 'country')  # 'postcode'
+
+
+PAYMENT_METHOD_CASH = 'cash'
+PAYMENT_METHOD_ROBOKASSA = 'robokassa'
+
+PAYMENT_METHODS = ((PAYMENT_METHOD_ROBOKASSA, 'Оплата на сайте'),
+                   (PAYMENT_METHOD_CASH, 'Оплата наличными при получении'))
+
+# ==============
 # Order processing
 # ================
+
+
 
 # Sample order/line status settings. This is quite simplistic. It's like you'll
 # want to override the set_status method on the order object to do more
 # sophisticated things.
-OSCAR_INITIAL_ORDER_STATUS = 'Pending'
-OSCAR_INITIAL_LINE_STATUS = 'Pending'
+# OSCAR_INITIAL_ORDER_STATUS = 'Pending'
+# OSCAR_INITIAL_LINE_STATUS = 'Pending'
+
+ORDER_PENDING = 'Ожидает оплаты'
+ORDER_PROCESSING = 'В обработке'
+
+OSCAR_INITIAL_ORDER_STATUS = ORDER_PENDING
+OSCAR_INITIAL_LINE_STATUS = ORDER_PENDING
 
 # This dict defines the new order statuses than an order can move to
 OSCAR_ORDER_STATUS_PIPELINE = {
-    'Pending': ('Being processed', 'Cancelled',),
-    'Being processed': ('Complete', 'Cancelled',),
-    'Cancelled': (),
-    'Complete': (),
+    ORDER_PENDING: (ORDER_PROCESSING, 'Отмена',),
+    ORDER_PROCESSING: ('Выполнен', 'Отмена',),
+    'Отмена': (),
+    'Выполнен': (),
+    # 'Pending': ('Being processed', 'Cancelled',),
+    # 'Being processed': ('Complete', 'Cancelled',),
+    # 'Cancelled': (),
+    # 'Complete': (),
 }
 
 # ==============
@@ -324,12 +351,14 @@ SHIPPING_METHODS_STANDARD_OPTIONS = {
     'boxberry-currier': {
         'name': 'Курьерская доставка Boxberry',
         'description': "Описание для курьерской доставка Boxberry",
-        'base_price': '500.00',
+        'excl_tax': '500.00',
+        'incl_tax': '500.00',
     },
     'boxberry-take-away': {
         'name': 'Пункт выдачи Boxberry',
         'description': "Описание для курьерской доставка Boxberry",
-        'base_price': '500.00',
+        'excl_tax': '500.00',
+        'incl_tax': '500.00',
     },
 }
 
@@ -428,32 +457,32 @@ OSCAR_DASHBOARD_NAVIGATION = [
 
         ],
     },
-    # {
-    #     'label': _('Content'),
-    #     'icon': 'icon-folder-close',
-    #     'children': [
-    #         {
-    #             'label': _('Content blocks'),
-    #             'url_name': 'dashboard:promotion-list',
-    #         },
-    #         {
-    #             'label': _('Content blocks by page'),
-    #             'url_name': 'dashboard:promotion-list-by-page',
-    #         },
-    #         {
-    #             'label': _('Pages'),
-    #             'url_name': 'dashboard:page-list',
-    #         },
-    #         {
-    #             'label': _('Email templates'),
-    #             'url_name': 'dashboard:comms-list',
-    #         },
-    #         {
-    #             'label': _('Reviews'),
-    #             'url_name': 'dashboard:reviews-list',
-    #         },
-    #     ]
-    # },
+    {
+        'label': _('Content'),
+        'icon': 'icon-folder-close',
+        'children': [
+            {
+                'label': _('Content blocks'),
+                'url_name': 'dashboard:promotion-list',
+            },
+            {
+                'label': _('Content blocks by page'),
+                'url_name': 'dashboard:promotion-list-by-page',
+            },
+            {
+                'label': _('Pages'),
+                'url_name': 'dashboard:page-list',
+            },
+            {
+                'label': _('Email templates'),
+                'url_name': 'dashboard:comms-list',
+            },
+            {
+                'label': _('Reviews'),
+                'url_name': 'dashboard:reviews-list',
+            },
+        ]
+    },
     {
         'label': _('Reports'),
         'icon': 'icon-bar-chart',

@@ -1,0 +1,36 @@
+{% extends "checkout/checkout.html" %}
+
+{% load currency_filters %}
+{% load i18n %}
+{% load shipping_tags %}
+
+{% block title %}
+    Способ оплаты | {{ block.super }}
+{% endblock %}
+
+{% block checkout_nav %}
+    {% include 'checkout/nav.html' with step=2 %}
+{% endblock %}
+
+{% block checkout_title %}Выберите способ оплаты{% endblock %}
+
+{% block order_contents %}{% endblock %}
+{% block shipping_address %}{% endblock %}
+{% block shipping_method %}{% endblock %}
+
+{% block payment_method %}
+{#    <h1 class="h1-art">Выберите способ оплаты</h1>#}
+    <div class="form-container t-align_center">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                {{ field.label }} <br>
+                {{ field.errors }}
+                {{ field }}
+                <br>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+    </div>
+{% endblock %}

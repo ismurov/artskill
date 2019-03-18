@@ -74,8 +74,11 @@ class AccountRegistrationView(RegisterUserMixin, generic.FormView):
             subscriber, created = Subscriber.objects.get_or_create(email=email)
             if created:
                 subscriber.save()
+        if form.cleaned_data['redirect_url'] and \
+                form.cleaned_data['redirect_url'] != settings.LOGIN_REDIRECT_URL:
+            messages.success(self.request, 'Регистрация прошла успешно.')
+            return redirect(form.cleaned_data['redirect_url'])
         return redirect(reverse_lazy('artskill:registration-thanks'))
-        # return redirect(form.cleaned_data['redirect_url'])
 
 
 # =============
