@@ -1,3 +1,4 @@
+{% load thumbnail %}
 {% load find_parent_tags %}
 
 {% if product %}
@@ -42,11 +43,15 @@
             {% with all_images=product.get_all_images %}
                 <style>
                     .category-hover{{ product.id }} {
-                        background-image: url('{{ all_images.0.original.url }}');
+                        {% thumbnail all_images.0.original "400x400" upscale=False as thumb %}
+                        background-image: url('{{ thumb.url }}');
+                        {% endthumbnail %}
                     }
 
                     .category-hover{{ product.id }}:hover {
-                        background-image: url('{{ all_images.1.original.url }}');
+                        {% thumbnail all_images.1.original "400x400" upscale=False as thumb %}
+                        background-image: url('{{ thumb.url }}');
+                        {% endthumbnail %}
                     }
 
                     .category-hover{{ product.id }}:hover .item-opt {

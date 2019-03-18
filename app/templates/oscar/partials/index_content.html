@@ -1,61 +1,67 @@
 {% load i18n %}
 {% load static %}
 {% load find_parent_tags %}
+{% load promotion_tags %}
+{% load category_tags %}
 
-<div class="owl-carousel owl-theme slideshow-container">
-    <div class="item bcgslide slide1">
-        <div class="slide-text">
-            {#<p>Новинка</p>#}
-            <h2>Линейка пеналов для<br>художников</h2>
-            <a href="{{ category.0.0.get_absolute_url }}">перейти в раздел</a>
+
+{% if promotions_page.0.name == 'Main Page Slider' %}
+    {{ promotions_page.0.body|safe }}
+
+{% else %}
+    {% category_tree depth=1 as category %}
+    <div class="owl-carousel owl-theme slideshow-container">
+        <div class="item bcgslide slide1">
+            <div class="slide-text">
+                <p></p>
+                <h2>Линейка пеналов для<br>художников</h2>
+                <a href="{{ category.0.0.get_absolute_url }}">перейти в раздел</a>
+            </div>
+        </div>
+        <div class="item bcgslide slide2">
+            <div class="slide-text">
+                <p></p>
+                <h2>Линейка пеналов для<br>кистей</h2>
+                <a href="{{ category.0.0.get_absolute_url }}">перейти в раздел</a>
+            </div>
+        </div>
+        <div class="item bcgslide slide3">
+            <div class="slide-text">
+                <p>Коллаборация Avgvst x Artskill</p>
+                <h2>Холдер для хранения<br>украшений</h2>
+                <a href="{{ category.2.0.get_absolute_url }}">перейти в раздел</a>
+            </div>
         </div>
     </div>
-    <div class="item bcgslide slide2">
-        <div class="slide-text">
-            {#<p>Новинка</p>#}
-            <h2>Линейка пеналов для<br>кистей</h2>
-            <a href="{{ category.0.0.get_absolute_url }}">перейти в раздел</a>
-        </div>
-    </div>
-    <div class="item bcgslide slide3">
-        <div class="slide-text">
-            <p>Коллаборация Avgvst x Artskill</p>
-            <h2>Холдер для хранения<br>украшений</h2>
-            <a href="{{ category.2.0.get_absolute_url }}">перейти в раздел</a>
-        </div>
-    </div>
-</div>
-<style>
-    .slide1 {
-        background-image: url('{% static '/oscar/img/slides/slide1.jpg' %}');
-    }
-
-    .slide2 {
-        background-image: url('{% static '/oscar/img/slides/slide2.jpg' %}');
-    }
-
-    .slide3 {
-        background-image: url('{% static '/oscar/img/slides/slide3.jpg' %}');
-    }
-
-    @media (max-width: 500px){
+    <style>
         .slide1 {
-            background-image: url('{% static '/oscar/img/slides/mob-slide1.jpeg' %}');
+            background-image: url('{% static '/oscar/img/slides/slide1.jpg' %}');
         }
 
         .slide2 {
-            background-image: url('{% static '/oscar/img/slides/mob-slide2.jpeg' %}');
+            background-image: url('{% static '/oscar/img/slides/slide2.jpg' %}');
         }
 
         .slide3 {
-            background-image: url('{% static '/oscar/img/slides/mob-slide3.jpeg' %}');
+            background-image: url('{% static '/oscar/img/slides/slide3.jpg' %}');
         }
-    }
-</style>
+
+        @media (max-width: 500px) {
+            .slide1 {
+                background-image: url('{% static '/oscar/img/slides/mob-slide1.jpeg' %}');
+            }
+
+            .slide2 {
+                background-image: url('{% static '/oscar/img/slides/mob-slide2.jpeg' %}');
+            }
+
+            .slide3 {
+                background-image: url('{% static '/oscar/img/slides/mob-slide3.jpeg' %}');
+            }
+        }
+    </style>
+{% endif %}
 <script>
-    $(document).ready(function () {
-        $(".owl-carousel").owlCarousel();
-    });
     $('.owl-carousel').owlCarousel({
         center: true,
         items: 1,
