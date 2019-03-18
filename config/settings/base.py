@@ -428,32 +428,32 @@ OSCAR_DASHBOARD_NAVIGATION = [
 
         ],
     },
-    # {
-    #     'label': _('Content'),
-    #     'icon': 'icon-folder-close',
-    #     'children': [
-    #         {
-    #             'label': _('Content blocks'),
-    #             'url_name': 'dashboard:promotion-list',
-    #         },
-    #         {
-    #             'label': _('Content blocks by page'),
-    #             'url_name': 'dashboard:promotion-list-by-page',
-    #         },
-    #         {
-    #             'label': _('Pages'),
-    #             'url_name': 'dashboard:page-list',
-    #         },
-    #         {
-    #             'label': _('Email templates'),
-    #             'url_name': 'dashboard:comms-list',
-    #         },
-    #         {
-    #             'label': _('Reviews'),
-    #             'url_name': 'dashboard:reviews-list',
-    #         },
-    #     ]
-    # },
+    {
+        'label': _('Content'),
+        'icon': 'icon-folder-close',
+        'children': [
+            {
+                'label': _('Content blocks'),
+                'url_name': 'dashboard:promotion-list',
+            },
+            {
+                'label': _('Content blocks by page'),
+                'url_name': 'dashboard:promotion-list-by-page',
+            },
+            {
+                'label': _('Pages'),
+                'url_name': 'dashboard:page-list',
+            },
+            {
+                'label': _('Email templates'),
+                'url_name': 'dashboard:comms-list',
+            },
+            {
+                'label': _('Reviews'),
+                'url_name': 'dashboard:reviews-list',
+            },
+        ]
+    },
     {
         'label': _('Reports'),
         'icon': 'icon-bar-chart',
