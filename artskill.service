@@ -3,7 +3,7 @@ Description=uWSGI instance to django Artskill application
 
 [Service]
 ExecStartPre=-/usr/bin/bash -c 'mkdir -p /run/uwsgi; chown root:nginx /run/uwsgi; mkdir -p /var/log/artskill'
-ExecStart=/usr/bin/bash -c 'source /var/www/venv_artskill/bin/activate; uwsgi --ini /var/www/artskill/uwsgi_artskill.ini'
+ExecStart=/usr/bin/bash -c 'source /usr/local/venv_artskill/bin/activate; uwsgi --ini /usr/local/artskill/uwsgi_artskill.ini'
 Restart=always
 
 [Install]

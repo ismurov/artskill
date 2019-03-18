@@ -1,10 +1,10 @@
 from .base import *
 
 # ALLOWED_HOSTS = ['artskill.store']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['artskill.store', '46.17.45.249', 'localhost', '127.0.0.1']
 
-STATIC_ROOT = '/var/www/artskill_files/static/'
-MEDIA_ROOT = '/var/www/artskill_files/media/'
+STATIC_ROOT = '/artskill/static/'
+MEDIA_ROOT = '/artskill/media/'
 
 '''
 DATABASES = {
