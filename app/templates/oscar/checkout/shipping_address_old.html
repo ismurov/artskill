@@ -1,0 +1,93 @@
+{% extends "checkout/base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Shipping address" %} | {{ block.super }}
+{% endblock %}
+
+
+{% block checkout_title %}{% trans "Shipping address" %}{% endblock %}
+
+{% block steps_nav %}
+    {% include 'checkout/nav.html' with step=1 %}
+{% endblock %}
+
+{% block order_contents %}{% endblock %}
+
+{% block shipping_address %}
+    <div class="form-container t-align_center">
+        <h3>Контактная информация</h3>
+        <form action="{% url 'checkout:shipping-address' %}" method="post" id="new_shipping_address"
+              class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+            {{ field }}<br>
+            {{ field.errors }}
+
+            <div class=" t-align_center">
+                <div class="select-container t-align_center ">
+                    <label class="control-label required"
+                           for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }} </label><br>
+                    {{ form.first_name }}<br>
+                    {{ form.first_name.errors }}
+                </div>
+            </div>
+
+            <div class=" t-align_center">
+                <div class="select-container t-align_center ">
+                    <label class="control-label required"
+                           for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }} </label><br>
+                    {{ form.last_name }}<br>
+                    {{ form.last_name.errors }}
+                </div>
+            </div>
+
+            <div class=" t-align_center">
+                <div class="select-container t-align_center ">
+                    <label class="control-label required"
+                           for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }} </label><br>
+                    {{ form.phone_number }}<br>
+                    {{ form.phone_number.errors }}
+                </div>
+            </div>
+            {% if shipping_method.code != 'standard-take-away' %}
+                <div class=" t-align_center">
+                    <div class="select-container t-align_center ">
+                        <label for="{{ form.line4.id_for_label }}">{{ form.line4.label }}</label><br>
+                        {{ form.line4 }}<br>
+                        {{ form.line4.errors }}
+                    </div>
+                </div>
+
+                <div class=" t-align_center">
+                    <div class="select-container t-align_center ">
+                        <label for="{{ form.line1.id_for_label }}">Адрес</label><br>
+                        {{ form.line1 }}<br>
+                        {{ form.line1.errors }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class=" t-align_center">
+                <div class="select-container t-align_center ">
+                    <label for="{{ form.notes.id_for_label }}">Комментарий</label><br>
+                    {{ form.notes }}<br>
+                    {{ form.notes.errors }}
+                    <span class="help-block">Сообщите нам, что мы еще должны знать для обработки вашего заказа.</span>
+                </div>
+            </div>
+            <br>
+
+            {#{% include "partials/form_fields.html" with form=form %}#}
+            <button type="submit" class="btn btn-lg btn-primary"
+                    data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
+            <br>
+            {% trans "or" %} <a href="{% url 'basket:summary' %}">{% trans "return to basket" %}</a>
+        </form>
+    </div>
+{% endblock shipping_address %}
+
+{% block shipping_method %}{% endblock %}
+{% block payment_method %}{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "checkout/checkout.html" %}
+{% extends "checkout/base.html" %}
 
 {% load currency_filters %}
 {% load i18n %}
@@ -8,29 +8,31 @@
     Способ оплаты | {{ block.super }}
 {% endblock %}
 
-{% block checkout_nav %}
+{% block checkout_title %}Выберите способ оплаты{% endblock %}
+
+{% block steps_nav %}
     {% include 'checkout/nav.html' with step=2 %}
 {% endblock %}
-
-{% block checkout_title %}Выберите способ оплаты{% endblock %}
 
 {% block order_contents %}{% endblock %}
 {% block shipping_address %}{% endblock %}
 {% block shipping_method %}{% endblock %}
 
 {% block payment_method %}
-{#    <h1 class="h1-art">Выберите способ оплаты</h1>#}
     <div class="form-container t-align_center">
-        <form class="form" method="post">
-            {% csrf_token %}
-            {{ form.non_field_errors }}
-            {% for field in form %}
-                {{ field.label }} <br>
-                {{ field.errors }}
-                {{ field }}
-                <br>
-            {% endfor %}
-            <button class="btn btn-primary" type="submit">Отправить</button>
-        </form>
+        <h3>Выберите способ оплаты</h3>
+        <div class="form-container t-align_center">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    {{ field.errors }}<br>
+                    {{ field }}
+                    <br><br>
+                {% endfor %}
+                <button type="submit" class="btn btn-lg btn-primary"
+                        data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
+            </form>
+        </div>
     </div>
 {% endblock %}

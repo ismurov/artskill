@@ -5,7 +5,7 @@ from django.conf import settings
 from django import http
 from django.contrib import messages
 from django.contrib.auth import login
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils import six
 from django.utils.http import urlquote
@@ -21,6 +21,7 @@ from oscar.apps.payment import models as payment_models
 # My forms
 from app.robokassa.forms import RobokassaForm
 from .forms import PaymentMethodForm
+
 ###
 
 ShippingAddressForm, ShippingMethodForm, GatewayForm \
@@ -48,6 +49,7 @@ Email = get_model('customer', 'Email')
 Country = get_model('address', 'Country')
 CommunicationEventType = get_model('customer', 'CommunicationEventType')
 
+
 # Standard logger for checkout events
 logger = logging.getLogger('oscar.checkout')
 
@@ -59,8 +61,8 @@ class IndexView(CheckoutSessionMixin, generic.FormView):
     """
     template_name = 'checkout/gateway.html'
     form_class = GatewayForm
-    # success_url = reverse_lazy('checkout:shipping-address')  # !!!!!!!!!!
-    success_url = reverse_lazy('checkout:shipping-method')
+    success_url = reverse_lazy('checkout:shipping-address')  # !!!!!!!!!!
+    # success_url = reverse_lazy('checkout:shipping-method')
     pre_conditions = [
         'check_basket_is_not_empty',
         'check_basket_is_valid']
@@ -120,6 +122,11 @@ class IndexView(CheckoutSessionMixin, generic.FormView):
         return redirect(self.get_success_url())
 
 
+if not settings.DEBUG:
+    class IndexView(generic.TemplateView):
+        template_name = 'artskill/checkout_temp.html'
+
+
 # ================
 # SHIPPING ADDRESS
 # ================
@@ -141,6 +148,7 @@ class ShippingAddressView(CheckoutSessionMixin, generic.FormView):
     """
     template_name = 'checkout/shipping_address.html'
     form_class = ShippingAddressForm
+    form_class_shipping_method = ShippingMethodForm
     # success_url = reverse_lazy('checkout:shipping-method')  # !!!!!!!
     success_url = reverse_lazy('checkout:payment-method')
     pre_conditions = ['check_basket_is_not_empty',
@@ -165,44 +173,66 @@ class ShippingAddressView(CheckoutSessionMixin, generic.FormView):
 
     def get_context_data(self, **kwargs):
         ctx = super(ShippingAddressView, self).get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            # Look up address book data
-            ctx['addresses'] = self.get_available_addresses()
+
+        # ShippingMethodForm
+        if 'form_shipping_method' not in kwargs:
+            ctx.update({'form_shipping_method': self.form_class_shipping_method(
+                **self.form_shipping_method_kwargs())})
+
+        # ShippingMethodInfo
+        ctx.update({'shipping_methods': self.get_available_shipping_methods()})
+
         return ctx
 
-    def get_available_addresses(self):
-        # Include only addresses where the country is flagged as valid for
-        # shipping. Also, use ordering to ensure the default address comes
-        # first.
-        return self.request.user.addresses.filter(
-            country__is_shipping_country=True).order_by(
-            '-is_default_for_shipping')
+    def form_shipping_method_kwargs(self):
+        kwargs = {
+            'initial': {
+                'method_code': self.checkout_session.shipping_method_code(
+                    self.request.basket)},
+            'methods': self.get_available_shipping_methods(),
+        }
+        if self.request.method in ('POST', 'PUT'):
+            kwargs.update({
+                'data': self.request.POST,
+            })
+        return kwargs
+
+    def get_available_shipping_methods(self):
+        """
+        Returns all applicable shipping method objects for a given basket.
+        """
+        # Shipping methods can depend on the user, the contents of the basket
+        # and the shipping address (so we pass all these things to the
+        # repository).  I haven't come across a scenario that doesn't fit this
+        # system.
+        return Repository().get_shipping_methods(
+            basket=self.request.basket, user=self.request.user,
+            shipping_addr=self.get_shipping_address(self.request.basket),
+            request=self.request)
 
     def post(self, request, *args, **kwargs):
-        # Check if a shipping address was selected directly (eg no form was
-        # filled in)
-        if self.request.user.is_authenticated \
-                and 'address_id' in self.request.POST:
-            address = UserAddress._default_manager.get(
-                pk=self.request.POST['address_id'], user=self.request.user)
-            action = self.request.POST.get('action', None)
-            if action == 'ship_to':
-                # User has selected a previous address to ship to
-                self.checkout_session.ship_to_user_address(address)
-                return redirect(self.get_success_url())
-            else:
-                return http.HttpResponseBadRequest()
+        form = self.get_form()
+        form_shipping_method = self.form_class_shipping_method(
+            **self.form_shipping_method_kwargs())
+        if form.is_valid() and form_shipping_method.is_valid():
+            return self.forms_valid(form, form_shipping_method)
         else:
-            return super(ShippingAddressView, self).post(
-                request, *args, **kwargs)
+            return self.forms_invalid(form, form_shipping_method)
 
-    def form_valid(self, form):
+    def forms_valid(self, form, form_shipping_method):
         # Store the address details in the session and redirect to next step
         address_fields = dict(
             (k, v) for (k, v) in form.instance.__dict__.items()
             if not k.startswith('_'))
         self.checkout_session.ship_to_new_address(address_fields)
+
+        self.checkout_session.use_shipping_method(form_shipping_method.cleaned_data['method_code'])
+
         return super(ShippingAddressView, self).form_valid(form)
+
+    def forms_invalid(self, form, form_shipping_method):
+        return self.render_to_response(self.get_context_data(
+            form=form, form_shipping_method=form_shipping_method))
 
 
 class UserAddressUpdateView(CheckoutSessionMixin, generic.UpdateView):
@@ -643,53 +673,39 @@ class PaymentDetailsView(OrderPlacementMixin, generic.TemplateView):
             return self.render_preview(
                 self.request, error=error_msg, **payment_kwargs)
 
-        # ######
-        # signals.post_payment.send_robust(sender=self, view=self)
-        #
-        # # If all is ok with payment, try and place order
-        # logger.info("Order #%s: payment successful, placing order",
-        #             order_number)
-        # #####
-
-
-        #####
         # Select payment process
         payment_method = self.checkout_session.payment_method()
+
         if payment_method == settings.PAYMENT_METHOD_CASH:
-            order_kwargs['status'] = settings.ORDER_PROCESSING
-            # source_type, __ = payment_models.SourceType.objects.get_or_create(
-            #     name="Cash payment")
-            # source = payment_models.Source(
-            #     source_type=source_type,
-            #     amount_allocated=order_total.incl_tax)
-            # self.add_payment_source(source)
+            order_kwargs['status'] = settings.ORDER_ADD_WO_PAY
 
-            # Record payment event
-            # self.add_payment_event('pre-auth', total.incl_tax)
-        ####
         elif payment_method == settings.PAYMENT_METHOD_ROBOKASSA:
-            user_email = user.email if user.is_authenticated \
-                else self.checkout_session.get_guest_email()
-
-            form = RobokassaForm(initial={
-                'OutSum': str(order_total.incl_tax),
-                'InvId': str(order_number),
-                'Desc': 'Описание покупки',
-                'Email': user_email,
-                'Culture': 'ru',
-            })
-            form.initial['MrchLogin'] = settings.ROBOKASSA_LOGIN
-            form.initial['SignatureValue'] = form._get_signature()
-            form.initial['isTest'] = int(getattr(settings, 'ROBOKASSA_TEST_MODE', False))
-            form.get_redirect_url()
-            print(user_email)
-            print(form.get_redirect_url())
-            return redirect(form.get_redirect_url())
+            order_kwargs['status'] = settings.ORDER_PENDING
 
         try:
-            return self.handle_order_placement(
+            success_redirect = self.handle_order_placement(
                 order_number, user, basket, shipping_address, shipping_method,
                 shipping_charge, billing_address, order_total, **order_kwargs)
+
+            # redirect user to pay
+            if payment_method == settings.PAYMENT_METHOD_ROBOKASSA:
+                user_email = user.email if user.is_authenticated \
+                    else self.checkout_session.get_guest_email()
+
+                form = RobokassaForm(initial={
+                    'InvId': str(order_number),
+                    'OutSum': str(order_total.incl_tax),
+                    # 'Desc': 'Описание покупки',
+                    'Email': user_email,
+                    'Culture': 'ru',
+                })
+                form.initial['MrchLogin'] = settings.ROBOKASSA_LOGIN
+                form.initial['SignatureValue'] = form._get_signature()
+                form.initial['isTest'] = int(getattr(settings, 'ROBOKASSA_TEST_MODE', False))
+                return redirect(form.get_redirect_url())
+
+            return success_redirect
+
         except UnableToPlaceOrder as e:
             # It's possible that something will go wrong while trying to
             # actually place an order.  Not a good situation to be in as a
@@ -752,3 +768,50 @@ class ThankYouView(generic.DetailView):
             ctx['send_analytics_event'] = False
 
         return ctx
+
+
+class FailView(OrderPlacementMixin, generic.DetailView):
+    """
+    Displays the 'thank you' page which summarises the order just submitted.
+    """
+    template_name = 'checkout/fail.html'
+    context_object_name = 'order'
+
+    def get_object(self):
+        # We allow superusers to force an order thank-you page for testing
+        order = None
+        if self.request.user.is_superuser:
+            if 'order_number' in self.request.GET:
+                order = Order._default_manager.get(
+                    number=self.request.GET['order_number'])
+            elif 'order_id' in self.request.GET:
+                order = Order._default_manager.get(
+                    id=self.request.GET['order_id'])
+
+        if not order:
+            if 'checkout_order_id' in self.request.session:
+                order = Order._default_manager.get(
+                    pk=self.request.session['checkout_order_id'])
+            else:
+                raise http.Http404(_("No order found"))
+
+        return order
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(FailView, self).get_context_data(*args, **kwargs)
+        # Remember whether this view has been loaded.
+        # Only send tracking information on the first load.
+        key = 'order_{}_fail_viewed'.format(ctx['order'].pk)
+        if not self.request.session.get(key, False):
+            self.request.session[key] = True
+            ctx['send_analytics_event'] = True
+        else:
+            ctx['send_analytics_event'] = False
+
+        return ctx
+
+    def get(self, request, *args, **kwargs):
+        self.restore_frozen_basket()
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)

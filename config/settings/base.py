@@ -287,8 +287,7 @@ OSCAR_DEFAULT_CURRENCY = 'RUB'
 # ==============
 
 OSCAR_ALLOW_ANON_CHECKOUT = True
-OSCAR_REQUIRED_ADDRESS_FIELDS = ('first_name', 'last_name', 'line1',
-                                 'line4', 'country')  # 'postcode'
+OSCAR_REQUIRED_ADDRESS_FIELDS = ('first_name', 'last_name', 'phone_number')
 
 
 PAYMENT_METHOD_CASH = 'cash'
@@ -301,30 +300,20 @@ PAYMENT_METHODS = ((PAYMENT_METHOD_ROBOKASSA, 'Оплата на сайте'),
 # Order processing
 # ================
 
-
-
-# Sample order/line status settings. This is quite simplistic. It's like you'll
-# want to override the set_status method on the order object to do more
-# sophisticated things.
-# OSCAR_INITIAL_ORDER_STATUS = 'Pending'
-# OSCAR_INITIAL_LINE_STATUS = 'Pending'
-
 ORDER_PENDING = 'Ожидает оплаты'
-ORDER_PROCESSING = 'В обработке'
+ORDER_PAID = 'Оплачен'
+ORDER_ADD_WO_PAY = 'Добавлен, Оплата при получении'
 
 OSCAR_INITIAL_ORDER_STATUS = ORDER_PENDING
-OSCAR_INITIAL_LINE_STATUS = ORDER_PENDING
+OSCAR_INITIAL_LINE_STATUS = 'Добавлен'
 
 # This dict defines the new order statuses than an order can move to
 OSCAR_ORDER_STATUS_PIPELINE = {
-    ORDER_PENDING: (ORDER_PROCESSING, 'Отмена',),
-    ORDER_PROCESSING: ('Выполнен', 'Отмена',),
-    'Отмена': (),
+    ORDER_PENDING: (ORDER_PAID, 'Выполнен', 'Отмена'),
+    ORDER_PAID: ('Выполнен', 'Отмена'),
+    ORDER_ADD_WO_PAY: ('Выполнен', 'Отмена'),
     'Выполнен': (),
-    # 'Pending': ('Being processed', 'Cancelled',),
-    # 'Being processed': ('Complete', 'Cancelled',),
-    # 'Cancelled': (),
-    # 'Complete': (),
+    'Отмена': (),
 }
 
 # ==============
@@ -332,31 +321,34 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 # ==============
 
 SHIPPING_METHODS_STANDARD_OPTIONS = {
+    'standard-take-away': {
+        'name': 'Самовывоз',
+        'description': ('<p>Товар можете забрать в нашем офисе по адресу:</p>'
+                        '<p>СПб, Цветочная, 6M</p>'
+                        '<p>Стоимость: бесплатно</p>'),
+    },
     'standard': {
         'name': 'Курьерская по Санкт-Петербургу',
-        'description': ('<p>Стоимость: 300 Р</p>'
-                        '<p>Срок доставки: 1-2 д</p>'
-                        '<p>Оплата: сейчас или при получении</p>'),
+        'description': ('<p>Стоимость: 300 Р<br>'
+                        'при заказе от 5000р - бесплатно</p>'
+                        '<p>Срок доставки: 1-2 д</p>'),
         'free_price_from': '5000.00',
         'excl_tax': '300.00',
         'incl_tax': '300.00',
     },
-    'standard-take-away': {
-        'name': 'Самовывоз',
-        'description': ('<p>Товар можете забрать в нашем офисе по адресу:</p>'
-                        '<p>улица Цветочная, 6M</p>'
-                        '<p>Стоимость: бесплатно</p>'
-                        '<p>Оплата: сейчас или при получении</p>'),
+    'boxberry-take-away': {
+        'name': 'Пункт выдачи Boxberry',
+        'description': ("<p>Доставка до ближайшего к вами пункта выдачи Boxberry</p>"
+                        "<p>Стоимость: 400 Р</p>"
+                        "<p>Срок доставки: 4-5 д</p>"),
+        'excl_tax': '400.00',
+        'incl_tax': '400.00',
     },
     'boxberry-currier': {
         'name': 'Курьерская доставка Boxberry',
-        'description': "Описание для курьерской доставка Boxberry",
-        'excl_tax': '500.00',
-        'incl_tax': '500.00',
-    },
-    'boxberry-take-away': {
-        'name': 'Пункт выдачи Boxberry',
-        'description': "Описание для курьерской доставка Boxberry",
+        'description': ("<p>Курьерская доставка Boxberry на дом</p>"
+                        "<p>Стоимость: 500 Р</p>"
+                        "<p>Срок доставки: 4-5 д</p>"),
         'excl_tax': '500.00',
         'incl_tax': '500.00',
     },

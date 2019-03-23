@@ -1,6 +1,7 @@
 from django.views import generic
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
@@ -14,6 +15,8 @@ from .signals import result_received, success_page_visited, fail_page_visited
 @csrf_exempt
 def receive_result(request):
     """ обработчик для ResultURL. """
+    print('receive_result')
+
     data = request.POST if USE_POST else request.GET
     form = ResultURLForm(data)
     if form.is_valid():
@@ -51,7 +54,9 @@ def success(request, template_name='robokassa/success.html', extra_context=None,
         context = {'InvId': id, 'OutSum': sum, 'form': form}
         context.update(form.extra_params())
         context.update(extra_context or {})
-        return render(request, template_name, context)
+
+        return redirect(reverse('checkout:thank-you'))
+        # return render(request, template_name, context)
 
     return render(request, error_template_name, {'form': form})
 
@@ -75,7 +80,8 @@ def fail(request, template_name='robokassa/fail.html', extra_context=None,
         context = {'InvId': id, 'OutSum': sum, 'form': form}
         context.update(form.extra_params())
         context.update(extra_context or {})
-        return render(request, template_name, context)
+        return redirect(reverse('checkout:fail'))
+        # return render(request, template_name, context)
 
     return render(request, error_template_name, {'form': form})
 
