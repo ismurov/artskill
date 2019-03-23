@@ -1,4 +1,4 @@
-{% extends "checkout/layout.html" %}
+{% extends "checkout/base.html" %}
 
 {% load i18n %}
 {% load widget_tweaks %}
@@ -7,61 +7,54 @@
     {% trans "Checkout gateway" %} | {{ block.super }}
 {% endblock %}
 
-{% block checkout_nav %}
-    {% include 'checkout/nav.html' with step=0 %}
-{% endblock %}
-
 {% block checkout_title %}{% trans "Who are you?" %}{% endblock %}
 
 {% block content %}
+    {% include 'checkout/nav.html' with step=0 %}
 
-    <form action="." method="post" class="form-stacked well">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+    <div class="form-container t-align_center">
+        <form action="." method="post" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div>
+                <h3>{{ form.username.label }}</h3>
+                <p>{{ form.username.errors }}</p>
+                <p>{{ form.username }}</p>
+            </div>
 
-        {% include "partials/form_field.html" with field=form.username %}
+            <style>
+                #id_options_0,
+                #id_options_1,
+                #id_options_2,
+                #id_options_3 {
+                    width: 20px !important;
+                }
+            </style>
 
-        <div class="form-group">
-            <div class="controls">
-                <div class="radio">
-                    {{ form.options.0 }}
+            <div class="radio t-align_left" style="margin: 0 auto; width: 350px;">
+                {{ form.options.0 }}
+            </div>
+            <br>
+            <div class="radio t-align_left" style="margin: 0 auto; width: 350px;">
+                {{ form.options.2 }}
+                <div class="form-inline">
+                    {% render_field form.password class+="form-control" %}
+                    <small><a href="{% url 'password-reset' %}"
+                              tabindex="-1">{% trans "Get a password reminder" %}</a></small>
+                    {% for error in form.password.errors %}
+                        <span class="error-block">{{ error }}</span>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-
-        <div class="form-group {% if form.password.errors %}error{% endif %}">
-            {{ form.options.errors }}
-            <div class="controls">
-                <div class="radio">
-                    {{ form.options.2 }}
-                    <div class="form-inline">
-                        {% render_field form.password class+="form-control" %}
-                        <small><a href="{% url 'password-reset' %}" tabindex="-1">{% trans "Get a password reminder" %}</a></small>
-                        {% for error in form.password.errors %}
-                            <span class="error-block">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                </div>
+            <br>
+            <div class="radio t-align_left" style="margin: 0 auto; width: 350px;">
+                {{ form.options.1 }}
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="controls">
-                <div class="radio">
-                    {{ form.options.1 }}
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-sm-3">
-                    <button type="submit" class="btn btn-lg btn-block btn-primary" data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
-                </div>
-            </div>
-        </div>
-    </form>
-
+            <br><br>
+            <button class="btn btn-primary" type="submit"
+                    data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
+        </form>
+    </div>
 {% endblock content %}
 
 {% block onbodyload %}

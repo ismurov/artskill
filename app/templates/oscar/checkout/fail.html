@@ -1,0 +1,39 @@
+{% extends "checkout/base.html" %}
+
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block title %}
+    {% trans "Checkout gateway" %} | {{ block.super }}
+{% endblock %}
+
+{% block checkout_title %}{% trans "Who are you?" %}{% endblock %}
+
+{% block content %}
+    {% include 'checkout/nav.html' with step=0 %}
+
+    <div class="t-align_center">
+        {% with number=order.number %}
+            <p class="p-art">
+                Ваш заказ <strong>{{ number }}</strong> был размещен и вам было выслано сообщение с подтверждением.<br>
+                Но к сожалению оплата не прошла.
+            </p>
+        {% endwith %}
+
+        <p class="p-art">Для решения возникшей проблемы свяжитесь с нами любым из представленных ниже способов<br>
+            С уважением, ваш Artskill
+        </p>
+        <div class="contacts">
+            <p class="upper">email</p>
+            <p>info@artskill.store</p>
+            <p class="upper">Телефон</p>
+            <p>8 921 586 88 90</p>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.checkout.gateway.init();
+{% endblock %}

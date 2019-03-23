@@ -15,7 +15,7 @@ class IndexView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'product_hits': Product.objects.order_by('-rating', '-date_updated').all()[:5],
+            'product_hits': Product.objects.order_by('-rating', '-date_updated').all()[:10],
         })
         return context
 

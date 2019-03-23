@@ -1,4 +1,4 @@
-{% extends "checkout/layout.html" %}
+{% extends "checkout/base.html" %}
 {% load currency_filters %}
 {% load thumbnail %}
 {% load i18n %}
@@ -10,14 +10,14 @@
     {% endblocktrans %} | {{ block.super }}
 {% endblock title %}
 
-{% block checkout_nav %}
-    {% include 'checkout/nav.html' with step=5 %}
-{% endblock %}
-
 {% block checkout_title %}
     {% blocktrans with number=order.number %}
         Order {{ number }}: confirmation
     {% endblocktrans %}
+{% endblock %}
+
+{% block steps_nav %}
+    {% include 'checkout/nav.html' with step=3 %}
 {% endblock %}
 
 {% block content %}

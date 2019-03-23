@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    Success
-</body>
-</html>
+{% extends "layout_2_col.html" %}
+{% load static %}
+
+{% block navigation %}
+    {% include "partials/nav_index.html" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block column_left %}
+{% endblock %}
+
+{% block content %}
+    <div class="thanks col-sm-12">
+        <img src="{% static '/oscar/img/icons/success.svg' %}">
+        <h1 class="h1-art">Оплата прошла успешно</h1>
+        <p class="p-art"></p>
+    </div>
+{% endblock content %}

@@ -1,39 +1,192 @@
-{% extends "checkout/checkout.html" %}
+{% extends "checkout/base.html" %}
 {% load i18n %}
+{% load currency_filters %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load shipping_tags %}
 
 {% block title %}
     {% trans "Order preview" %} | {{ block.super }}
-{% endblock %}
-
-{% block checkout_nav %}
-    {% include 'checkout/nav.html' with step=4 %}
 {% endblock %}
 
 {% block checkout_title %}
     {% trans "Preview order" %}
 {% endblock %}
 
-{% block place_order %}
-    <form method="post" action="{% url 'checkout:preview' %}" id="place_order_form">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="place_order" />
+{% block steps_nav %}
+    {% include 'checkout/nav.html' with step=3 %}
+{% endblock %}
 
-        {% comment %}
+
+
+{% block place_order %}
+    <div class="form-container t-align_center">
+        <form class="form" method="post" action="{% url 'checkout:preview' %}" id="place_order_form">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="place_order"/>
+
+            {% comment %}
             When submitting sensitive data on the payment details page (eg a bankcard)
             we don't want to save the data and so we pass the bound form to the preview
             template and render it in a hidden div.  Then the payment information will
             get re-submitted when the user confirms the order.
-        {% endcomment %}
-        <div style="display:none">
-            {% block hiddenforms %}{% endblock %}
-        </div>
+            {% endcomment %}
+            <div style="display:none">
+                {% block hiddenforms %}{% endblock %}
+            </div>
 
-        <div class="form-group clearfix">
-            <div class="row">
-                <div class="col-sm-3 col-sm-offset-9">
-                     <button id='place-order' type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="{% trans 'Submitting...' %}">{% trans "Place order" %}</button>
+            <div id="basket_totals">
+                <div class="col-sm-12">
+                    <div>
+                        {% with offer_discounts=basket.offer_discounts voucher_discounts=basket.grouped_voucher_discounts %}
+                            {% block discount_totals %}
+                                {% if offer_discounts or voucher_discounts %}
+                                    {# Basket total will be discounted so we show a before and after version #}
+                                    <div>
+                                        <div>{% trans "Basket total (before discounts)" %}</div>
+                                        <div class="align-right">
+                                            {% if basket.is_tax_known and not show_tax_separately %}
+                                                {{ basket.total_incl_tax_excl_discounts|currency:basket.currency }}
+                                            {% else %}
+                                                {{ basket.total_excl_tax_excl_discounts|currency:basket.currency }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    {% for discount in offer_discounts %}
+                                        <div>
+                                            <div class="basket-discount"><span
+                                                    class="label label-success">{% trans "Discount" %}</span> {{ discount.name }}
+                                                {% if discount.description %}
+                                                    <br/>
+                                                    <small>{{ discount.description }}</small>
+                                                {% endif %}
+                                            </div>
+                                            <div class="align-right">
+                                                -{{ discount.discount|currency:basket.currency }}</div>
+                                        </div>
+                                    {% endfor %}
+
+                                    {% if voucher_discounts %}
+                                        <div>
+                                            <div colspan="2"><h3>{% trans "Vouchers" %}</h3></div>
+                                        </div>
+                                        {% for discount in voucher_discounts %}
+                                            <div>
+                                                <div>
+                                                    {{ discount.voucher.name }} ({{ discount.voucher.code }})
+                                                    {% if editable %}
+                                                        <form action="{% url 'basket:vouchers-remove' pk=discount.voucher.id %}"
+                                                              method="POST">
+                                                            {% csrf_token %}
+                                                            <input type="submit" value="{% trans 'Remove' %}"
+                                                                   class="btn btn-sm btn-danger"/>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="align-right">
+                                                    -{{ discount.discount|currency:basket.currency }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endblock %}
+
+                            {% block basket_total %}
+                                {% if offer_discounts or voucher_discounts %}
+                                    <div>
+                                        <div class="total">{% trans "Basket total (after discounts)" %}</div>
+                                        <div class="total align-right">
+                                            {% if not show_tax_separately and basket.is_tax_known %}
+                                                {{ basket.total_incl_tax|currency:basket.currency }}
+                                            {% else %}
+                                                {{ basket.total_excl_tax|currency:basket.currency }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {# No discounts to basket #}
+                                    <div>
+                                        <div class="total align-right col-sm-10">{% trans "Basket total" %}</div>
+                                        <div class="total align-right col-sm-2">
+                                            {% if not show_tax_separately and basket.is_tax_known %}
+                                                {{ basket.total_incl_tax|currency:basket.currency }}
+                                            {% else %}
+                                                {{ basket.total_excl_tax|currency:basket.currency }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endblock %}
+                        {% endwith %}
+
+
+
+                        {% block post_order_action_totals %}
+                            {% if basket.post_order_actions %}
+
+                                <div>
+                                    <div><h3>{% trans "Post order actions" %}</h3>
+                                        <small>{% trans "These will be applied once your order is placed." %}</small>
+                                    </div>
+                                    <div></div>
+                                </div>
+                                {% for discount in basket.post_order_actions %}
+                                    <div>
+                                        <div class="total" colspan="2">
+                                            <span class="label label-success">{{ discount.name }}</span><br/>
+                                            <p>{{ discount.description }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block shipping_total %}
+                            <div>
+                                <div class="total align-right col-sm-10">Стоимость доставки</div>
+                                <div class="total align-right col-sm-2">
+                                    {% shipping_charge shipping_method basket as charge %}
+                                    {% if charge.is_tax_known %}
+                                        {{ charge.incl_tax|currency:basket.currency }}
+                                    {% else %}
+                                        {{ charge.excl_tax|currency:basket.currency }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endblock %}
+
+                        {% block order_total %}
+
+                            <div>
+                                <div class="total align-right col-sm-10"><h3>{% trans "Order total" %}</h3></div>
+                                <div class="total align-right col-sm-2">
+                                    <h3 class="price_color">
+                                        {% if order_total.is_tax_known %}
+                                            {{ order_total.incl_tax|currency:basket.currency }}
+                                        {% else %}
+                                            {{ order_total.excl_tax|currency:basket.currency }}
+                                        {% endif %}
+                                    </h3>
+                                </div>
+                            </div>
+                            {% if not order_total.is_tax_known %}
+                                <div>
+                                    <div>
+                                        <small>{% trans "Taxes will be added during checkout." %}</small>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+
+
+            <div class="clearfix">
+                <button id='place-order' type="submit" class="btn btn-primary"
+                        data-loading-text="{% trans 'Submitting...' %}">{% trans "Place order" %}</button>
+            </div>
+        </form>
+    </div>
 {% endblock place_order %}

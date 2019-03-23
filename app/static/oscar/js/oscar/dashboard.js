@@ -33,13 +33,14 @@ var oscar = (function(o, $) {
                     entity_encoding: 'raw',
                     statusbar: false,
                     menubar: false,
-                    plugins: "link lists",
+                    plugins: "link lists code image",
+                    schema: "html5",
                     style_formats: [
                         {title: 'Text', block: 'p'},
                         {title: 'Heading', block: 'h2'},
                         {title: 'Subheading', block: 'h3'}
                     ],
-                    toolbar: "styleselect | bold italic blockquote | bullist numlist | link"
+                    toolbar: "styleselect | bold italic blockquote | bullist numlist | link image | code"
                 }
             };
             o.dashboard.options = $.extend(true, defaults, options);

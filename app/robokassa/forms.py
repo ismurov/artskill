@@ -89,7 +89,7 @@ class RobokassaForm(BaseRobokassaForm):
         """
 
         def _initial(name, field):
-            return self.initial.get(name, field.initial, None)
+            return self.initial.get(name, None)
 
         fields = [(name, _initial(name, field))
                   for name, field in self.fields.items()

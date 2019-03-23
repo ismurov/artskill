@@ -45,11 +45,13 @@ class Boxberry(methods.FixedPrice):
     code = 'boxberry-currier'
     name = shipping[code]['name']
     description = shipping[code]['description']
-    charge_excl_tax = D(shipping[code]['base_price'])
+    charge_excl_tax = D(shipping[code]['excl_tax'])
+    charge_incl_tax = D(shipping[code]['incl_tax'])
 
 
 class TakeAwayBoxberry(methods.FixedPrice):
     code = 'boxberry-take-away'
     name = shipping[code]['name']
     description = shipping[code]['description']
-    charge_excl_tax = D(shipping[code]['base_price'])
+    charge_excl_tax = D(shipping[code]['excl_tax'])
+    charge_incl_tax = D(shipping[code]['incl_tax'])

@@ -1,15 +1,15 @@
-{% extends "checkout/checkout.html" %}
+{% extends "checkout/base.html" %}
 {% load i18n %}
 
 {% block title %}
     {% trans "Payment details" %} | {{ block.super }}
 {% endblock %}
 
-{% block checkout_nav %}
+{% block checkout_title %}{% trans "Enter payment details" %}{% endblock %}
+
+{% block steps_nav %}
     {% include 'checkout/nav.html' with step=3 %}
 {% endblock %}
-
-{% block checkout_title %}{% trans "Enter payment details" %}{% endblock %}
 
 {% block order_contents %}{% endblock %}
 {% block shipping_address %}{% endblock %}
