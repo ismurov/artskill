@@ -3,11 +3,11 @@
 {% load find_parent_tags %}
 {% load promotion_tags %}
 {% load category_tags %}
+{% load artskill_promo_pages %}
 
-
-{% if promotions_page.0.name == 'Main Page Slider' %}
-    {{ promotions_page.0.body|safe }}
-
+{% get_promo_page promotions_page 'Main Page Slider' as promo_slider %}
+{% if promo_slider %}
+    {{ promo_slider.body|safe }}
 {% else %}
     {% category_tree depth=1 as category %}
     <div class="owl-carousel owl-theme slideshow-container">
@@ -61,6 +61,7 @@
         }
     </style>
 {% endif %}
+
 <script>
     $('.owl-carousel').owlCarousel({
         center: true,
@@ -88,26 +89,31 @@
 
 <!-- T795 -->
 <div class="col-xs-12">
-    <div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
-        <div class="t-col t-col_12 ">
-            <div class="t-rec_pb_30" style="font-size:36px;">
-                Artskill
-            </div>
-            <div class="T795-desc">Мы
-                создаем яркие и функциональные аксессуары ручной работы из натуральной кожи, подчеркивающие
-                индивидуальность обладателя.
-            </div>
-        </div>
-    </div>
-    <div class="t-rec_pt_30  t-align_center">
-        <div class="t-container">
-            <div class="t-row">
-                <div class="t-col t-col_6 t-prefix_3">
-                    <div class="t022__text">Дизайн &bull; Качество &bull; Индивидуальность<br/></div>
+    {% get_promo_page promotions_page 'Main Page Body' as promo_body %}
+    {% if promo_body %}
+        {{ promo_body.body|safe }}
+    {% else %}
+        <div class="t-rec_pt_30 t-rec_pb_30 t-align_center">
+            <div class="t-col t-col_12 ">
+                <div class="t-rec_pb_30" style="font-size:36px;">
+                    Artskill
+                </div>
+                <div class="T795-desc">Мы
+                    создаем яркие и функциональные аксессуары ручной работы из натуральной кожи, подчеркивающие
+                    индивидуальность обладателя.
                 </div>
             </div>
         </div>
-    </div>
+        <div class="t-rec_pt_30  t-align_center">
+            <div class="t-container">
+                <div class="t-row">
+                    <div class="t-col t-col_6 t-prefix_3">
+                        <div class="t022__text">Дизайн &bull; Качество &bull; Индивидуальность<br/></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
 
 {# Product hits panel #}
@@ -124,13 +130,13 @@
 
 
 
-<div class="scrollmenu">
-    {% for product in product_hits %}
-        <div class="hit it">
-            {% include 'catalogue/partials/product.html' %}
-        </div>
-    {% endfor %}
-</div>
+    <div class="scrollmenu">
+        {% for product in product_hits %}
+            <div class="hit it">
+                {% include 'catalogue/partials/product.html' %}
+            </div>
+        {% endfor %}
+    </div>
 
 
 {% endif %}
@@ -181,9 +187,6 @@
                 class="logo_img"/>
     </div>
 </div>
-
-
-
 
 
 <div class="col-sm-12 col-xs-12">

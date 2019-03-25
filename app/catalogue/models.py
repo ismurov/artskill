@@ -43,8 +43,14 @@ class Product(AbstractProduct):
     use_colors = models.BooleanField('Использовать цвета', default=False,
                                      help_text=('Отметьте это пунк, если вы хотите добавлять товары разных цветов.'
                                                 ' Товары добавляются в разделе Варианты.'))
-    # color = models.IntegerField('Цвет', choices=COLOR_SET, default=NO_COLOR)
     color = models.CharField('Цвет', max_length=24, choices=COLOR_SET, default=NO_COLOR, blank=True)
+
+    # show sale price on/off
+    show_sale_price = models.BooleanField('Отображать цену со скидкой',
+                                          default=False,
+                                          help_text=(
+                                              "Этот флаг указывает, будет ли отображаться этот товар в разделе 'SALE'. "
+                                              "Отображаемая 'Цена без скидки' указывается в разделе 'Цена и наличие'."))
 
     rating = models.FloatField('Рейтинг товара', default=0,
                                validators=[MinValueValidator(0),

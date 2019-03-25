@@ -77,5 +77,7 @@
         {% endfor %}
     {% endwith %}
 {% else %}
-    <button class="like" disabled="disabled"><img src="{% static '/oscar/img/heart/heart.svg' %}" style="width: 26px;height: 26px;"></button><br/>
+    <!-- Кнопки с popovers -->
+    <button class="like" data-toggle="popover" data-content="Авторизуйтесь для добавления в избранное"><img
+            src="{% static '/oscar/img/heart/heart.svg' %}" style="width: 26px;height: 26px;"></button><br/>
 {% endif %}

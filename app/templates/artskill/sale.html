@@ -1,5 +1,7 @@
 {% extends "layout_2_col.html" %}
 {% load i18n %}
+{% load static %}
+{% load artskill_promo_pages %}
 
 {% block title %}
     Sela | {{ block.super }}
@@ -15,8 +17,35 @@
 {% endblock %}
 
 {% block content %}
-    <h2 class="t-align_center">SALE</h2>
-    <p class="p-art t-align_center">В данный момент распродаж нет</p>
+    <div class="sale-title-box col-sm-12 col-xs-12">
+        {% get_promo_page promotions_page 'Sale Page' as page %}
+        {% if page %}
+            {{ page.body|safe }}
+        {% else %}
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4 brand_pro">
+                <h2>Artskill Pro</h2>
+                <p>Пенал для художниов</p>
+            </div>
+            <div class="col-sm-4">
+                <img src="{% static '/oscar/img/about/image-about.jpg' %}" style="width: 100%">
+            </div>
+            <div class="col-sm-2"></div>
+        {% endif %}
+    </div>
+
+    {% if products %}
+        {% for product in products %}
+            <div class="col-sm-3">
+                {% include 'catalogue/partials/product.html' %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-sm-12">
+            <p class="p-art t-align_center">В данный момент распродаж нет</p>
+        </div>
+    {% endif %}
+
 
     <div class="col-sm-12">
         <div class="subsript t-rec t-rec_pt_60 t-rec_pb_60" style="margin-bottom: 60px">

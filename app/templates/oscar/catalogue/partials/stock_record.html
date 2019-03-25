@@ -1,18 +1,31 @@
 {% load currency_filters %}
 {% load i18n %}
 {% load purchase_info_tags %}
+{% load find_parent_tags %}
 
 {% purchase_info_for_product request product as session %}
+{% get_product_parent product as product_parent %}
 
 {% if session.price.exists %}
     {% if session.price.excl_tax == 0 %}
-        <p class="price_color">{% trans "Free" %}</p>
+        <p class="price_color">{% trans "Free" %}
+            {% if product_parent.show_sale_price %}&nbsp;
+                <span class="old_price">{{ session.stockrecord.cost_price }}&nbsp;₽</span>{% endif %}
+        </p>
     {% elif session.price.is_tax_known %}
-        <p class="price_color">{{ session.price.incl_tax|floatformat:"0" }}&nbsp;₽</p>
-{#        <p class="price_color">{{ session.price.incl_tax|currency:session.price.currency }}</p>#}
+        <p class="price_color">
+            {{ session.price.incl_tax|floatformat:"0" }}&nbsp;₽
+            {% if product_parent.show_sale_price %}&nbsp;
+                <span class="old_price">{{ session.stockrecord.cost_price }}&nbsp;₽</span>{% endif %}
+        </p>
+
+        {#<p class="price_color">{{ session.price.incl_tax|currency:session.price.currency }}</p>#}
     {% else %}
         <p class="price_color">{{ session.price.excl_tax|floatformat:"0" }}&nbsp;₽</p>
-{#        <p class="price_color">{{ session.price.excl_tax|currency:session.price.currency }}</p>#}
+        {% if product_parent.show_sale_price %}&nbsp;
+            <span class="old_price">{{ session.stockrecord.cost_price }}&nbsp;₽</span>{% endif %}
+
+        {#<p class="price_color">{{ session.price.excl_tax|currency:session.price.currency }}</p>#}
     {% endif %}
 {% else %}
     <p class="price_color">&nbsp;</p>

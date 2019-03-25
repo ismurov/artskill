@@ -21,14 +21,16 @@
 {% block payment_method %}
     <div class="form-container t-align_center">
         <h3>Выберите способ оплаты</h3>
-        <div class="form-container t-align_center">
+        <div class="form-container t-align_center" class="select-container-full">
             <form class="form" method="post">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 {% for field in form %}
-                    {{ field.errors }}<br>
-                    {{ field }}
-                    <br><br>
+                    <div class="select-container-full">
+                        {{ field.errors }}<br>
+                        {{ field }}
+                        <br><br>
+                    </div>
                 {% endfor %}
                 <button type="submit" class="btn btn-lg btn-primary"
                         data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>

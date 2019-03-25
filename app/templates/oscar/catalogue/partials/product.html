@@ -2,15 +2,28 @@
 {% load find_parent_tags %}
 
 {% if product %}
+
+    {% get_product_parent product as product_parent %}
+
     <a href="{{ product.get_absolute_url }}">
         <div class="box">
             <div class='aspect-ratio grey bcgi category-hover{{ product.id }}'>
 
-                <div class="item-opt col-sm-12">
+                {% if product_parent.show_sale_price %}
+                    <div class="item-opt-sale col-sm-12">
+                        {# Sale Panel #}
+                        {% get_sale_percentage request product as sale %}
+                        {% if sale %}
+                            -{{ sale }}%
+                        {% else %}
+                            Sale
+                        {% endif %}
+                    </div>
+                {% endif %}
 
+                <div class="item-opt col-sm-12">
                     <div class="item-opt-colours col-sm-6">
                         {# Colors Panel #}
-                        {% get_product_parent product as product_parent %}
                         {% if product_parent.can_be_parent and product_parent.use_colors %}
                             {% for child in product_parent.children.all %}
                                 <p class="item-circle" style="
@@ -43,19 +56,23 @@
             {% with all_images=product.get_all_images %}
                 <style>
                     .category-hover{{ product.id }} {
-                        {% thumbnail all_images.0.original "400x400" upscale=False as thumb %}
+                    {% thumbnail all_images.0.original "400x400" upscale=False as thumb %}
                         background-image: url('{{ thumb.url }}');
-                        {% endthumbnail %}
+                    {% endthumbnail %}
                     }
 
                     .category-hover{{ product.id }}:hover {
-                        {% thumbnail all_images.1.original "400x400" upscale=False as thumb %}
+                    {% thumbnail all_images.1.original "400x400" upscale=False as thumb %}
                         background-image: url('{{ thumb.url }}');
-                        {% endthumbnail %}
+                    {% endthumbnail %}
                     }
 
                     .category-hover{{ product.id }}:hover .item-opt {
                         display: block;
+                    }
+
+                    .category-hover{{ product.id }}:hover .item-opt-sale {
+                        display: none;
                     }
                 </style>
             {% endwith %}

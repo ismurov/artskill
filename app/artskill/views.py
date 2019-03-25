@@ -36,8 +36,10 @@ class DeliveryView(generic.TemplateView):
     template_name = 'artskill/delivery.html'
 
 
-class SaleView(generic.TemplateView):
+class SaleView(generic.ListView):
     template_name = 'artskill/sale.html'
+    context_object_name = "products"
+    queryset = Product.objects.filter(show_sale_price=True)
 
 
 class ReturnView(generic.FormView):

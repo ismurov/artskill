@@ -40,7 +40,7 @@ SITE_NAME = 'Artskill'
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*'
+SECRET_KEY = os.getenv('SECRET_KEY', 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*')
 
 ALLOWED_HOSTS = []
 
@@ -88,6 +88,7 @@ INSTALLED_APPS = INSTALLED_APPS + oscar.get_core_apps([
     'app.catalogue',
     'app.dashboard.catalogue',
     'app.customer',
+    'app.partner',
 ])
 
 # for FlatPages

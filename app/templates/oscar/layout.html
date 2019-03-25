@@ -106,4 +106,8 @@
 {% block onbodyload %}
     {{ block.super }}
     oscar.init();
+    $('[data-toggle="popover"]').popover({
+        placement: 'bottom',
+        trigger: 'hover'
+    });
 {% endblock %}

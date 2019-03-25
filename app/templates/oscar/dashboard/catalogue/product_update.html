@@ -114,7 +114,8 @@
                                         {{ form.errors }}
                                         {% for field in form.visible_fields %}
                                             {% if 'attr' not in field.id_for_label %}
-                                                {% if field.name == 'details_description' or field.name == 'use_colors' %}
+
+                                                {% if field.name == 'details_description' or field.name == 'use_colors' or field.name == 'show_sale_price' %}
                                                     {% if not parent %}
                                                         {% include 'dashboard/partials/form_field.html' with field=field %}
                                                     {% endif %}
@@ -223,9 +224,9 @@
                                                 <th>{% trans "Low stock threshold" %}</th>
                                             {% endif %}
                                             <th>{% trans "Currency" %}</th>
-                                            {#                                                <th>{% trans "Cost price" %}</th>#}
+                                            <th>Цена без скидки</th>{#<th>{% trans "Cost price" %}</th>#}
                                             <th>{% trans "Price (excl tax)" %}</th>
-                                            {#                                                <th>{% trans "Retail price" %}</th>#}
+                                            {#<th>{% trans "Retail price" %}</th>#}
                                             <th>{% trans "Delete?" %}</th>
                                         </tr>
                                         </thead>
@@ -251,9 +252,9 @@
                                                 {% endif %}
 
                                                 <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_currency nolabel=True %}</td>
-                                                {#                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.cost_price nolabel=True %}</td>#}
+                                                <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.cost_price nolabel=True %}</td>
                                                 <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_excl_tax nolabel=True %}</td>
-                                                {#                                                    <td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_retail nolabel=True %}</td>#}
+                                                {#<td>{% include "dashboard/partials/form_field.html" with field=stockrecord_form.price_retail nolabel=True %}</td>#}
                                                 <td>
                                                     {% include "dashboard/partials/form_field.html" with field=stockrecord_form.id nolabel=True %}
                                                     {% include "dashboard/partials/form_field.html" with field=stockrecord_form.DELETE nolabel=True %}

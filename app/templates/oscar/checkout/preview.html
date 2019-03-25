@@ -35,8 +35,9 @@
                 {% block hiddenforms %}{% endblock %}
             </div>
 
-            <div id="basket_totals">
-                <div class="col-sm-12">
+            <div id="basket_totals" class="col-sm-12">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
                     <div>
                         {% with offer_discounts=basket.offer_discounts voucher_discounts=basket.grouped_voucher_discounts %}
                             {% block discount_totals %}
@@ -107,8 +108,8 @@
                                 {% else %}
                                     {# No discounts to basket #}
                                     <div>
-                                        <div class="total align-right col-sm-10">{% trans "Basket total" %}</div>
-                                        <div class="total align-right col-sm-2">
+                                        <div class="total align-left col-sm-4">{% trans "Basket total" %}</div>
+                                        <div class="total align-right col-sm-8">
                                             {% if not show_tax_separately and basket.is_tax_known %}
                                                 {{ basket.total_incl_tax|currency:basket.currency }}
                                             {% else %}
@@ -144,8 +145,8 @@
 
                         {% block shipping_total %}
                             <div>
-                                <div class="total align-right col-sm-10">Стоимость доставки</div>
-                                <div class="total align-right col-sm-2">
+                                <div class="total align-left col-sm-4">Стоимость доставки</div>
+                                <div class="total align-right col-sm-8">
                                     {% shipping_charge shipping_method basket as charge %}
                                     {% if charge.is_tax_known %}
                                         {{ charge.incl_tax|currency:basket.currency }}
@@ -159,8 +160,8 @@
                         {% block order_total %}
 
                             <div>
-                                <div class="total align-right col-sm-10"><h3>{% trans "Order total" %}</h3></div>
-                                <div class="total align-right col-sm-2">
+                                <div class="total align-left col-sm-4"><h3>{% trans "Order total" %}</h3></div>
+                                <div class="total align-right col-sm-8">
                                     <h3 class="price_color">
                                         {% if order_total.is_tax_known %}
                                             {{ order_total.incl_tax|currency:basket.currency }}
@@ -180,6 +181,7 @@
                         {% endblock %}
                     </div>
                 </div>
+                <div class="col-sm-4"></div>
             </div>
 
 
