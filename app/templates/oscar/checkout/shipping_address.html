@@ -1,88 +1,252 @@
-{% extends "checkout/checkout.html" %}
+{% extends "checkout/base.html" %}
 {% load i18n %}
 
 {% block title %}
     {% trans "Shipping address" %} | {{ block.super }}
 {% endblock %}
 
-{% block checkout_nav %}
-    {% include 'checkout/nav.html' with step=1 %}
-{% endblock %}
 
 {% block checkout_title %}{% trans "Shipping address" %}{% endblock %}
+
+{% block steps_nav %}
+    {% include 'checkout/nav.html' with step=1 %}
+{% endblock %}
 
 {% block order_contents %}{% endblock %}
 
 {% block shipping_address %}
-<div class="col-sm-12">
-    <div class="sub-header">
-        <h2>{% trans "Where should we ship to?" %}</h2>
-    </div>
-    {% if user.is_authenticated %}
-        {% if addresses %}
-            <h3>{% trans "An address from your address book?" %}</h3>
-            <div class="choose-block">
-                <div class="row">
-                    {% for address in addresses %}
-                        {% block select_address_form %}
-                            <div class="col-sm-6">
-                                <div class="well">
-                                    <address>
-                                        {% block select_address_fields %}
-                                            {% for field in address.active_address_fields %}
-                                                <span>{{ field }}</span>{% if not forloop.first %}<br/>{% endif %}
-                                            {% endfor %}
-                                        {% endblock %}
-                                    </address>
-                                    <form action="{% url 'checkout:shipping-address' %}" method="post" id="select_shipping_address_{{ address.id }}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="action" value="ship_to" />
-                                        <input type="hidden" name="address_id" value="{{ address.id }}" />
-                                        {% if address.is_default_for_shipping %}
-                                            <button type="submit" class="btn btn-success btn-large ship-address" data-loading-text="{% trans 'Saving...' %}"><i class="icon-ok"></i> {% trans "Ship to your default shipping address" %}</button>
-                                        {% else %}
-                                            <button type="submit" class="btn btn-primary btn-large ship-address" data-loading-text="{% trans 'Saving...' %}">{% trans "Ship to this address" %}</button>
-                                        {% endif %}
+    <div class="form-container t-align_center">
+        <h2>Данные для доставки</h2>
 
-                                        <div class="btn-group address-controls">
-                                            <a href="{% url 'checkout:user-address-update' pk=address.id %}" class="btn btn-default btn-sm">{% trans "Edit address" %}</a>
-                                            <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="{% url 'checkout:user-address-delete' pk=address.id %}" class="btn-remove-address">{% trans "Delete" %}</a></li>
-                                            </ul>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            {% if forloop.counter|divisibleby:2 %}
-                                </div><div class="row">
-                            {% endif %}
-                        {% endblock %}
-                    {% endfor %}
+        <form action="{% url 'checkout:shipping-address' %}" method="post" id="new_shipping_address"
+              class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+            {{ field }}<br>
+            {{ field.errors }}
+
+            <div class=" t-align_center">
+                <div class="select-container t-align_center ">
+                    <label class="control-label required"
+                           for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }} </label><br>
+                    {{ form.first_name }}<br>
+                    {{ form.first_name.errors }}
                 </div>
             </div>
-            <h3>{% trans "Or a new address?" %}</h3>
-        {% endif %}
-    {% endif %}
 
-    {% block new_address_form %}
-        <div class="well">
-            <form action="{% url 'checkout:shipping-address' %}" method="post" id="new_shipping_address" class="form form-horizontal">
-                {% csrf_token %}
-                {% include "partials/form_fields.html" with form=form style='horizontal' %}
-                <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" class="btn btn-lg btn-primary" data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
-                        {% trans "or" %} <a href="{% url 'basket:summary' %}">{% trans "return to basket" %}</a>
+            <div class=" t-align_center">
+                <div class="select-container t-align_center ">
+                    <label class="control-label required"
+                           for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }} </label><br>
+                    {{ form.last_name }}<br>
+                    {{ form.last_name.errors }}
+                </div>
+            </div>
+
+            <div class="t-align_center">
+                <div class="select-container t-align_center ">
+                    <label class="control-label required"
+                           for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }} </label><br>
+                    {{ form.phone_number }}<br>
+                    {{ form.phone_number.errors }}
+                </div>
+            </div>
+
+            <br>
+            <h3 class="h2">Выберитеспособ доставки</h3>
+            <br>
+
+            <div>
+                <span>Способ доставки</span><br>
+                {{ form_shipping_method.method_code }}<br>
+                {{ form_shipping_method.method_code.errors }}
+                <div class="t-align_center" id="id_method_code_description">
+                </div>
+            </div>
+
+            <div id="extra_address_box">
+                <br>
+                <h3 class="h2">Адрес доставки</h3>
+                <br>
+
+                <div id="boxberry_modal_box">
+                    <a class="btn btn-lg btn-primary" href="#"
+                       onclick="boxberry.open(boxberry_shipping_handler); return false;"
+                    >Выбрать пункт выдачи на карте</a>
+                    <br><br>
+                </div>
+
+                <div class="t-align_center" id="{{ form.line4.id_for_label }}_box">
+                    <div class="select-container t-align_center">
+                        <span>Город</span><br>
+                        {{ form.line4 }}<br>
+                        {{ form.line4.errors }}<br>
                     </div>
                 </div>
-            </form>
-        </div>
-    {% endblock %}
-</div>
+
+                <div class="t-align_center" id="{{ form.line1.id_for_label }}_box">
+                    <div class="select-container t-align_center">
+                        <span>Адрес</span><br>
+                        {{ form.line1 }}<br>
+                        {{ form.line1.errors }}<br>
+                    </div>
+                </div>
+
+                <div class="t-align_center" id="{{ form.line2.id_for_label }}_box">
+                    <div class="select-container t-align_center">
+                        <span>Дополнительно</span><br>
+                        {{ form.line2 }}<br>
+                        {{ form.line2.errors }}<br>
+                    </div>
+                </div>
+
+                {#                <div class="t-align_center" id="{{ form.line3.id_for_label }}_box">#}
+                {#                    <div class="select-container t-align_center">#}
+                {#                        <span>Адрес 3</span><br>#}
+                {#                        {{ form.line3 }}<br>#}
+                {#                        {{ form.line3.errors }}<br>#}
+                {#                    </div>#}
+                {#                </div>#}
+            </div>
+
+            <div class=" t-align_center">
+                <div class="select-container t-align_center" id="{{ form.id }}">
+                    <label for="{{ form.notes.id_for_label }}">Комментарий</label><br>
+                    {{ form.notes }}<br>
+                    {{ form.notes.errors }}
+                    <span class="help-block">Сообщите нам, что мы еще должны знать для обработки вашего заказа.</span>
+                </div>
+            </div>
+            <br>
+
+            {#{% include "partials/form_fields.html" with form=form %}#}
+            <button type="submit" class="btn btn-lg btn-primary"
+                    data-loading-text="{% trans 'Continuing...' %}">{% trans "Continue" %}</button>
+            <br>
+            {% trans "or" %} <a href="{% url 'basket:summary' %}">{% trans "return to basket" %}</a>
+        </form>
+    </div>
 {% endblock shipping_address %}
 
 {% block shipping_method %}{% endblock %}
 {% block payment_method %}{% endblock %}
+
+{% block extrascripts %}
+    <script type="text/javascript" src="http://points.boxberry.ru/js/boxberry.js"></script>
+    <script>
+
+        {#const EXTRA_ADDRESS_FIELDS = ['#id_line4', '#id_line1', '#id_line2', '#id_line3'];#}
+        const EXTRA_ADDRESS_FIELDS = ['#id_line4', '#id_line1', '#id_line2'];
+        const SHIPPING_METHODS_INFO = {
+            {% for method in shipping_methods %}
+                '{{ method.code }}': '{{ method.description|safe }}',
+            {% endfor %}
+        };
+
+        $(function () {
+            $('#new_shipping_address #boxberry_modal_box').hide();
+
+            let init_method = $("#id_method_code")[0].value;
+            let func_handler = init_method.split('-').join('_') + '_handler';
+            window[func_handler]();
+        });
+
+
+        $("#id_method_code").change(function () {
+            let current_method = this.value;
+            let func_handler = current_method.split('-').join('_') + '_handler';
+            console.log(current_method);
+
+            // run method handler
+            clear_address_fields();
+            window[func_handler]();
+        });
+
+        function clear_address_fields() {
+            $('#new_shipping_address #boxberry_modal_box').hide();
+
+            let arr = EXTRA_ADDRESS_FIELDS;
+            for (let i = 0; i < arr.length; i++) {
+                let query = $('#new_shipping_address ' + arr[i]);
+                let input = query[0];
+                input.value = null;
+                input.readOnly = false;
+            }
+            show_address_fields();
+        }
+
+        function show_address_fields() {
+            let arr = EXTRA_ADDRESS_FIELDS;
+            for (let i = 0; i < arr.length; i++) {
+                $('#new_shipping_address ' + arr[i] + '_box').show();
+            }
+        }
+
+        function hide_address_fields() {
+            let arr = EXTRA_ADDRESS_FIELDS;
+            for (let i = 0; i < arr.length; i++) {
+                $('#new_shipping_address ' + arr[i] + '_box').hide();
+            }
+        }
+
+        /* SHIPPING METHODS handlers */
+        function standard_take_away_handler() {
+            $('#extra_address_box').hide();
+            $('#id_method_code_description')[0].innerHTML = SHIPPING_METHODS_INFO['standard-take-away'];
+        }
+
+        function standard_handler() {
+            $('#extra_address_box').show();
+            $('#id_method_code_description')[0].innerHTML = SHIPPING_METHODS_INFO['standard'];
+            let city = $('#new_shipping_address #id_line4')[0];
+            city.value = 'Санкт-Петербург';
+            city.readOnly = true;
+        }
+
+        function boxberry_take_away_handler() {
+            $('#extra_address_box').show();
+            $('#id_method_code_description')[0].innerHTML = SHIPPING_METHODS_INFO['boxberry-take-away'];
+            hide_address_fields();
+            $('#new_shipping_address #boxberry_modal_box').show();
+
+            let arr = EXTRA_ADDRESS_FIELDS;
+            for (let i = 0; i < arr.length; i++) {
+                let input = $('#new_shipping_address ' + arr[i])[0];
+                if (input.value) {
+                    $('#new_shipping_address ' + arr[i] + '_box').show();
+                    input.readOnly = true;
+                }
+            }
+        }
+
+        function boxberry_currier_handler() {
+            $('#extra_address_box').show();
+            $('#id_method_code_description')[0].innerHTML = SHIPPING_METHODS_INFO['boxberry-currier'];
+            {#$('#new_shipping_address #boxberry_modal_box').show();#}
+        }
+
+        function boxberry_shipping_handler(result) {
+            // hide boxberry modal
+            boxberry.hideContainer();
+            boxberry.hideOverlay();
+
+            show_address_fields();
+            $('#new_shipping_address #id_line4_box').show();
+            let city = $('#new_shipping_address #id_line4')[0];
+            city.value = result.name;
+            city.readOnly = true;
+
+            $('#new_shipping_address #id_line1_box').show();
+            let line1 = $('#new_shipping_address #id_line1')[0];
+            line1.value = result.address;
+            line1.readOnly = true;
+
+            $('#new_shipping_address #id_line2_box').show();
+            let line2 = $('#new_shipping_address #id_line2')[0];
+            line2.value = 'Код ПВЗ: ' + result.id;
+            line2.readOnly = true;
+        }
+    </script>
+{% endblock %}

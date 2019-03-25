@@ -16,7 +16,6 @@ class TestPage(generic.TemplateView):
                      'json': {'a':{'b':{'c':1}, 'd':2}}, 'e':100}
 
     def get(self, request, *args, **kwargs):
-        x = 1
         # Test pop message
         '''
         messages.success(request, 'Check message sender. '

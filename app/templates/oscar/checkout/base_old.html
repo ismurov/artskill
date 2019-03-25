@@ -1,20 +1,31 @@
-{% extends "checkout/layout.html" %}
+{% extends "layout_2_col.html" %}
+{% load static %}
+{% load purchase_info_tags %}
 {% load currency_filters %}
 {% load thumbnail %}
 {% load i18n %}
-{% load purchase_info_tags %}
-{% load staticfiles %}
 
 {% block title %}
-    {% trans "Checkout" %} | {{ block.super }}
+    {{ page_title }} | {% trans 'Account' %} | {{ block.super }}
 {% endblock %}
 
-{% block checkout_nav %}
-    {% include 'checkout/nav.html' %}
+{% block body_class %}account-profile{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ homepage_url }}">{% trans 'Home' %}</a>
+        </li>
+        <li>
+            <a href="{% url 'basket:summary' %}">Корзина</a>
+        </li>
+        {% block extra_breadcrumbs %}{% endblock %}
+    </ul>
 {% endblock %}
+
 
 {% block content %}
-    {% block checkout_nav %}
+    {% block steps_nav %}
         {% include 'checkout/nav.html' %}
     {% endblock %}
 
@@ -80,7 +91,7 @@
             </div>
         {% endblock shipping_address %}
 
-        {# You will almost certainly want to override this block to provide a payment summary #}
+        {#You will almost certainly want to override this block to provide a payment summary#}
         {% block payment_method %}
             <div class="col-sm-6">
                 <div class="sub-header">
@@ -109,20 +120,23 @@
         </div>
         <div class="basket-title">
             <div class="row">
-                <p class="col-sm-9 h4">{% trans "Item" %}</p>
-                <p class="col-sm-1 h4 align-center">{% trans "Quantity" %}</p>
-                <p class="col-sm-2 h4 align-right">{% trans "Total" %}</p>
+                <p class="col-sm-9 h4">Список товаров</p>
+                <p class="col-sm-1 h4 align-center">Количество</p>
+                <p class="col-sm-2 h4 align-right">Стоимость</p>
             </div>
         </div>
         {% for line in basket.all_lines %}
             {% purchase_info_for_line request line as session %}
+
+
             <div class="basket-items">
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="image_container">
                             {% with image=line.product.primary_image %}
                                 {% thumbnail image.original "100x100" upscale=False as thumb %}
-                                <a href="{{ form.instance.product.get_absolute_url }}"><img class="thumbnail" src="{{ thumb.url }}" alt="{{ product.get_title }}"></a>
+                                    <a href="{{ form.instance.product.get_absolute_url }}"><img src="{{ thumb.url }}"
+                                                                                                alt="{{ product.get_title }}"></a>
                                 {% endthumbnail %}
                             {% endwith %}
                         </div>
@@ -145,6 +159,8 @@
                     </div>
                 </div>
             </div>
+
+
         {% endfor %}
 
         <div class="row">
@@ -167,5 +183,4 @@
 
     {% block place_order %}
     {% endblock place_order %}
-
 {% endblock content %}
