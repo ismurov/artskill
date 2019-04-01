@@ -267,8 +267,10 @@ ROBOKASSA_TEST_FORM_TARGET - url робокассы для тестового р
 
 from oscar.defaults import *
 
+# ====
 # Meta
 # ====
+# OSCAR_USE_LESS = True
 
 OSCAR_SHOP_NAME = 'Artskill'
 # OSCAR_SHOP_TAGLINE = 'Tagline'
