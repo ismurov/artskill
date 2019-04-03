@@ -35,7 +35,7 @@
         </div>
     {% endif %}
 
-    <div class="row">
+    <div class="row ml-10">
         <div class="col-sm-1"></div>
         <div class="col-sm-10">
             {% block order_contents %}
@@ -48,11 +48,11 @@
 
                     <h2>{% trans "Order contents" %}</h2>
                 </div>
-                <div class="basket-title">
+                <div class="basket-title mob-basket-title">
                     <div class="row">
-                        <p class="col-sm-9 h4">Список товаров</p>
-                        <p class="col-sm-1 h4 align-center">Количество</p>
-                        <p class="col-sm-2 h4 align-right">Стоимость</p>
+                        <p class="col-sm-9 col-xs-12 h4 basket-col">Список товаров</p>
+                        <p class="col-sm-1 col-xs-12 h4 basket-col b-c-q">Количество</p>
+                        <p class="col-sm-2 col-xs-12 h4 basket-col b-c-p">Стоимость</p>
                     </div>
                 </div>
                 {% for line in basket.all_lines %}
@@ -61,10 +61,14 @@
 
                     <div class="basket-items">
                         <div class="row">
-                            <div class="col-sm-2">
-                                <div class="image_container">
+
+
+
+
+                            <div class="col-sm-2 col-xs-12" style="margin-bottom: 20px">
+                                <div class="image_container" style="text-align: left">
                                     {% with image=line.product.primary_image %}
-                                        {% thumbnail image.original "100x100" upscale=False as thumb %}
+                                        {% thumbnail image.original "180x180" upscale=False as thumb %}
                                             <a href="{{ form.instance.product.get_absolute_url }}"><img
                                                     src="{{ thumb.url }}"
                                                     alt="{{ product.get_title }}"></a>
@@ -72,15 +76,18 @@
                                     {% endwith %}
                                 </div>
                             </div>
-                            <div class="col-sm-7">
-                                <h3><a href="{{ line.product.get_absolute_url }}">{{ line.description }}</a></h3>
+                            <div class="col-sm-7 col-xs-12">
+                                <h3 style="margin: 0"><a style="color: #000000; font-weight: 600" href="{{ line.product.get_absolute_url }}">{{ line.description }}</a></h3>
                                 <span class="availability {{ session.availability.code }}">{{ session.availability.message }}</span>
                             </div>
-                            <div class="col-sm-1 align-center">
+                            <div class="col-sm-1 col-xs-12 b-c-q">
+                                <p class="mob-det" style="margin: 0">Количество:
                                 {{ line.quantity }}
+                                </p>
                             </div>
-                            <div class="col-sm-2 align-right">
-                                <p class="price_color">
+                            <div class="col-sm-2 col-xs-12 b-c-p">
+                                <p class="mob-det" style="margin: 0">Стоимость:</p>
+                                <p style="font-size: 18px;margin: 0">
                                     {% if not show_tax_separately and line.is_tax_known %}
                                         {{ line.line_price_incl_tax|currency:basket.currency }}
                                     {% else %}
@@ -110,20 +117,18 @@
     </div>
 
 
-    <div class="row shipping-payment">
+    <div class="row shipping-payment ml-10">
         {% block shipping_address %}
-            <div class="t-align_center">
+        <div class="col-sm-4"></div>
+            <div class="t-align_left col-sm-4">
                 <div class="sub-header">
-                    <h2 class="h2">Доставка</h2>
+                    <h3 style="text-align: center">Доставка</h3>
                 </div>
                 {% if shipping_method %}
                     <div class="">
-                        <br>
-
-                        <h3>{% trans "Shipping method" %}</h3>
+                        <p>{% trans "Shipping method" %}:</p>
                         <p>{{ shipping_method.name }}
                             {% if shipping_method.description %}
-                                <br>
                                 {{ shipping_method.description|safe }}
                             {% endif %}
                         </p>
@@ -132,8 +137,8 @@
 
                 {% if shipping_address %}
                     <div class="">
-                        <br>
-                        <h3>{% trans "Address" %}</h3>
+
+                        <p>{% trans "Address" %}:</p>
                         <address>
                             {% for field in shipping_address.active_address_fields %}
                                 {{ field }}<br/>
@@ -141,7 +146,7 @@
                         </address>
 
                         {% if shipping_address.phone_number %}
-                            <h4>{% trans "Contact" %}</h4>
+                            <p>{% trans "Contact" %}:</p>
                             <p>
                                 {% trans "Phone" %}: {{ shipping_address.phone_number }}
                                 {% if guest_email %}
@@ -151,13 +156,13 @@
                         {% endif %}
 
                         {% if shipping_address.notes %}
-                            <h4>{% trans "Instructions" %}</h4>
+                            <p>{% trans "Instructions" %}:</p>
                             <p>{{ shipping_address.notes|linebreaks }}</p>
                         {% endif %}
 
                     </div>
                     {% block shipping_address_actions %}
-                        <p><a href="{% url 'checkout:shipping-address' %}">
+                        <p style="text-align: center"><a href="{% url 'checkout:shipping-address' %}">
                             {% trans "Change" %}
                         </a></p>
                     {% endblock %}
@@ -165,6 +170,7 @@
 
 
             </div>
+        <div class="col-sm-4"></div>
         {% endblock shipping_address %}
 
         {#You will almost certainly want to override this block to provide a payment summary#}

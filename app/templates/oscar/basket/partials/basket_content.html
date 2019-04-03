@@ -50,11 +50,9 @@
                             <div class="col-sm-2">
                                 {{ form.id }}
                                 {% with image=product.primary_image %}
-
                                     <a href="{{ product.get_absolute_url }}">
                                     <img src="{{product.primary_image.original.url}}" alt="{{ product.get_title }}" style="width: 95%;" class="align-left">
                                 </a>
-
                                 {% endwith %}
                             </div>
 
