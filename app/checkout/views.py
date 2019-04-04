@@ -127,7 +127,6 @@ class IndexView(CheckoutSessionMixin, generic.FormView):
 #         template_name = 'artskill/checkout_temp.html'
 
 
-
 # ================
 # SHIPPING ADDRESS
 # ================

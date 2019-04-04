@@ -37,6 +37,7 @@ def get_env_variable(var_name):
 
 
 SITE_NAME = 'Artskill'
+SITE_URL = 'http://artskill.store/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*')
