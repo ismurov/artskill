@@ -8,7 +8,8 @@ class Repository(repository.Repository):
     methods = (methods.StandardTakeAway(),
                methods.Standard(),
                methods.TakeAwayBoxberry(),
-               methods.Boxberry())
+               methods.Boxberry(),
+               methods.PochtaRussia())
 
     '''
     # Select method with condition

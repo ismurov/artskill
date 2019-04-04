@@ -122,9 +122,10 @@ class IndexView(CheckoutSessionMixin, generic.FormView):
         return redirect(self.get_success_url())
 
 
-if not settings.DEBUG:
-    class IndexView(generic.TemplateView):
-        template_name = 'artskill/checkout_temp.html'
+# if not settings.DEBUG:
+#     class IndexView(generic.TemplateView):
+#         template_name = 'artskill/checkout_temp.html'
+
 
 
 # ================
@@ -399,6 +400,13 @@ class PaymentMethodView(CheckoutSessionMixin, generic.FormView):
         'check_user_email_is_captured',
         'check_shipping_data_is_captured']
     skip_conditions = ['skip_unless_payment_is_required']
+
+    def get(self, request, *args, **kwargs):
+        shipping_method = self.get_shipping_method(basket=self.request.basket)
+        if shipping_method.code == 'pochta-russia':
+            self.checkout_session.pay_by(settings.PAYMENT_METHOD_ROBOKASSA)
+            return redirect(self.success_url)
+        return super().get(request, *args, **kwargs)
 
     def get_initial(self):
         data = super(PaymentMethodView, self).get_initial()

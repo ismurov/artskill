@@ -38,7 +38,6 @@ def get_env_variable(var_name):
 
 SITE_NAME = 'Artskill'
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'x2cgsvsif8#fzsuv()(w)kt%6p^9+)#wjlwbwdyiyji@df!3=*')
 
@@ -292,7 +291,6 @@ OSCAR_DEFAULT_CURRENCY = 'RUB'
 OSCAR_ALLOW_ANON_CHECKOUT = True
 OSCAR_REQUIRED_ADDRESS_FIELDS = ('first_name', 'last_name', 'phone_number')
 
-
 PAYMENT_METHOD_CASH = 'cash'
 PAYMENT_METHOD_ROBOKASSA = 'robokassa'
 
@@ -328,34 +326,59 @@ SHIPPING_METHODS_STANDARD_OPTIONS = {
         'name': 'Самовывоз',
         'description': ('<p>Товар можете забрать в нашем офисе по адресу:</p>'
                         '<p>СПб, Цветочная, 6M</p>'
-                        '<p>Стоимость: бесплатно</p>'),
+                        '<p>Стоимость: бесплатно</p>'
+                        '<p>Часы работы: с пн по пт (с 11 до 19:00)</p>'),
     },
     'standard': {
         'name': 'Курьерская по Санкт-Петербургу',
-        'description': ('<p>Стоимость: 300 Р<br>'
-                        'при заказе от 5000р - бесплатно</p>'
-                        '<p>Срок доставки: 1-2 д</p>'),
-        'free_price_from': '5000.00',
-        'excl_tax': '300.00',
-        'incl_tax': '300.00',
+        'description': ('<p>Стоимость: 250 руб<br>'
+                        'при заказе от 8000р - бесплатно<br>'
+                        'Срок доставки: 1-2 д</p>'
+                        '<p>Доставка по Санкт-Петербургу - 250 руб, пригород - 450 руб.<br>'
+                        'Быстро и оперативно доставим Вам в течение 1-2 дней.<br>'
+                        'Для уточнения свяжитесь с нами: '
+                        '<a href="tel:+79215868890" class="header2-menu__phone" title="+7 921 586-88-90">'
+                        '+7 921 586-88-90</a>'
+                        '</p>'),
+        'free_price_from': '8000.00',
+        'excl_tax': '250.00',
+        'incl_tax': '250.00',
     },
     'boxberry-take-away': {
         'name': 'Пункт выдачи Boxberry',
-        'description': ("<p>Доставка до ближайшего к вами пункта выдачи Boxberry</p>"
-                        "<p>Стоимость: 400 Р</p>"
-                        "<p>Срок доставки: 4-5 д</p>"),
-        'excl_tax': '400.00',
-        'incl_tax': '400.00',
+        'description': ('<p>Доставка до ближайшего к вами пункта выдачи Boxberry</p>'
+                        '<p>Стоимость: 350 Р<br>'
+                        'при заказе от 5000р - бесплатно<br>'
+                        'Срок доставки: 4-5 д</p>'
+                        '<p>Пункт выдачи заказов в Вашем городе</p>'
+                        '<p>Быстрая курьерская доставка в пункт выдачи заказов, где Вы сможете самостоятельно, '
+                        'в удобное для Вас время забрать и оплатить товар Artskill. Все адреса пунктов доступны '
+                        'к выбору при оформлении заказа на нашем сайте или на сайте '
+                        '<a href="https://boxberry.ru/find_an_office/">https://boxberry.ru/find_an_office/</a></p>'),
+        'free_price_from': '5000.00',
+        'excl_tax': '350.00',
+        'incl_tax': '350.00',
     },
     'boxberry-currier': {
         'name': 'Курьерская доставка Boxberry',
-        'description': ("<p>Курьерская доставка Boxberry на дом</p>"
-                        "<p>Стоимость: 500 Р</p>"
-                        "<p>Срок доставки: 4-5 д</p>"),
-        'excl_tax': '500.00',
-        'incl_tax': '500.00',
+        'description': ('<p>Курьерская доставка Boxberry на дом<br>'
+                        'Стоимость: 450 Р<br>'
+                        'при заказе от 5000р - бесплатно<br>'
+                        'Срок доставки: 4-5 д</p>'),
+        'free_price_from': '8000.00',
+        'excl_tax': '450.00',
+        'incl_tax': '450.00',
+    },
+    'pochta-russia': {
+        'name': 'Почта России',
+        'description': ('<p>Классическая доставка почтой России. Вы сможете забрать свою покупку на почте. '
+                        'Отправка почтой России осуществляется при 100% оплате у нас на сайте.</p>'),
+        'free_price_from': '5000.00',
+        'excl_tax': '0.00',
+        'incl_tax': '0.00',
     },
 }
+
 
 # ==============
 # Oscar Dashboard

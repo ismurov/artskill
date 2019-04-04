@@ -57,12 +57,11 @@
             <br>
             <h3 class="h2">Выберитеспособ доставки</h3>
             <br>
-
             <div class="select-container-full">
                 <span>Способ доставки</span><br>
                 {{ form_shipping_method.method_code }}<br>
                 {{ form_shipping_method.method_code.errors }}
-                <div class="t-align_center" id="id_method_code_description">
+                <div class="t-align_left" id="id_method_code_description" style="width: 350px; margin: 0 auto;">
                 </div>
             </div>
 
@@ -247,6 +246,11 @@
             let line2 = $('#new_shipping_address #id_line2')[0];
             line2.value = 'Код ПВЗ: ' + result.id;
             line2.readOnly = true;
+        }
+        function pochta_russia_handler() {
+            console.log('pochta_russia_handler');
+            $('#extra_address_box').show();
+            $('#id_method_code_description')[0].innerHTML = SHIPPING_METHODS_INFO['pochta-russia'];
         }
     </script>
 {% endblock %}
