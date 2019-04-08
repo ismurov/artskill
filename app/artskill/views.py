@@ -91,6 +91,7 @@ class SubscribeView(generic.FormView):
         subscriber, created = Subscriber.objects.get_or_create(**form.cleaned_data)
         if created:
             subscriber.save()
+
         return super().form_valid(form)
 
 

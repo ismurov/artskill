@@ -40,6 +40,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ADMINS = [('Team', 'team@artskill.store'), ]
 
+OWNER_EMAIL = 'owner@artskill.store'
+
 SERVER_EMAIL = 'team@artskill.store'
 DEFAULT_FROM_EMAIL = 'team@artskill.store'
 OSCAR_FROM_EMAIL = 'team@artskill.store'

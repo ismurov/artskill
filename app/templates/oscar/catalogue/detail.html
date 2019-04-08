@@ -324,6 +324,44 @@
                 </div>
             {% endif %}
 
+            {# Set of images 3 #}
+            {% if detail_images.5 and detail_images.6 %}
+                <div class="col-sm-6 col-xs-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.5.original.url }}" alt="" class="product_img">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.6.original.url }}" alt="" class="product_img">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Set of images 4 #}
+            {% if detail_images.7 and detail_images.8 %}
+                <div class="col-sm-6 col-xs-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.7.original.url }}" alt="" class="product_img">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-xs-6 desktop-detail">
+                    <div class="box-item">
+                        <div class='aspect-ratio aspect-ratio-item item-margin '>
+                            <img src="{{ detail_images.8.original.url }}" alt="" class="product_img">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
 
             {# Available colors  - images #}
             <div class="col-sm-12 col-xs-12">

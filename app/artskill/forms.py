@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.core.mail import mail_admins, send_mail
 from django.template.loader import render_to_string
 
@@ -21,14 +22,20 @@ class ContactForm(forms.Form):
         msg_plain = render_to_string('artskill/emails/collaboration.txt', ctx)
         # msg_html = render_to_string('artskill/emails/collaboration.html', ctx)
 
-        mail_admins(theme,
-                    msg_plain)
-                    # fail_silently=False,
-                    # html_message=msg_html)
+        # mail_admins(theme,
+        #             msg_plain)
+        #             # fail_silently=False,
+        #             # html_message=msg_html)
+
+        send_mail(theme,
+                  msg_plain,
+                  settings.DEFAULT_FROM_EMAIL,
+                  [settings.OWNER_EMAIL])
 
 
 class SubscriberForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+
 
 
 

@@ -23,7 +23,8 @@ def get_all_images_for_product(product):
     if not isinstance(product, Product):
         return []
     if product.is_child:
-        return (*product.get_all_images()[:3], *product.parent.get_all_images()[2:4])
+        child_all_images = product.get_all_images()
+        return (*child_all_images[:3], *product.parent.get_all_images()[2:4], child_all_images[3:])
     return product.get_all_images()[2:7]
 
 
@@ -41,7 +42,6 @@ def get_color_images(product, num=3):
     child_image_sets = [child.get_all_images()[:num]
                         for child in parent.children.all()
                         if child != exclude]
-    print(child_image_sets)
     images = list(itertools.chain(*child_image_sets))
     random.shuffle(images)
     return images
