@@ -60,20 +60,28 @@
         <div class="basket-mini"
              style="display: inline-block;
         cursor: pointer;" class="col-lg-2 col-sm-4 col-xs-6">
-        <span class="btn-group">
-            <span class="dropdown-toggle circle-parent" data-toggle="dropdown">
-                <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
-                {# Count of items in basket #}
-                {% if request.basket.num_items %}
-                    <div class="busket-circle">{{ request.basket.num_items }}</div>
+            <span class="btn-group">
+                {% url 'basket:summary' as basket_url %}
+                {% if request.path != basket_url %}
+                    <span class="dropdown-toggle circle-parent" data-toggle="dropdown">
+                        <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
+                        {# Count of items in basket #}
+                        {% if request.basket.num_items %}
+                            <div class="busket-circle">{{ request.basket.num_items }}</div>
+                        {% endif %}
+                    </span>
+
+                    <ul class="dropdown-menu pull-right">
+                        <li>{% include "basket/partials/basket_quick.html" %}</li>
+                    </ul>
+                {% else %}
+                    <a href="{% url 'basket:summary'%}">
+                        <img src="{% static '/oscar/img/icons/cart-icon.svg' %}">
+                    </a>
                 {% endif %}
             </span>
-
-            <ul class="dropdown-menu pull-right">
-                <li>{% include "basket/partials/basket_quick.html" %}</li>
-            </ul>
-        </span>
         </div>
+
 
     </div>
 </div>
