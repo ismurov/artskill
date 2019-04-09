@@ -371,14 +371,12 @@
                         <h2 class="t-align_center detail_h2">Доступные цвета</h2>
                     </div>
                     <div class="scrollmenu">
-                        {% for image in color_images|slice:":8" %}
-                            <div class="hit it">
-                                {# crop='center' #}
-                                {% thumbnail image.original "400x400"  upscale=False as thumb %}
-                                    <img src="{{ thumb.url }}" alt="" class="product_img">
-                                {% endthumbnail %}
-                            </div>
-                        {% endfor %}
+                        {% for image in color_images|slice:":8" %}<div class="hit it">
+                            {# crop='center' #}
+                            {% thumbnail image.original "400x400"  upscale=False as thumb %}
+                                <img src="{{ thumb.url }}" alt="" class="product_img">
+                            {% endthumbnail %}
+                        </div>{% endfor %}
                     </div>
                 {% endif %}
             </div>
@@ -404,17 +402,11 @@
                     <h2 class="t-align_center detail_h2">{% trans "Recommended items" %}</h2>
                 </div>
                 <div class="scrollmenu">
-                    {% for product in recommended_products %}
-                        <div class="hit it">
-                            {% include 'catalogue/partials/product.html' %}
-                        </div>
-                    {% endfor %}
+                    {% for product in recommended_products %}<div class="hit it">{% include 'catalogue/partials/product.html' %}</div>{% endfor %}
                 </div>
                 {% endif %}
                 {% endwith %}
             </div>
-
-
 
 
         {%comment%}

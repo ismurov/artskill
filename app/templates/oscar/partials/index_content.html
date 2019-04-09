@@ -128,62 +128,53 @@
         </div>
     </div>
 
-
-
     <div class="scrollmenu">
-        {% for product in product_hits %}
-            <div class="hit it">
-                {% include 'catalogue/partials/product.html' %}
-            </div>
-        {% endfor %}
+        {% for product in product_hits %}<div class="hit it">{% include 'catalogue/partials/product.html' %}</div>{% endfor %}
     </div>
 
-
 {% endif %}
-
-
 
 
 
 <div class="scrollmenu">
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-01.svg"
+                src="{% static 'oscar/img/partners/logo-01.svg' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-02.png"
+                src="{% static 'oscar/img/partners/logo-02.png' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-03.png"
+                src="{% static 'oscar/img/partners/logo-03.png' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-04.png"
+                src="{% static 'oscar/img/partners/logo-04.png' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-05.png"
+                src="{% static 'oscar/img/partners/logo-05.png' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-06.jpg"
+                src="{% static 'oscar/img/partners/logo-06.jpg' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-07.jpg"
+                src="{% static 'oscar/img/partners/logo-07.jpg' %}"
                 class="logo_img"/>
     </div>
     <div class="it">
         <img
-                src="../../../static/oscar/img/partners/logo-08.jpg"
+                src="{% static 'oscar/img/partners/logo-08.jpg' %}"
                 class="logo_img"/>
     </div>
 </div>

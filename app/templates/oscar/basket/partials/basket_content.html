@@ -106,16 +106,26 @@
                                         </span>-->
 
                                         {# Update btn #}
-                                        <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove"
-                                           class="inline">
-                                            <h3 style="display: inline-block; margin-left: 15px">&#8634;</h3>
+                                        <a href="#"data-id="{{ forloop.counter0 }}" data-behaviours="submit" class="inline">
+                                            {#<h3 style="display: inline-block; margin-left: 15px">&#8634;</h3>#}
+                                            <input type="submit" value="&#8634;"
+                                                   style="width: auto;
+                                                          height: auto;
+                                                          margin-left: 15px;
+                                                          padding: 0;
+                                                          font-size: 17.5px;
+                                                          line-height: 1.4;
+                                                          background-color: transparent;">
                                         </a>
+                                        <div style="display: none">
+                                            {{ form.DELETE }}
+                                        </div>
 
                                         {# Remove btn - not wort #}
-{#                                        <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove"#}
-{#                                           class="inline">#}
-{#                                            <h3 style="display: inline-block; margin-left: 15px">&#10005;</h3>#}
-{#                                        </a>#}
+                                        <a href="#" data-id="{{ forloop.counter0 }}" data-behaviours="remove"
+                                           class="inline">
+                                            <h3 style="display: inline-block; margin-left: 15px">&#10005;</h3>
+                                        </a>
                                     </div>
                                 </div>
                                 <div>

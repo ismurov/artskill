@@ -12077,7 +12077,7 @@ ul.list-goods>li a {
 .box-item:before {
     content: "";
     display: block;
-    padding-top: 130%; /* initial ratio of 1:1*/
+    padding-top: 129%; /* initial ratio of 1:1*/
 }
 
 .aspect-ratio-item {
@@ -12274,7 +12274,7 @@ h2.category-heading {
 }
 
 .product_img {
-    width: 101%;
+    width: 100%;
 }
 
 .prod-img-container {
@@ -13904,7 +13904,7 @@ div.scrollmenu .it {
   display: inline-block;
 }
 .hit {
-  width: 25%;
+  /*width: 25%;*/
 }
 
 /*CUSTOM SCROLLBAR
