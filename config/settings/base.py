@@ -509,4 +509,15 @@ OSCAR_DASHBOARD_NAVIGATION = [
         'icon': 'icon-bar-chart',
         'url_name': 'dashboard:reports-index',
     },
+    {
+        'label': 'Рассылка',
+        'icon': 'icon-envelope-alt',
+        'children': [
+            {
+                'label': 'Список email рассылки',
+                'url_name': 'artskill:mailing-list',
+                'access_fn': lambda user, url_name, url_args, url_kwargs: user.is_staff,
+            },
+        ]
+    },
 ]

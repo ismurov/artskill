@@ -3,8 +3,6 @@ from django.conf import settings
 from django.core.mail import mail_admins, send_mail
 from django.template.loader import render_to_string
 
-from .models import Subscriber
-
 
 class ContactForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Ваше имя'}))
@@ -20,12 +18,6 @@ class ContactForm(forms.Form):
             'message': self.cleaned_data.get('message'),
         }
         msg_plain = render_to_string('artskill/emails/collaboration.txt', ctx)
-        # msg_html = render_to_string('artskill/emails/collaboration.html', ctx)
-
-        # mail_admins(theme,
-        #             msg_plain)
-        #             # fail_silently=False,
-        #             # html_message=msg_html)
 
         send_mail(theme,
                   msg_plain,
@@ -33,10 +25,38 @@ class ContactForm(forms.Form):
                   [settings.OWNER_EMAIL])
 
 
-class SubscriberForm(forms.Form):
+class SubscribeForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
 
+    def send_email(self, theme='Новая подписка на рассылку'):
+        # notify about new subscribe
+        ctx = {
+            'email': self.cleaned_data.get('email'),
+        }
+        msg_plain = render_to_string('artskill/emails/new_subscribe_notify.txt', ctx)
+        send_mail(theme,
+                  msg_plain,
+                  settings.DEFAULT_FROM_EMAIL,
+                  [settings.OWNER_EMAIL])
 
 
+class UnsubscribeForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    message = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={'placeholder': 'Укажити причину отписки',
+                   'style': 'height:200px'})
+    )
 
-
+    def send_email(self, theme='Новая подписка на рассылку'):
+        # notify about new subscribe
+        ctx = {
+            'email': self.cleaned_data.get('email'),
+            'message': self.cleaned_data.get('message'),
+        }
+        msg_plain = render_to_string('artskill/emails/unsubscribe_notify.txt', ctx)
+        send_mail(theme,
+                  msg_plain,
+                  settings.DEFAULT_FROM_EMAIL,
+                  [settings.OWNER_EMAIL])

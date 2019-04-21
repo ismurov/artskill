@@ -1,11 +1,13 @@
+import csv
+from datetime import datetime
+
 from django.views import generic
 from django.urls import reverse_lazy
-from django.shortcuts import render
-
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import StreamingHttpResponse
 
 from app.catalogue.models import Product
-
-from .forms import ContactForm, SubscriberForm
+from .forms import ContactForm, SubscribeForm, UnsubscribeForm
 from .models import Subscriber
 
 
@@ -34,6 +36,10 @@ class WhereToBuyView(generic.TemplateView):
 
 class DeliveryView(generic.TemplateView):
     template_name = 'artskill/delivery.html'
+
+
+class CustomerAgreementView(generic.TemplateView):
+    template_name = 'artskill/customer_agreement.html'
 
 
 class SaleView(generic.ListView):
@@ -82,27 +88,6 @@ class CollaborationThanksView(generic.TemplateView):
     }
 
 
-class SubscribeView(generic.FormView):
-    template_name = 'artskill/subscribe.html'
-    form_class = SubscriberForm
-    success_url = reverse_lazy('artskill:subscribe-thanks')
-
-    def form_valid(self, form):
-        subscriber, created = Subscriber.objects.get_or_create(**form.cleaned_data)
-        if created:
-            subscriber.save()
-
-        return super().form_valid(form)
-
-
-class SubscribeThanksView(generic.TemplateView):
-    template_name = 'artskill/thanks.html'
-    extra_context = {
-        'thanks_head': 'Спасибо',
-        'thanks_body': 'Спасибо, что подписались на наши новости.',
-    }
-
-
 class RegistrationThanksView(generic.TemplateView):
     template_name = 'artskill/thanks.html'
     extra_context = {
@@ -119,5 +104,90 @@ class ThanksView(generic.TemplateView):
     }
 
 
-class CustomerAgreementView(generic.TemplateView):
-    template_name = 'artskill/customer_agreement.html'
+class SubscribeView(generic.FormView):
+    template_name = 'artskill/subscribe.html'
+    form_class = SubscribeForm
+    success_url = reverse_lazy('artskill:subscribe-thanks')
+
+    def form_valid(self, form):
+        subscriber, created = Subscriber.objects.get_or_create(**form.cleaned_data)
+        if created:
+            form.send_email(theme='Новая подписка на рассылку')
+        else:
+            if not subscriber.subscribe:
+                subscriber.subscribe = True
+                subscriber.save()
+                form.send_email(theme='Новая подписка на рассылку')
+
+        return super().form_valid(form)
+
+
+class UnsubscribeView(generic.FormView):
+    template_name = 'artskill/unsubscribe.html'
+    form_class = UnsubscribeForm
+    success_url = reverse_lazy('artskill:unsubscribe-thanks')
+
+    def form_valid(self, form):
+        try:
+            subscriber = Subscriber.objects.get(email=form.cleaned_data['email'])
+        except Subscriber.DoesNotExist:
+            subscriber = None
+
+        if subscriber and subscriber.subscribe:
+            subscriber.subscribe = False
+            subscriber.save()
+            form.send_email(theme='Отписка от рассылки')
+
+        return super().form_valid(form)
+
+
+class SubscribeThanksView(generic.TemplateView):
+    template_name = 'artskill/thanks.html'
+    extra_context = {
+        'thanks_head': 'Спасибо',
+        'thanks_body': 'Спасибо, что подписались на наши новости.',
+    }
+
+
+class UnsubscribeThanksView(generic.TemplateView):
+    template_name = 'artskill/thanks.html'
+    extra_context = {
+        'thanks_head': 'Спасибо',
+        'thanks_body': 'Мы сожелеем, что вам пришлось отписаться'
+                       'от нашей новостной рассылкию.',
+    }
+
+
+class DashboardSubscriberView(PermissionRequiredMixin, generic.ListView):
+    queryset = Subscriber.objects.filter(subscribe=True).order_by('email')
+    template_name = 'artskill/dashboard/mailing_list.html'
+    paginate_by = 100
+    permission_required = 'is_staff'
+    login_url = reverse_lazy('dashboard:login')
+
+
+class Echo:
+    """An object that implements just the write method of the file-like
+    interface.
+    """
+
+    def write(self, value):
+        """Write the value by returning it, instead of storing in a buffer."""
+        return value
+
+
+class DashboardSubscriberGenCSVFileView(PermissionRequiredMixin, generic.View):
+    permission_required = 'is_staff'
+    login_url = reverse_lazy('dashboard:login')
+    queryset = Subscriber.objects.filter(subscribe=True).order_by('email')
+
+    def get(self, request, *args, **kwargs):
+        rows = ([obj.email] for obj in self.queryset.all())
+        pseudo_buffer = Echo()
+        writer = csv.writer(pseudo_buffer)
+        response = StreamingHttpResponse((writer.writerow(row) for row in rows),
+                                         content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename="mailing_list_{}.csv"'.format(
+            datetime.today().strftime("%d.%m.%Y")
+        )
+        return response
