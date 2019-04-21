@@ -34,6 +34,7 @@ pycountry = "*"
 south = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+urllib3 = "*"
 
 [dev-packages]
 
